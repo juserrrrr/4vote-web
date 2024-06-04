@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Butao from './components/buttons/button';
 
 export default function Home() {
   return (
@@ -105,6 +106,9 @@ export default function Home() {
             Instantly deploy your Next.js site to a shareable URL with Vercel.
           </p>
         </a>
+      </div>
+      <div>
+        <Butao text="Criar Votação" />
       </div>
     </main>
   );
