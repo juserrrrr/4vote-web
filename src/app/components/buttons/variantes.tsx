@@ -1,53 +1,24 @@
-const butaoPrimario = {
-    className: "flex w-[222px] h-[56px] px-[34px] justify-center items-center gap-[-2px] shrink-0 rounded-7px bg-corPrincipal",
-    azulEscuro: {
-        backgroundColor: "bg-corPrincipal",
-        color: "text-white",
-    },
-    azulClaro: {
-        backgroundColor: "bg-corSecundaria",
-        color: "text-white",
-    },
-    branco: {
-        backgroundColor: "bg-white",
-        color: "text-corPrincipal",
-    },
-}
-
-const butaoSecundario = {
-    className: "flex w-[222px] h-[56px] px-[34px] justify-center items-center gap-[-2px] shrink-0 rounded-28px bg-corPrincipal",
-    azulEscuro: {
-        backgroundColor: "bg-corPrincipal",
-        color: "text-white",
-    },
-    azulClaro: {
-        backgroundColor: "bg-corSecundaria",
-        color: "text-white",
-    },
-    branco: {
-        backgroundColor: "bg-white",
-        color: "text-corPrincipal",
-    },
-}
-
-const butaoTerciario = {
-    className: "flex w-[222px] h-[56px] px-[34px] justify-center items-center gap-[-2px] shrink-0 rounded-7px border-2 border-corPrincipal",
-    azulEscuro: {
-        backgroundColor: "bg-corPrincipal",
-        color: "text-white",
-    },
-    azulClaro: {
-        backgroundColor: "bg-corSecundaria",
-        color: "text-white",
-    },
-    branco: {
-        backgroundColor: "bg-white",
-        color: "text-corPrincipal",
-    },
-}
-
 export const Variantes = {
-    principal: butaoPrimario,
-    secundario: butaoSecundario,
-    terciario: butaoTerciario,
+    default: "rounded-7px",
+    rounded: "rounded-28px",
+    outlined: "rounded-7px border-2",
+}
+
+export const CoresFundo = {
+    primaria: "bg-corPrincipal",
+    secundaria: "bg-corSecundaria",
+    terciaria: "bg-white",
+    transparente: "bg-transparent",
+}
+
+export const CoresTexto = {
+    primaria: "text-corPrincipal",
+    secundaria: "text-corSecundaria",
+    terciaria: "text-white",
+}
+
+export const CoresBorda = {
+    primaria: "border-corPrincipal",
+    secundaria: "border-corSecundaria",
+    terciaria: "border-white",
 }
