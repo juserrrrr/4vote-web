@@ -1,11 +1,13 @@
-'use client';
-import { ForwardRefRenderFunction, InputHTMLAttributes, forwardRef } from 'react';
+import { InputHTMLAttributes, forwardRef } from 'react';
 
 interface InputCustomProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string;
 }
 
-const InputCustom: ForwardRefRenderFunction<HTMLInputElement, InputCustomProps> = ({ label, ...restProps }, ref) => {
+const InputCustom = forwardRef<HTMLInputElement, InputCustomProps>(function InputCustom(
+  { label, ...restProps }: InputCustomProps,
+  ref,
+) {
   return (
     <div className="flex flex-col w-full p-10">
       <label className="text-blue-950 font-bold">{label}</label>
@@ -16,6 +18,6 @@ const InputCustom: ForwardRefRenderFunction<HTMLInputElement, InputCustomProps> 
       />
     </div>
   );
-};
+});
 
-export default forwardRef(InputCustom);
+export default InputCustom;
