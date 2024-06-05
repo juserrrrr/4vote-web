@@ -13,12 +13,16 @@ const config: Config = {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
-      corPrincipal: '#052A76',
+      colors: {
+        corPrincipal: '#052A76',
+        corSecundaria: '#02A6F4',
+      },
       gap: {
         '-2px': '-2px',
       },
       borderRadius: {
         '7px': '7px',
+        '28px': '28px',
       },
     },
   },

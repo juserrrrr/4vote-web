@@ -1,12 +1,18 @@
+import { Variantes } from "./variantes";
+
 interface ButtonProps {
-    texto: string;
-    variante: "principal" | "secundario" | "terciario";
+    texto: string,
+    variante: "principal" | "secundario" | "terciario",
 }
 
-function Butao({ texto, }: ButtonProps) {
+function Butao({ texto, variante }: ButtonProps) {
+
+    const ButaoVariante = Variantes[variante];
     return (
         <div>
-            <button >
+            <button
+                className={ButaoVariante.className}
+            >
                 {texto}
             </button>
         </div>

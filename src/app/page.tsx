@@ -108,7 +108,7 @@ export default function Home() {
         </a>
       </div>
       <div>
-        <Butao text="Criar Votação" />
+        <Butao texto="Texto exemplo" variante="principal" />
       </div>
     </main>
   );
