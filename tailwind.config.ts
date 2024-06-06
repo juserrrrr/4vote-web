@@ -1,6 +1,7 @@
 import type { Config } from "tailwindcss";
 
 const config: Config = {
+  mode: 'jit',
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -16,13 +17,6 @@ const config: Config = {
       colors: {
         corPrincipal: '#052A76',
         corSecundaria: '#02A6F4',
-      },
-      gap: {
-        '-2px': '-2px',
-      },
-      borderRadius: {
-        '7px': '7px',
-        '28px': '28px',
       },
     },
   },
