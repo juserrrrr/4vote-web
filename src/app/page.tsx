@@ -11,6 +11,8 @@ export default function Home() {
         <InputCustom
           label="Título"
           type="text"
+          error={true}
+          helperText="Campo obrigatório"
           onChange={(e) => setText(e.target.value)}
         />
       </div>
