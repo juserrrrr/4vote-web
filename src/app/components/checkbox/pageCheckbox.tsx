@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import Butao from './components/buttons/button';
+import Butao from '../buttons/button';
 import FilterCheckbox from '@/app/components/checkbox/checkbox';
 
 const Home: React.FC = () => {
