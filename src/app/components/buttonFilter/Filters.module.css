@@ -1,0 +1,22 @@
+/* components/FilterButton.module.css */
+.button {
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    border: 1px solid #fff;
+    border-radius: 10px;
+    padding: 10px 20px;
+    cursor: pointer;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.icon {
+    margin-right: 8px;
+    font-size: 16px;
+}
+
+.text {
+    color: #002E6D;
+    font-size: 16px;
+    font-weight: bold;
+}
