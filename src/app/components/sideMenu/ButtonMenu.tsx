@@ -1,5 +1,6 @@
 import Link, { LinkProps } from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useMemo } from 'react';
 
 type ButtonMenuProps = LinkProps & {
   children: React.ReactNode;
@@ -9,7 +10,7 @@ type ButtonMenuProps = LinkProps & {
 
 function ButtonMenu({ href, children, icon, expanded, ...rest }: ButtonMenuProps) {
   const pathName = usePathname();
-  const isPath = pathName === href;
+  const isPath = useMemo(() => pathName === href, [pathName, href]);
 
   return (
     <Link
