@@ -8,7 +8,7 @@ const configMenuItems = {
 export const menuItems = [
   {
     href: '/inicio',
-    text: 'Início',
+    text: 'Início Teste',
     icon: <HomeIcon {...configMenuItems} />,
   },
   {
