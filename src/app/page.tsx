@@ -1,8 +1,11 @@
 'use client';
+
 import React, { useState } from 'react';
 import IconButton from './lib/components/IconButton';
 import InputCustom from './lib/components/InputCustom';
 import { ArrowUpTrayIcon, TrashIcon, PlusIcon, XMarkIcon } from '@heroicons/react/24/solid';
+import SideMenu from './components/sideMenu/SideMenu';
+import { useState } from 'react';
 
 export default function HomePage() {
   const [text, setText] = useState<string>('');
@@ -18,6 +21,9 @@ export default function HomePage() {
           helperText="Campo obrigatório"
           onChange={(e) => setText(e.target.value)}
         />
+        
+      <div className=" bg-corNeutro">
+        <SideMenu />
       </div>
 
       <div className="box bg-white p-4">
