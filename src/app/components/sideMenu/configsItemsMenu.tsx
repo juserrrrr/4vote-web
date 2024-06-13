@@ -7,7 +7,7 @@ const configMenuItems = {
 
 export const menuItems = [
   {
-    href: '/inicio',
+    href: '/autenticado/inicio',
     text: 'Início',
     icon: <HomeIcon {...configMenuItems} />,
   },

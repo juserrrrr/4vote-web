@@ -4,14 +4,18 @@ import ButtonMenu from './ButtonMenu';
 import LogoNexusIcon from './LogoNexusIcon';
 import { menuItems } from './configsItemsMenu';
 
-function SideMenu() {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+type SideMenuProps = Readonly<{
+  isOpen: boolean;
+  onToggle: () => void;
+}>;
+
+function SideMenu({ isOpen, onToggle }: SideMenuProps) {
   return (
-    <div
-      className={`h-screen py-7 px-[14px] flex flex-col bg-white text-corPrincipal ${isOpen ? 'w-64' : 'w-20'} transition-all `}
+    <aside
+      className={`h-screen fixed left-0 top-0 py-7 px-[14px] flex flex-col bg-white text-corPrincipal ${isOpen ? 'w-64' : 'w-20'} transition-all `}
     >
       <div className="mb-14 px-[8px]">
-        <button onClick={() => setIsOpen(!isOpen)}>
+        <button onClick={onToggle}>
           {isOpen ? (
             <XMarkIcon
               className="w-8 h-8"
@@ -45,7 +49,7 @@ function SideMenu() {
           NexusTech
         </span>
       </div>
-    </div>
+    </aside>
   );
 }
 

@@ -7,9 +7,7 @@ export default function Home() {
   console.log(text);
   return (
     <>
-      <div className=" bg-corNeutro">
-        <SideMenu />
-      </div>
+      <div className=" bg-corNeutro">LandingPage</div>
     </>
   );
 }
