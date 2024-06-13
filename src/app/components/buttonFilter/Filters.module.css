@@ -9,8 +9,11 @@
 }
 
 .icon {
-    margin-right: 8px;
+    margin-right: 6px;
     font-size: 16px;
+    width: 13.211px;
+    height: 13.944px;
+    flex-shrink: 0;
 }
 
 .text {
