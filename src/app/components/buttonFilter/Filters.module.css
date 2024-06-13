@@ -1,13 +1,11 @@
-/* components/FilterButton.module.css */
 .button {
     display: flex;
     align-items: center;
     background-color: #fff;
     border: 1px solid #fff;
     border-radius: 10px;
-    padding: 10px 20px;
+    padding: 4px 46px;
     cursor: pointer;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .icon {
@@ -16,7 +14,15 @@
 }
 
 .text {
-    color: #002E6D;
+    color: #052A76;
     font-size: 16px;
     font-weight: bold;
+}
+
+.backgroundColor {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #F0F0F0;
 }
