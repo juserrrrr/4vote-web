@@ -1,5 +1,5 @@
 'use client';
-import InputCustom from './lib/components/InputCustom';
+import SideMenu from './components/sideMenu/SideMenu';
 import { useState } from 'react';
 
 export default function Home() {
@@ -7,14 +7,8 @@ export default function Home() {
   console.log(text);
   return (
     <>
-      <div className=" w-40">
-        <InputCustom
-          label="Título"
-          type="text"
-          error={true}
-          helperText="Campo obrigatório"
-          onChange={(e) => setText(e.target.value)}
-        />
+      <div className=" bg-corNeutro">
+        <SideMenu />
       </div>
     </>
   );
