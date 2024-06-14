@@ -1,22 +1,23 @@
 'use client';
 
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
-import React, { useCallback, useState } from 'react';
+import React from 'react';
 import ButtonMenu from './ButtonMenu';
 import LogoNexusIcon from './LogoNexusIcon';
 import { menuItems } from './configsItemsMenu';
 
-function SideMenu() {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
-  const handleToggle = useCallback(() => {
-    setIsOpen((prev) => !prev);
-  }, []);
+interface SideMenuProps {
+  isOpen: boolean;
+  toggleSidebar: () => void;
+}
+
+function SideMenu({ isOpen, toggleSidebar }: SideMenuProps) {
   return (
     <aside
       className={`h-screen fixed left-0 top-0 py-7 px-[14px] flex flex-col bg-white text-corPrincipal ${isOpen ? 'w-64' : 'w-20'} transition-all `}
     >
       <div className="mb-14 px-[8px]">
-        <button onClick={handleToggle}>
+        <button onClick={toggleSidebar}>
           {isOpen ? (
             <XMarkIcon
               className="w-8 h-8"
