@@ -1,6 +1,5 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import LogoImg from '/imagens/4vote-principal.png';
 
 export function Header() {
   return (
@@ -8,7 +7,7 @@ export function Header() {
       <div className="container mx-auto px-10 flex items-center justify-between">
         <div className="flex items-center">
           <Image
-            src={LogoImg}
+            src={'/imagens/4vote-principal.png'}
             alt="Logo 4vote"
             width={100}
             height={100}

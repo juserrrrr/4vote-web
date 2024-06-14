@@ -1,9 +1,9 @@
 'use client';
 
 import React, { useState } from 'react';
-import IconButton from './lib/components/IconButton';
+import IconButton from '../components/IconButton';
 import { ArrowUpTrayIcon, TrashIcon, PlusIcon, XMarkIcon } from '@heroicons/react/24/solid';
-import InputCustom from './components/InputCustom/InputCustom';
+import InputCustom from '../components/InputCustom/InputCustom';
 
 export default function HomePage() {
   const [text, setText] = useState<string>('');
