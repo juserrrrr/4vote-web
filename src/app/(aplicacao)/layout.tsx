@@ -1,6 +1,6 @@
 'use client';
 import { useCallback, useState } from 'react';
-import SideMenu from '../components/sideMenu/SideMenu';
+import SideMenu from '@/components/sideMenu/SideMenu';
 
 export default function LayoutAuthenticated({
   children,
