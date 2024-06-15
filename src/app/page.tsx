@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import IconButton from '../components/IconButton';
+import IconButton from '../components/IconButton/IconButton';
 import { ArrowUpTrayIcon, TrashIcon, PlusIcon, XMarkIcon } from '@heroicons/react/24/solid';
 import InputCustom from '../components/InputCustom/InputCustom';
 
