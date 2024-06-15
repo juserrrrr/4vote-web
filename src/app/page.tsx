@@ -1,21 +1,17 @@
 'use client';
-import InputCustom from './lib/components/InputCustom';
-import { useState } from 'react';
+import { Card } from './components/card/card';
 
 export default function Home() {
-  const [text, setText] = useState<string>('');
-  console.log(text);
+  const hashtags = '#hashtag1 #hashtag2';
   return (
-    <>
-      <div className=" w-40">
-        <InputCustom
-          label="Título"
-          type="text"
-          error={true}
-          helperText="Campo obrigatório"
-          onChange={(e) => setText(e.target.value)}
-        />
-      </div>
-    </>
+    <div className="flex justify-center items-center h-screen bg-gray-100">
+      <Card
+        title="Título do Card"
+        description="Descrição do card."
+        variant="ENQUETE"
+        hashtags={hashtags}
+        imageUrl="https://picsum.photos/300/200"
+      />
+    </div>
   );
 }

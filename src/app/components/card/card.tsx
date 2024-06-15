@@ -1,25 +1,66 @@
+/* eslint-disable @next/next/no-img-element */
 import React from 'react';
-import './Card.css';
+import icon1 from './icon/VectorBlue.png';
+import icon2 from './icon/VectorRed.png';
+import Image from 'next/image';
 
-export const Card = () => {
+interface CardProps {
+  title: string;
+  description: string;
+  variant: 'VOTAÇÃO' | 'ENQUETE';
+  hashtags: string;
+  imageUrl: string;
+}
+
+export const Card: React.FC<CardProps> = ({ title, description, variant, hashtags, imageUrl }) => {
+  const cardStyles = 'bg-white w-300 h-250 rounded-lg shadow-md flex flex-col mx-2 my-1';
+  // Função para renderizar o ícone com base na variante
+  const renderIcon = () => {
+    if (variant === 'VOTAÇÃO') {
+      return (
+        <Image
+          src={icon2}
+          alt="Icon"
+          className="w-4 h-4 mx-1"
+        />
+      );
+    } else if (variant === 'ENQUETE') {
+      return (
+        <Image
+          src={icon1}
+          alt="Icon"
+          className="w-4 h-4 mx-1"
+        />
+      );
+    }
+    return null;
+  };
+  const colorLine = () => {
+    if (variant === 'VOTAÇÃO') {
+      return <p className="rounded-t-lg bg-red-600 text-transparent text-xs h-3">linha</p>;
+    } else if (variant === 'ENQUETE') {
+      return <p className="rounded-t-lg bg-blue-700 text-transparent text-xs h-3">linha</p>;
+    }
+  };
   return (
-    <div className="card-container">
+    <div className={cardStyles}>
+      {colorLine()}
       <img
-        src="https://picsum.photos/300/104"
+        src={imageUrl}
         alt="Card Image"
-        className="card-image"
+        className="w-60 h-20 object-cover"
       />
-      <p className="card-line">linha</p>
-      <h2 className="card-title">Título do card</h2>
-      <p className="card-description">Descrição</p>
+      <h2 className="text-base font-bold my-1 mx-3">{title}</h2>
+      <p className="text-sm font-bold mx-3">{description}</p>
       <a
         href="cardPage"
-        className="card-link"
-      >
-        .
-      </a>
-      <p className="card-type">VOTAÇÃO / ENQUETE</p>
-      <p className="card-tag">#hastag1 #hastag2</p>
+        className="text-center text-xs my-1"
+      ></a>
+      <div className="flex items-center justify-center">
+        {renderIcon()} {/* Renderiza o ícone aqui */}
+        <p className="text-base text-center font-bold py-1">{variant}</p>
+      </div>
+      <p className="text-xs bg-blue-900 text-white py-1 rounded-b-lg text-center"> {hashtags} </p>
     </div>
   );
 };
