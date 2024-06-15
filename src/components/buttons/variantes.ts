@@ -1,7 +1,7 @@
 export const Variantes = {
-  default: 'rounded-7px',
-  rounded: 'rounded-28px',
-  outlined: 'rounded-7px border-2',
+  default: 'rounded-[7px]',
+  rounded: 'rounded-[28px]',
+  outlined: 'rounded-[7px] border-2',
 };
 
 export const CoresFundo = {

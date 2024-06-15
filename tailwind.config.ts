@@ -24,6 +24,10 @@ const config: Config = {
       boxShadow: {
         sombraCard: '0px 4px 4px 0px rgba(0, 0, 0, 0.25)',
         sombraHeader: '0px 1px 4px 0px rgba(0, 0, 0, 0.25)',
+        sombraLogin: '4px 4px 20px 0px rgba(0, 0, 0, 0.50)',
+      },
+      height: {
+        percent90: '90vh',
       },
     },
   },
