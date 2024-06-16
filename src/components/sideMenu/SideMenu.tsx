@@ -40,6 +40,7 @@ function SideMenu({ isOpen, toggleSidebar }: SideMenuProps) {
             expanded={isOpen}
             text={item.text}
             options={item.options}
+            toggleSidebar={toggleSidebar}
           />
         ))}
       </nav>

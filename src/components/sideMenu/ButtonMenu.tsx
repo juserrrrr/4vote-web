@@ -9,23 +9,28 @@ type ButtonMenuProps = LinkProps & {
   expanded: boolean;
   text: string;
   options?: IMenuOptions[];
+  toggleSidebar: () => void;
 };
 
-function ButtonMenu({ href, icon, expanded, text, options, ...rest }: ButtonMenuProps) {
+function ButtonMenu({ href, icon, expanded, text, options, toggleSidebar, ...rest }: ButtonMenuProps) {
   const [isExpandMore, setIsExpandMore] = useState<boolean>(false);
   const pathName = usePathname();
   const isPath = useMemo(() => pathName === href, [pathName, href]);
 
   useEffect(() => {
-    setIsExpandMore(false);
+    !expanded && setIsExpandMore(false);
   }, [expanded]);
 
+  const onClickButton = () => {
+    options && setIsExpandMore((prev) => !prev);
+    !expanded && toggleSidebar();
+  };
   return (
     <div className="flex flex-row items-center relative group whitespace-nowrap">
       <div className="flex flex-col">
         <Link
           href={options ? '#' : href}
-          onClick={options ? () => setIsExpandMore((prev) => !prev) : undefined}
+          onClick={options ? onClickButton : undefined}
           className={`rounded-lg h-12 flex items-center px-3 ${isPath ? 'bg-corPrincipal text-white' : 'hover:bg-corSecundaria'}`}
           {...rest}
         >
