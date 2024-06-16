@@ -42,18 +42,22 @@ function ButtonMenu({ href, icon, expanded, text, options, ...rest }: ButtonMenu
             )}
           </span>
         </Link>
-        {isExpandMore && //Dá pra fazer aumentando o with, ao inves de aparecer e desaparecer
-          options &&
-          options.map((option) => (
-            <Link
-              key={option.href}
-              href={option.href}
-              className={`ml-6 rounded-lg h-12 flex items-center px-3 ${isPath ? 'bg-corPrincipal text-white' : 'hover:bg-corSecundaria'}`}
-            >
-              {option.icon}
-              <span className={`overflow-hidden transition-all ${expanded ? 'w-32 ml-5' : 'w-0'}`}>{option.text}</span>
-            </Link>
-          ))}
+        {expanded && options && (
+          <div className={`overflow-hidden transition-all duration-200 ${isExpandMore ? 'max-h-80' : 'max-h-0'}`}>
+            {options.map((option) => (
+              <Link
+                key={option.href}
+                href={option.href}
+                className={`ml-6 rounded-lg h-12 flex items-center px-3  ${isPath ? 'bg-corPrincipal text-white' : 'hover:bg-corSecundaria'}`}
+              >
+                {option.icon}
+                <span className={`overflow-hidden transition-all ${expanded ? 'w-32 ml-5' : 'w-0'}`}>
+                  {option.text}
+                </span>
+              </Link>
+            ))}
+          </div>
+        )}
       </div>
       {!expanded && (
         <div
