@@ -1,4 +1,11 @@
-import { HomeIcon, PlusCircleIcon } from '@heroicons/react/24/outline';
+import {
+  ClipboardDocumentCheckIcon,
+  ClockIcon,
+  Cog8ToothIcon,
+  HomeIcon,
+  InboxArrowDownIcon,
+  PlusCircleIcon,
+} from '@heroicons/react/24/outline';
 
 const configMenuItems = {
   className: 'w-7 h-7',
@@ -19,21 +26,21 @@ export const menuItems = [
   {
     href: '/participar',
     text: 'Participar',
-    icon: <PlusCircleIcon {...configMenuItems} />,
+    icon: <InboxArrowDownIcon {...configMenuItems} />,
   },
   {
     href: '/historico',
     text: 'Histórico',
-    icon: <PlusCircleIcon {...configMenuItems} />,
+    icon: <ClockIcon {...configMenuItems} />,
   },
   {
     href: '/validar',
     text: 'Validar voto',
-    icon: <PlusCircleIcon {...configMenuItems} />,
+    icon: <ClipboardDocumentCheckIcon {...configMenuItems} />,
   },
   {
     href: '/configuracoes',
     text: 'Configurações',
-    icon: <PlusCircleIcon {...configMenuItems} />,
+    icon: <Cog8ToothIcon {...configMenuItems} />,
   },
 ];
