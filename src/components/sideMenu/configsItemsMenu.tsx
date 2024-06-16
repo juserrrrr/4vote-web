@@ -1,7 +1,9 @@
 import {
   ClipboardDocumentCheckIcon,
+  ClipboardDocumentListIcon,
   ClockIcon,
   Cog8ToothIcon,
+  DocumentCheckIcon,
   HomeIcon,
   InboxArrowDownIcon,
   PlusCircleIcon,
@@ -11,8 +13,20 @@ const configMenuItems = {
   className: 'w-7 h-7',
   strokeWidth: 2,
 };
+export type IMenuOptions = {
+  href: string;
+  text: string;
+  icon: React.ReactNode;
+};
 
-export const menuItems = [
+interface IMenuItems {
+  href: string;
+  text: string;
+  icon: React.ReactNode;
+  options?: IMenuOptions[];
+}
+
+export const menuItems: IMenuItems[] = [
   {
     href: '/inicio',
     text: 'Início',
@@ -22,6 +36,10 @@ export const menuItems = [
     href: '/criar',
     text: 'Criar',
     icon: <PlusCircleIcon {...configMenuItems} />,
+    options: [
+      { href: 'criar/votacao', text: 'Votação', icon: <DocumentCheckIcon {...configMenuItems} /> },
+      { href: 'criar/enquete', text: 'Enquete', icon: <ClipboardDocumentListIcon {...configMenuItems} /> },
+    ],
   },
   {
     href: '/participar',
