@@ -31,16 +31,15 @@ function SideMenu({ isOpen, toggleSidebar }: SideMenuProps) {
           )}
         </button>
       </div>
-      <nav className="flex flex-col gap-2 self-stretch items-start text-lg font-bold ">
+      <nav className="flex flex-col gap-2 self-stretch items-start text-lg font-bold">
         {menuItems.map((item) => (
           <ButtonMenu
             key={item.href}
             href={item.href}
             icon={item.icon}
             expanded={isOpen}
-          >
-            {item.text}
-          </ButtonMenu>
+            text={item.text}
+          />
         ))}
       </nav>
       <div className="flex flex-grow items-end align-middle overflow-hidden">
