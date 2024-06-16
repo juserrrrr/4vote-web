@@ -8,12 +8,12 @@ interface NextButtonProps {
 
 const NextButton: React.FC<NextButtonProps> = ({ onClick, disabled }) => (
   <button
-    className={`flex items-center mx-1 px-2 py-1 rounded-full ${disabled ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : 'bg-white text-corPrincipal'}`}
+    className={`mx-1 px-2 py-1 rounded-full flex items-center ${disabled ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : `bg-white text-corPrincipal`}`}
     onClick={onClick}
     disabled={disabled}
   >
-    <span className="mr-1">Próximo</span>
-    <ChevronRightIcon className="w-5 h-5" />
+    <span>Próximo</span>
+    <ChevronRightIcon className="w-5 h-5 ml-1" />
   </button>
 );
 
