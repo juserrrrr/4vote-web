@@ -21,7 +21,7 @@ function ContainerLogin({ children }: { children: React.ReactNode }) {
           </div>
         </div>
       </div>
-      <div className="w-1/2 h-full flex flex-col justify-between items-center bg-white rounded-[14px] py-20">
+      <div className="w-1/2 h-full flex flex-col justify-between items-center bg-white rounded-[14px] pt-20 pb-5">
         {children}
       </div>
     </div>

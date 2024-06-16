@@ -10,10 +10,11 @@ export default function Login() {
           <InputCustom label="Email" />
           <InputCustom label="Senha" />
         </div>
-        <div className="my-5">
+        <div className="my-5 w-full">
           <Butao
             texto="Fazer Login"
-            variante="rounded"
+            variant="rounded"
+            className="w-full"
           />
         </div>
       </div>
