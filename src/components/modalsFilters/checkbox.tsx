@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import styles from './checkbox.module.css';
-import { Checkbox } from '@chakra-ui/react';
 
 interface CheckboxProps {
   texto: string;
@@ -16,9 +15,10 @@ const CheckboxButton: React.FC<CheckboxProps> = ({ texto }) => {
   const stateCheckbox = () => toggleChecked(checked, setChecked);
 
   return (
-    <label className={`${styles.layoutBox} ${styles.padraoButao}`}>
-      <Checkbox
-        isChecked={checked}
+    <label className={`${styles.padraoButao}`}>
+      <input
+        type="checkbox"
+        checked={checked}
         onChange={stateCheckbox}
         className={styles.checkbox}
       />
