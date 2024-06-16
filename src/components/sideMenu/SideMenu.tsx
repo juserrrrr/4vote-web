@@ -3,7 +3,7 @@
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import React from 'react';
 import ButtonMenu from './ButtonMenu';
-import LogoNexusIcon from './menuIcons/LogoNexusIcon';
+import LogoNexusIcon from './LogoNexusIcon';
 import { menuItems } from './configsItemsMenu';
 
 interface SideMenuProps {
