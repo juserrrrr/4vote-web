@@ -2,7 +2,7 @@ import Image from 'next/image';
 
 function ContainerLogin({ children }: { children: React.ReactNode }) {
   return (
-    <div className="w-3/5 h-percent90 flex flex-shrink-0 shadow-sombraLogin rounded-[14px]">
+    <div className="w-1/2 h-percent90 flex flex-shrink-0 shadow-sombraLogin rounded-[14px] bg-corPrincipal">
       <div className="w-1/2 h-full flex flex-col flex-shrink-0 justify-end items-center gap-[10px] px-20 py-5 bg-corPrincipal rounded-[14px]">
         <div className="h-full flex flex-col justify-between flex-shrink-0 items-center">
           <div className="flex flex-col justify-between items-center flex-shrink-0">
@@ -21,7 +21,7 @@ function ContainerLogin({ children }: { children: React.ReactNode }) {
           </div>
         </div>
       </div>
-      <div className="w-1/2 h-full flex flex-col justify-between items-center bg-white rounded-[14px] px-20 py-5">
+      <div className="w-1/2 h-full flex flex-col justify-between items-center bg-white rounded-[14px] py-20">
         {children}
       </div>
     </div>
