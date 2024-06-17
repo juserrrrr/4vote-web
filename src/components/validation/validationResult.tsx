@@ -36,10 +36,10 @@ export const ValidationResult: React.FC<Props> = ({ answer }) => {
   };
 
   return (
-    <div className="w-[765px] h-[300px] bg-white rounded-[7px] flex-col justify-center items-center gap-2 inline-flex">
-      <div className="w-[765px] h-3.5 bg-sky-900 rounded-tl-[7px] rounded-tr-[7px]" />
+    <div className="w-[750px] h-[180px] bg-white rounded-[7px] flex-col justify-center items-center gap-2 inline-flex">
+      <div className="w-[750px] h-3.5 bg-sky-900 rounded-tl-[7px] rounded-tr-[7px]" />
       {render()}
-      <div className="w-[765px] h-3.5 bg-sky-900 rounded-tl-[7px] rounded-tr-[7px] rotate-180" />
+      <div className="w-[750px] h-3.5 bg-sky-900 rounded-tl-[7px] rounded-tr-[7px] rotate-180" />
     </div>
   );
 };
