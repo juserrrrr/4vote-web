@@ -23,3 +23,5 @@ const InfoAns: React.FC<InfoAnsProps> = ({ title, description, date, imageUrl })
     </div>
   );
 };
+
+export default InfoAns;
