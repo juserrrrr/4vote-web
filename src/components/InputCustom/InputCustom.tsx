@@ -25,7 +25,7 @@ const InputCustom = forwardRef<HTMLInputElement, InputCustomProps>(function Inpu
   };
 
   return (
-    <div className="flex flex-col w-full p-1 h-auto">
+    <div className="flex flex-col relative w-full p-1 h-auto">
       <label
         htmlFor={inputId}
         className={`left-3 top-6 absolute transition-all duration-200 text-blue-950 font-bold text-md pointer-events-none 
