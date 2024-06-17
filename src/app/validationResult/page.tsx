@@ -1,10 +1,14 @@
 import React from 'react';
 import { ValidationResult } from '@/components/validation/validationResult';
 
-export default function HomePage() {
+interface Props {
+  result: boolean;
+}
+
+export default function HomePage({ result }: Props) {
   return (
     <div className="flex h-screen justify-center items-center">
-      <ValidationResult answer={true}></ValidationResult>
+      <ValidationResult answer={result}></ValidationResult>
     </div>
   );
 }
