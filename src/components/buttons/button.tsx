@@ -1,4 +1,3 @@
-import { Variantes, CoresFundo, CoresTexto, CoresBorda } from './variantes';
 import { ComponentProps } from 'react';
 import { tv, VariantProps } from 'tailwind-variants';
 
@@ -41,17 +40,11 @@ export type ButtonProps = ComponentProps<'button'> &
   };
 
 function Butao({ texto, variant, bgColor, textColor, borderColor, className, ...props }: ButtonProps) {
-  var variacaoBorda = '';
-  var ativado = false;
-
-  // if (variante == 'outlined') {
-  //   variacaoBorda = CoresBorda[corTexto];
-  // }
-
+  const hover = `hover:bg-opacity-75 transition duration-300 ease-in-out`;
   return (
     <>
       <button
-        className={button({ variant, bgColor, textColor, borderColor, className })}
+        className={`${button({ variant, bgColor, textColor, borderColor, className })} ${hover}`}
         {...props}
       >
         {texto}
