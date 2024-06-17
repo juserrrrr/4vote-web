@@ -1,5 +1,6 @@
 import styles from './Modal.module.css';
-import Checkbox from './checkbox';
+import { Filter, Order } from './selectCheckbox';
+import Button from '../buttons/button';
 
 interface ModalProps {
   variante: 'ordenar' | 'filtrar';
@@ -8,7 +9,7 @@ interface ModalProps {
 }
 
 const Modal: React.FC<ModalProps> = ({ isOpen, onClose, variante }) => {
-  const filters = variante === 'filtrar' ? filter : order;
+  const Filters = variante === 'filtrar' ? Filter : Order;
   const text = variante === 'filtrar' ? 'Filtros:' : 'Ordenar por:';
 
   if (!isOpen) return null;
@@ -17,14 +18,21 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, variante }) => {
     <div className={styles.overlay}>
       <div className={styles.modal}>
         <h2 className={styles.h2}>{text}</h2>
-        <div className={styles.modalFilho}>{filters}</div>
+        <div className={styles.modalFilho}>
+          <Filters />
+        </div>
         <div className={styles.comfirmacao}>
           <div className={styles.modalButton}>
-            <button
-              className={styles.button}
-              onClick={onClose}
-            >
-              <span className={styles.textButton}>Aplicar</span>
+            <button onClick={onClose}>
+              <span className={styles.textButton}>
+                <Button
+                  texto="Aplicar"
+                  variant="rounded"
+                  textColor="primaria"
+                  bgColor="terciaria"
+                  className={styles.button}
+                />
+              </span>
             </button>
           </div>
         </div>
@@ -32,33 +40,5 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, variante }) => {
     </div>
   );
 };
-
-const filter = (
-  <>
-    <div>
-      <Checkbox texto="Criadas por mim" />
-    </div>
-    <div>
-      <Checkbox texto="Que participo" />
-    </div>
-    <div>
-      <Checkbox texto="Arquivadas" />
-    </div>
-    <div>
-      <Checkbox texto="Encerradas" />
-    </div>
-  </>
-);
-
-const order = (
-  <>
-    <div>
-      <Checkbox texto="Mais recente primeiro" />
-    </div>
-    <div>
-      <Checkbox texto="Mais antiga primeiro" />
-    </div>
-  </>
-);
 
 export default Modal;
