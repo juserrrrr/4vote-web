@@ -14,7 +14,7 @@ interface SideMenuProps {
 function SideMenu({ isOpen, toggleSidebar }: SideMenuProps) {
   return (
     <aside
-      className={`h-screen fixed left-0 top-0 py-7 px-[14px] flex flex-col bg-white text-corPrincipal ${isOpen ? 'w-64' : 'w-20'} transition-all `}
+      className={`h-[calc(100vh-70px)] fixed left-0 top-[70px] py-7 px-[14px] flex flex-col bg-white text-corPrincipal ${isOpen ? 'w-64' : 'w-20'} transition-all `}
     >
       <div className="mb-14 px-[8px]">
         <button onClick={toggleSidebar}>
