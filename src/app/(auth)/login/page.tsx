@@ -1,6 +1,12 @@
 import InputCustom from '@/components/InputCustom/InputCustom';
 import Butao from '@/components/buttons/button';
+import { Metadata } from 'next';
 import Link from 'next/link';
+
+export const metadata: Metadata = {
+  title: 'Login',
+  description: 'Página de Login',
+};
 
 export default function Login() {
   return (
@@ -21,8 +27,18 @@ export default function Login() {
       </div>
 
       <div className="flex flex-col justify-center text-gray-500 text-center font-open-sans font-bold text-lg underline">
-        <Link href="../auth/recuperar-senha">Esqueci a senha</Link>
-        <Link href="../auth/cadastro">Novo aqui? Fazer Cadastro</Link>
+        <Link
+          href="../recuperar-senha"
+          target="_blank"
+        >
+          Esqueci a senha
+        </Link>
+        <Link
+          href="../cadastro"
+          target="_blank"
+        >
+          Novo aqui? Fazer Cadastro
+        </Link>
       </div>
     </>
   );

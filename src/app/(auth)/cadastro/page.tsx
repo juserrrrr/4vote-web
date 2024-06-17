@@ -1,6 +1,11 @@
 import InputCustom from '@/components/InputCustom/InputCustom';
 import Butao from '@/components/buttons/button';
-import Link from 'next/link';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Cadastro',
+  description: 'Página de Cadastro',
+};
 
 export default function Cadastro() {
   return (
