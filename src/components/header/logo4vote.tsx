@@ -6,8 +6,8 @@ export function Logo4vote() {
       <Image
         src={'/imagens/4vote-principal.png'}
         alt="Logo"
-        width={96}
-        height={20}
+        width={166}
+        height={166}
       />
     </div>
   );
