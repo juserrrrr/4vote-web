@@ -2,12 +2,12 @@ import Image from 'next/image';
 
 export function Logo4vote() {
   return (
-    <div className="flex items-center">
+    <div className="relative w-32 h-20">
       <Image
         src={'/imagens/4vote-principal.png'}
         alt="Logo"
-        width={166}
-        height={166}
+        fill
+        className="object-cover"
       />
     </div>
   );
