@@ -1,21 +1,21 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styles from './checkbox.module.css';
 
 interface CheckboxProps {
   texto: string;
+  checked: boolean;
+  setChecked: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 function toggleChecked(checked: boolean, setChecked: React.Dispatch<React.SetStateAction<boolean>>) {
   setChecked(!checked);
 }
 
-const CheckboxButton: React.FC<CheckboxProps> = ({ texto }) => {
-  const [checked, setChecked] = useState(false);
-
+const CheckboxButton: React.FC<CheckboxProps> = ({ texto, checked, setChecked }) => {
   const stateCheckbox = () => toggleChecked(checked, setChecked);
 
   return (
-    <label className={`${styles.padraoButao}`}>
+    <label className={styles.padraoButao}>
       <input
         type="checkbox"
         checked={checked}
