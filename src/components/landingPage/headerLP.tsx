@@ -1,18 +1,12 @@
-import Image from 'next/image';
-import Link from 'next/link';
 import { ItemHeader } from './itemHeader';
+import { Logo4vote } from '../header/logo4vote';
 
-export function Header() {
+export function HeaderLP() {
   return (
     <header className="flex items-center w-full h-20 bg-white">
       <div className="w-full max-w-auto px-[15px] mx-auto flex items-center justify-between">
         <div className="flex items-center">
-          <Image
-            src={'/imagens/4vote-principal.png'}
-            alt="Logo"
-            width={128}
-            height={88}
-          />
+          <Logo4vote />
         </div>
         <div className="flex items-center gap-14 absolute left-1/2 transform -translate-x-1/2">
           <ul className="flex items-center gap-2">
