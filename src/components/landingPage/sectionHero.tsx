@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import conection from '@/components/landingPage/assets/conection-word.svg';
+import { CardLP } from './cardsLP';
 
 export function SectionHero() {
   return (
@@ -19,7 +20,7 @@ export function SectionHero() {
           >
             cadastre-se agora
           </button>
-          <button className="text-white bg-corBotaoLP hover:opacity-90 font-extrabold text-3xl rounded-full h-[84px] w-[254px]">
+          <button className="text-white opacity-80 bg-corBotaoLP hover:opacity-70 font-extrabold text-3xl rounded-full h-[84px] w-[254px]">
             entrar como convidado
           </button>
         </div>
@@ -27,6 +28,35 @@ export function SectionHero() {
           src={conection}
           alt="conection"
         />
+      </div>
+      <div className="w-full h-[603px]">
+        <ul className="flex ml-[85px] mr-[75px] gap-16 mt-[100px]">
+          <li>
+            <CardLP
+              titulo="Fácil e Intuitivo"
+              corTitulo="corPrincipal"
+              texto="Nossa interface intuitiva torna o processo rápido e sem complicações, para que você possa focar no que realmente importa:"
+              textoDestacadoFinal=" as opiniões."
+            />
+          </li>
+          <li>
+            <CardLP
+              titulo="Design Inovador"
+              corTitulo="corSecundaria"
+              texto="Deixe sua marca com enquetes que não só capturam a atenção, mas também refletem sua"
+              textoDestacadoFinal=" individualidade."
+            />
+          </li>
+          <li>
+            <CardLP
+              titulo="Gratuito"
+              corTitulo="corPrincipal"
+              texto=", sem limites ou taxas. Comece agora e descubra a verdadeira liberdade de expressão."
+              textoDestacadoInicio="Liberdade para criar, compartilhar e votar"
+              largura="[400px]"
+            />
+          </li>
+        </ul>
       </div>
     </section>
   );
