@@ -43,8 +43,8 @@
 }
 
 .modalButton {
-  position: absolute; /* Adicionado para fixar o botão em relação ao modal */
-  bottom: 14px;       /* Distância do fundo do modal */
+  position: absolute; 
+  bottom: 14px;       
   right: 10px;
   display: flex;
   justify-content: flex-end;
@@ -65,12 +65,11 @@
 
 .button {
   display: flex;
-  width: 120px;
-  height: 37px;
-  padding: 0px 34px;
   justify-content: center;
   align-items: center;
-  gap: -2px;border-radius: 7px;
+  width: 120px;
+  height: 37px;
+  border-radius: 7px;
   border: 2px solid #052A76;
 }
 
