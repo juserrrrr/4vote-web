@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import CheckboxButton from './checkbox';
+import CheckboxButton from '../checkboxs/checkbox';
 
 export const Filter: React.FC = () => {
   const [criadasPorMimChecked, setCriadasPorMimChecked] = useState<boolean>(false);
