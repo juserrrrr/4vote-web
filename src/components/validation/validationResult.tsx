@@ -10,7 +10,6 @@ interface Props {
 export const ValidationResult: React.FC<Props> = ({ answer }) => {
   const fontStyle = "text-center text-sky-900 text-[29px] font-bold font-['Open Sans']";
 
-  // Função para definir o componente de acordo com a resposta
   const render = () => {
     if (answer === true) {
       return (
