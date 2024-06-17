@@ -16,31 +16,25 @@ export const Card: React.FC<CardProps> = ({ title, description, variant, hashtag
   const cardStyles = 'bg-white w-300 h-250 rounded-lg shadow-md flex flex-col mx-2 my-1';
   // Função para renderizar o ícone com base na variante
   const renderIcon = () => {
-    if (variant === 'VOTAÇÃO') {
-      return (
-        <Image
-          src={icon2}
-          alt="Icon"
-          className="w-4 h-4 mx-1"
-        />
-      );
-    } else if (variant === 'ENQUETE') {
-      return (
-        <Image
-          src={icon1}
-          alt="Icon"
-          className="w-4 h-4 mx-1"
-        />
-      );
-    }
-    return null;
+    return variant === 'VOTAÇÃO' ? (
+      <Image
+        src={icon2}
+        alt="Icon"
+        width={4}
+        height={4}
+      />) : (
+      <Image
+        src={icon1}
+        alt="Icon"
+        className="w-4 h-4 mx-1"
+        width={4}
+        height={4}
+      />
+    );
   };
   const colorLine = () => {
-    if (variant === 'VOTAÇÃO') {
-      return <p className="rounded-t-lg bg-red-600 text-transparent text-xs h-3">linha</p>;
-    } else if (variant === 'ENQUETE') {
-      return <p className="rounded-t-lg bg-blue-700 text-transparent text-xs h-3">linha</p>;
-    }
+    return variant === 'VOTAÇÃO' ?
+      (<p className="rounded-t-lg bg-red-600 text-transparent text-xs h-3">linha</p>) : (<p className="rounded-t-lg bg-blue-700 text-transparent text-xs h-3">linha</p>);
   };
   return (
     <div className={cardStyles}>

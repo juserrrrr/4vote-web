@@ -1,6 +1,6 @@
 'use client';
 
-import { Card } from './components/card/card';
+import { Card } from '../components/card/card';
 
 export default function Home() {
   const hashtags = '#hashtag1 #hashtag2';
