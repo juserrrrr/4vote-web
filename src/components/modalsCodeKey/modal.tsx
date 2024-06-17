@@ -3,16 +3,16 @@ import InputCustom from '@/components/InputCustom/InputCustom';
 import Butao from '@/components/buttons/button';
 
 interface ModalInterface {
-  isOpennow: boolean;
+  isOpen: boolean;
   closeModal: () => void;
   title: string;
   subtitle: string;
   instruction: string;
 }
 
-const Modal: React.FC<ModalInterface> = ({ isOpennow, closeModal, title, subtitle, instruction }) => {
+const Modal: React.FC<ModalInterface> = ({ isOpen, closeModal, title, subtitle, instruction }) => {
   const id = useId();
-  if (!isOpennow) return null;
+  if (!isOpen) return null;
 
   return (
     <div
