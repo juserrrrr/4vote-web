@@ -6,7 +6,8 @@ function LogoNexusIcon() {
       <Image
         src="/logoNexus.svg"
         alt="Logo"
-        layout="fill"
+        fill
+        priority
         className="object-contain"
       />
     </div>
