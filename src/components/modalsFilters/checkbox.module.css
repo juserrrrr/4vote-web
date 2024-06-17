@@ -29,9 +29,13 @@
   position: relative;
 }
 
+.checkbox:checked {
+  background-color: #052A76
+}
+
 .checkbox:checked::before {
   content: '✔';
-  color: #06FF5B;
+  color: #fff;
   font-size: 18px;
   position: absolute;
   opacity: 0;
