@@ -1,17 +1,23 @@
+'use client';
+
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
-import React, { useState } from 'react';
+import React from 'react';
 import ButtonMenu from './ButtonMenu';
 import LogoNexusIcon from './LogoNexusIcon';
 import { menuItems } from './configsItemsMenu';
 
-function SideMenu() {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+interface SideMenuProps {
+  isOpen: boolean;
+  toggleSidebar: () => void;
+}
+
+function SideMenu({ isOpen, toggleSidebar }: SideMenuProps) {
   return (
-    <div
-      className={`h-screen py-7 px-[14px] flex flex-col bg-white text-corPrincipal ${isOpen ? 'w-64' : 'w-20'} transition-all `}
+    <aside
+      className={`h-screen fixed left-0 top-0 py-7 px-[14px] flex flex-col bg-white text-corPrincipal ${isOpen ? 'w-64' : 'w-20'} transition-all `}
     >
       <div className="mb-14 px-[8px]">
-        <button onClick={() => setIsOpen(!isOpen)}>
+        <button onClick={toggleSidebar}>
           {isOpen ? (
             <XMarkIcon
               className="w-8 h-8"
@@ -25,16 +31,17 @@ function SideMenu() {
           )}
         </button>
       </div>
-      <nav className="flex flex-col gap-2 self-stretch items-start text-lg font-bold ">
+      <nav className="flex flex-col gap-2 self-stretch items-start text-lg font-bold">
         {menuItems.map((item) => (
           <ButtonMenu
             key={item.href}
             href={item.href}
             icon={item.icon}
             expanded={isOpen}
-          >
-            {item.text}
-          </ButtonMenu>
+            text={item.text}
+            options={item.options}
+            toggleSidebar={toggleSidebar}
+          />
         ))}
       </nav>
       <div className="flex flex-grow items-end align-middle overflow-hidden">
@@ -45,7 +52,7 @@ function SideMenu() {
           NexusTech
         </span>
       </div>
-    </div>
+    </aside>
   );
 }
 
