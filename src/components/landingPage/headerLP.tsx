@@ -3,7 +3,7 @@ import { ItemHeader } from './itemHeader';
 
 export function HeaderLP() {
   return (
-    <header className="flex items-center w-full h-20 bg-white">
+    <header className="flex items-center w-full h-20 fixed bg-white">
       <div className="w-full max-w-auto px-[15px] mx-auto flex items-center justify-between">
         <div className="flex items-center ml-7 mr-auto">
           <Image
