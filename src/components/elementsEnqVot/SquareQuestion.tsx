@@ -5,7 +5,9 @@ interface SquareQuestionPropos {
   question: string;
 }
 
-const SquareQuestion: React.FC<SquareQuestionPropos> = ({ question }) => {
+const SquareQuestion: React.FC<SquareQuestionPropos> = ({
+  question = 'Quem você escolhe para ser o novo Diretório Acadêmico do curso?',
+}) => {
   const backgraund = 'w-[1260px] h-[550px] justify-center items-center';
   const titleForm = 'text-4xl text-corPrincipal font-bold mb-4';
   const questionForm = 'text-2xl text-corPrincipal font-semibold mb-4';

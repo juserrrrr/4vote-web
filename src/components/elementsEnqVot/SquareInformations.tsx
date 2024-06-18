@@ -12,12 +12,12 @@ interface SquareInformationsProps {
 }
 
 const SquareInformations: React.FC<SquareInformationsProps> = ({
-  title,
-  subtitle,
-  date,
-  acess,
-  description,
-  imageUrl,
+  title = 'VOTAÇÃO',
+  subtitle = 'Eleição do Diretorio Academico de Ecomp',
+  date = new Date(),
+  acess = 'Privado',
+  description = 'Essa é uma eleição aprovada pelo conselho para leger os mais novos menbros do DA do curso de ECOMP.',
+  imageUrl = 'https://picsum.photos/300/104',
 }) => {
   const backgraund = 'w-[1260px] h-[316px] mt-8';
   const squareWhite = 'w-[1225px] h-[250px] inline-flex bg-gray-100 rounded-xl justify-center items-center';

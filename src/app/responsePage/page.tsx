@@ -13,15 +13,8 @@ interface ResponsePageProps {
   imageUrl: string;
   question: string;
 }
-const ResponsePage: React.FC<ResponsePageProps> = ({
-  title = 'VOTAÇÃO',
-  subtitle = 'Eleição do Diretorio Academico de Ecomp',
-  date = new Date(),
-  acess = 'Privado',
-  description = 'Essa é uma eleição aprovada pelo conselho para leger os mais novos menbros do DA do curso de ECOMP.',
-  imageUrl = 'https://picsum.photos/300/104',
-  question = 'Quem você escolhe para ser o novo Diretório Acadêmico do curso?',
-}) => {
+
+const ResponsePage = () => {
   const backgraund =
     'flex flex-col w-[1366px] h-[922px] bg-gray-200 justify-center items-center fixed bottom-0 right-0 p-8';
   const container1 = 'w-[1260px] h-[825px] p-5 mt-8';
@@ -31,23 +24,13 @@ const ResponsePage: React.FC<ResponsePageProps> = ({
   return (
     <div className={backgraund}>
       <div className={container1}>
-        <SquareInformations
-          title={title}
-          subtitle={subtitle}
-          date={date}
-          acess={acess}
-          description={description}
-          imageUrl={imageUrl}
-        />
+        <SquareInformations />
       </div>
       <div className={container2}>
-        <SquareQuestion question={question} />
+        <SquareQuestion />
       </div>
       <div className={container3}>
-        <Butao
-          texto="VOLTAR"
-          variante="rounded"
-        />
+        <Butao />
       </div>
     </div>
   );
