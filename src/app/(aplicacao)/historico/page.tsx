@@ -1,6 +1,5 @@
 'use client';
 import React, { useState } from 'react';
-import SearchBar from '@/components/search/Searchbar';
 import FilterButton from '@/components/buttonFilter/FilterButton';
 
 function CardFake({ key }: { key: string }) {
@@ -78,11 +77,13 @@ export default function HomePage() {
         <div className="flex flex-col justify-center tems-center px-16 py-6 gap-6 text-corPrincipal">
           <div className="flex flex-col w-full justify-start">
             <h1 className="text-4xl font-bold">Histórico</h1>
-            <h2 className="text-4x1 font-sans">
+            <h2 className="text-8x1 font-sans">
               Visualize as enq./vot. que você criou ou participa, tanto públicas quanto privadas.
             </h2>
           </div>
-          <SearchBar />
+          <div className="search-bar-text w-full flex flex-row items-center gap-4 px-4 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-corPrincipal focus:border-transparent bg-white text-corPrincipal">
+            Encontre as pesquisas que você procura: vote e participe!
+          </div>
           <div className="w-full flex flex-row items-center gap-8">
             <FilterButton variante="ordenar" />
             <FilterButton variante="filtrar" />
