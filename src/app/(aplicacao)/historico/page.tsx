@@ -87,7 +87,7 @@ export default function HomePage() {
             <FilterButton variante="ordenar" />
             <FilterButton variante="filtrar" />
           </div>
-          <div className="flex flex-row flex-wrap content-between">
+          <div className="flex flex-row flex-wrap justify-start content-between gap-9 ">
             {cards.map((card, index) => (
               <CardFake key={String(index)} />
             ))}
