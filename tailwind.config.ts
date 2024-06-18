@@ -16,6 +16,7 @@ const config: Config = {
         'background-word': "url('../components/landingPage/assets/background-word.svg')",
         'background-rectangle': "url('../components/landingPage/assets/rectangle-gray.svg')",
         'background-blue': "url('../components/landingPage/assets/background-blue.svg')",
+        'custom-gradient-footer': 'linear-gradient(to right, #052A76 0%, #02A6F4 100%)',
       },
       colors: {
         corPrincipal: '#052A76',

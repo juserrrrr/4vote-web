@@ -1,3 +1,4 @@
+import { FooterLP } from '@/components/landingPage/footerLP';
 import { HeaderLP } from '@/components/landingPage/headerLP';
 import { SectionBenefits } from '@/components/landingPage/sectionBenefits';
 import { SectionCard } from '@/components/landingPage/sectionCard';
@@ -12,6 +13,7 @@ export default function Home() {
       <SectionCard />
       <SectionService />
       <SectionBenefits />
+      <FooterLP />
     </>
   );
 }
