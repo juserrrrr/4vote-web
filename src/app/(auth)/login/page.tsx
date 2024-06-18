@@ -14,8 +14,16 @@ export default function Login() {
       <h2 className="text-corPrincipal text-center font-bold text-5xl">LOGIN</h2>
       <div className="w-full flex flex-col justify-between items-center flex-shrink-0 px-10 gap-10">
         <div className="w-full flex flex-col justify-between gap-5">
-          <InputCustom label="Email" />
-          <InputCustom label="Senha" />
+          <InputCustom
+            label="Email"
+            helperText="Campo Obrigatório"
+            error={true}
+          />
+          <InputCustom
+            label="Senha"
+            helperText="Campo Obrigatório"
+            error={true}
+          />
         </div>
         <div className="w-full">
           <Butao
