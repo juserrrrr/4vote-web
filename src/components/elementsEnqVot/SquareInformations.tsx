@@ -19,10 +19,10 @@ const SquareInformations: React.FC<SquareInformationsProps> = ({
   description = 'Essa é uma eleição aprovada pelo conselho para leger os mais novos menbros do DA do curso de ECOMP.',
   imageUrl = 'https://picsum.photos/300/104',
 }) => {
-  const backgraund = 'w-[1260px] h-[316px] mt-8';
+  const backgraund = 'w-[1260px] h-[305px]';
   const squareWhite = 'w-[1225px] h-[250px] inline-flex bg-gray-100 rounded-xl justify-center items-center';
 
-  const title1 = 'text-4xl text-corPrincipal font-bold mb-4';
+  const title1 = 'text-4xl text-corPrincipal font-bold mb-2';
   const container1 = 'w-[700x] h-[240px] mt-10';
   const title2 = 'text-3xl text-corPrincipal font-bold mb-2';
   const title3 = 'text-2xl text-corPrincipal font-bold mb-5';
