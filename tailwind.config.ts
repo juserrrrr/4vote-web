@@ -14,7 +14,8 @@ const config: Config = {
         'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
         'custom-gradient-landingpage': 'linear-gradient(to right, #034F9C 0%, #0282DF 50%)',
         'background-word': "url('../components/landingPage/assets/background-word.svg')",
-        'backgroun-rectangle': "url('../components/landingPage/assets/rectangle-gray.svg')",
+        'background-rectangle': "url('../components/landingPage/assets/rectangle-gray.svg')",
+        'background-blue': "url('../components/landingPage/assets/background-blue.jpg')",
       },
       colors: {
         corPrincipal: '#052A76',

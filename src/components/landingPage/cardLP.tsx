@@ -13,15 +13,15 @@ export function CardLP({
   texto,
   textoDestacadoInicio = '',
   textoDestacadoFinal = '',
-  largura = '[370px]',
+  largura = '[351px]',
 }: Props) {
   return (
-    <div className="bg-backgroun-rectangle w-[403px] h-[360px]">
+    <div className="bg-background-rectangle w-[403px] h-[360px]">
       <h1 className={`text-${corTitulo} font-extrabold text-4xl text-center p-6 mt-1`}>{titulo}</h1>
-      <p className={`w-${largura} mt-1 text-center text-3xl ml-3`}>
-        <span className={`text-${corTitulo} font-semibold`}>{textoDestacadoInicio}</span>
+      <p className={`w-${largura} mt-1 ml-1 mr-8 text-center text-3xl font-light`}>
+        <span className={`text-${corTitulo} font-extrabold`}>{textoDestacadoInicio}</span>
         {texto}
-        <span className={`text-${corTitulo} font-semibold`}>{textoDestacadoFinal}</span>
+        <span className={`text-${corTitulo} font-extrabold`}>{textoDestacadoFinal}</span>
       </p>
     </div>
   );
