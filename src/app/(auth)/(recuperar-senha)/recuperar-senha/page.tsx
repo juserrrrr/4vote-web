@@ -1,27 +1,28 @@
 import InputCustom from '@/components/InputCustom/InputCustom';
 import Butao from '@/components/buttons/button';
 import { Metadata } from 'next';
+import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: 'Cadastro',
-  description: 'Página de Cadastro',
+  title: 'Recuperar Senha',
+  description: 'Página de Recuperação de Senha',
 };
 
-export default function Cadastro() {
+export default function RecuperarSenha() {
   return (
     <>
-      <h2 className="text-corPrincipal text-center font-bold text-5xl">CADASTRO</h2>
+      <div className="text-corPrincipal text-center">
+        <h2 className="font-bold text-2xl">Esqueci minha senha</h2>
+        <p className="text-xl">Informe seu e-mail cadastrado para enviarmos as instruções de redefinição de senha.</p>
+      </div>
+
       <div className="w-full flex flex-col justify-between items-center flex-shrink-0 px-10 gap-10">
         <div className="w-full flex flex-col justify-between gap-5">
-          <InputCustom label="Nome" />
           <InputCustom label="Email" />
-          <InputCustom label="CPF" />
-          <InputCustom label="Senha" />
-          <InputCustom label="Confirmar Senha" />
         </div>
         <div className="w-full">
           <Butao
-            texto="Confirmar Cadastro"
+            texto="Enviar"
             variant="rounded"
             className="w-full"
           />
