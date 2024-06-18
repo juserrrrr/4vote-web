@@ -12,7 +12,7 @@ export default function Cadastro() {
     <>
       <h2 className="text-corPrincipal text-center font-bold text-5xl">CADASTRO</h2>
       <div className="w-full flex flex-col justify-between items-center flex-shrink-0 px-10 gap-10">
-        <div className="w-full flex flex-col justify-between gap-5">
+        <div className="w-full flex flex-col justify-between gap-3">
           <InputCustom
             label="Nome"
             helperText="Campo Obrigatório"
