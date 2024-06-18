@@ -3,7 +3,7 @@ import conection from '@/components/landingPage/assets/conection-word.svg';
 
 export function SectionHero() {
   return (
-    <section className="min-w-min h-[741px] bg-background-word bg-no-repeat bg-center bg-cover">
+    <section className="min-w-max h-[741px] bg-background-word bg-no-repeat bg-center bg-cover">
       <div className="w-full max-w-auto px-[15px] mx-auto flex justify-between">
         <div className="flex-1 w-max-[613px]">
           <h1 className="text-white text-4xl font-medium w-[613px] ml-[55px] mt-[110px]">

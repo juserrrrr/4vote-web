@@ -15,7 +15,7 @@ const config: Config = {
         'custom-gradient-landingpage': 'linear-gradient(to right, #034F9C 0%, #0282DF 50%)',
         'background-word': "url('../components/landingPage/assets/background-word.svg')",
         'background-rectangle': "url('../components/landingPage/assets/rectangle-gray.svg')",
-        'background-blue': "url('../components/landingPage/assets/background-blue.jpg')",
+        'background-blue': "url('../components/landingPage/assets/background-blue.svg')",
       },
       colors: {
         corPrincipal: '#052A76',
