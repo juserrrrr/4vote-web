@@ -16,13 +16,22 @@ export function HeaderLP() {
         <div className="hidden lg:flex items-center gap-14 absolute left-1/2 transform -translate-x-1/2">
           <ul className="flex items-center gap-2">
             <li>
-              <ItemHeader nome="+Informações" />
+              <ItemHeader
+                nome="+Informações"
+                href="informacoes"
+              />
             </li>
             <li>
-              <ItemHeader nome="Sobre a Empresa" />
+              <ItemHeader
+                nome="Sobre a Empresa"
+                href="sobre"
+              />
             </li>
             <li>
-              <ItemHeader nome="Benefícios" />
+              <ItemHeader
+                nome="Benefícios"
+                href="beneficios"
+              />
             </li>
           </ul>
         </div>
