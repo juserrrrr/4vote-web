@@ -14,13 +14,13 @@ interface ResponsePageProps {
   question: string;
 }
 const ResponsePage: React.FC<ResponsePageProps> = ({
-  title,
-  subtitle,
-  date,
-  acess,
-  description,
-  imageUrl,
-  question,
+  title = 'VOTAÇÃO',
+  subtitle = 'Eleição do Diretorio Academico de Ecomp',
+  date = new Date(),
+  acess = 'Privado',
+  description = 'Essa é uma eleição aprovada pelo conselho para leger os mais novos menbros do DA do curso de ECOMP.',
+  imageUrl = 'https://picsum.photos/300/104',
+  question = 'Quem você escolhe para ser o novo Diretório Acadêmico do curso?',
 }) => {
   const backgraund =
     'flex flex-col w-[1366px] h-[922px] bg-gray-200 justify-center items-center fixed bottom-0 right-0 p-8';
