@@ -15,7 +15,7 @@ export function SectionService() {
           alt="options"
           width={814}
           height={648}
-          className="mt-12"
+          className="mt-12 opacity-100 hover:opacity-95"
         />
         <p className="font-bold text-right text-white w-[300px] text-4xl mr-4 mb-4 self-end">
           Votos únicos com<span className="text-corContraste font-extrabold"> segurança </span>e

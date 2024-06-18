@@ -51,6 +51,12 @@ export function SectionBenefits() {
               </>
             }
           />
+          <button
+            className="text-white bg-corContraste hover:opacity-90 font-extrabold text-3xl rounded-full h-[84px]
+          w-[244px] ml-[230px] mr-6 mt-2"
+          >
+            entrar como convidado
+          </button>
         </div>
       </div>
     </section>

@@ -4,7 +4,7 @@ export function SectionCard() {
   return (
     <section className="min-w-max h-[503px]">
       <ul className="flex justify-between ml-[85px] mr-[75px] gap-16 mt-[100px]">
-        <li>
+        <li className="opacity-100 hover:opacity-90">
           <CardLP
             titulo="Fácil e Intuitivo"
             corTitulo="corPrincipal"
@@ -12,7 +12,7 @@ export function SectionCard() {
             textoDestacadoFinal=" as opiniões."
           />
         </li>
-        <li>
+        <li className="opacity-100 hover:opacity-90">
           <CardLP
             titulo="Design Inovador"
             corTitulo="corSecundaria"
@@ -20,7 +20,7 @@ export function SectionCard() {
             textoDestacadoFinal=" individualidade."
           />
         </li>
-        <li>
+        <li className="opacity-100 hover:opacity-90">
           <CardLP
             titulo="Gratuito"
             corTitulo="corPrincipal"

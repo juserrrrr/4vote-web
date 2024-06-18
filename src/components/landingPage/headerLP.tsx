@@ -13,7 +13,7 @@ export function HeaderLP() {
             height={166}
           />
         </div>
-        <div className="flex items-center gap-14 absolute left-1/2 transform -translate-x-1/2">
+        <div className="hidden lg:flex items-center gap-14 absolute left-1/2 transform -translate-x-1/2">
           <ul className="flex items-center gap-2">
             <li>
               <ItemHeader nome="+Informações" />

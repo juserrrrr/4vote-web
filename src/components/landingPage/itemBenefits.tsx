@@ -8,7 +8,7 @@ type Props = {
 
 export function ItemBenefits({ texto }: Props) {
   return (
-    <div className="flex items-center w-[607px] mt-10">
+    <div className="flex items-center w-[607px] mt-10 opacity-100 hover:opacity-70">
       <Image
         src={check}
         alt="check"
