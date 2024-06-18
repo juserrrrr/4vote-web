@@ -1,24 +1,26 @@
+/* eslint-disable @next/next/no-img-element */
 import React from 'react';
 
 interface InfoAnsProps {
   title: string;
   description: string;
   date: string;
+  hours: string;
   imageUrl: string;
 }
 
-const InfoAns: React.FC<InfoAnsProps> = ({ title, description, date, imageUrl }) => {
+const InfoAns: React.FC<InfoAnsProps> = ({ title, description, date, hours, imageUrl }) => {
   return (
-    <div className="bg-white flex flex-row">
-      <div className="flex flex-col">
-        <span className="font-bold text-corPrincipal text-lg">{title}</span>
+    <div className="flex justify-between items-center">
+      <div className="flex flex-col place-items-start">
+        <span className="font-bold text-corPrincipal text-3xl uppercase">{title}</span>
         <span className="text-corPrincipal text-base">{description}</span>
-        <span className="text-corPrincipal text-sm">{date}</span>
+        <span className="text-corPrincipal text-xs">{'Aberto até o dia ' + date + ' às ' + hours}</span>
       </div>
       <img
         src={imageUrl}
         alt={title}
-        className="w-12 h-12 object-cover"
+        className="justify-self-end w-40 h-40 object-cover"
       />
     </div>
   );
