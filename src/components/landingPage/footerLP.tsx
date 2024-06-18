@@ -7,6 +7,7 @@ import iconPhone from '@/components/landingPage/assets/icon-telefone.svg';
 export function FooterLP() {
   return (
     <footer className="min-w-max bg-custom-gradient-footer h-[252px] bg-no-repeat bg-center bg-cover flex flex-col items-center">
+      <div className="w-full max-w-auto px-[749px] mx-auto flex justify-between"></div>
       <Image
         src={nexus}
         alt="nexus"
