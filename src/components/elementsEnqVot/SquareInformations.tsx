@@ -19,22 +19,23 @@ const SquareInformations: React.FC<SquareInformationsProps> = ({
   description,
   imageUrl,
 }) => {
-  const square = 'w-[1400px] h-[350px]';
-  const title1 = 'text-5xl text-corPrincipal font-bold mb-4';
-  const square2 = 'w-[700x] h-[320px] p-4';
-  const title2 = 'text-4xl text-corPrincipal font-bold mb-5';
-  const title3 = 'text-3xl text-corPrincipal font-bold mb-5';
-  const title4 = 'text-3xl text-corPrincipal font-bold';
-  const title5 = 'text-2xl text-corPrincipal font-sans-pro';
-  const containerClass = 'w-[900px] h-[100] inline-flex';
-  const containerClass2 = 'w-[900px] h-[218px]';
-  const containerClass3 = 'w-[1300] h-[330px] inline-flex bg-gray-100 p-8 rounded-xl justify-center items-center';
+  const backgraund = 'w-[1260px] h-[316px] mt-8';
+  const squareWhite = 'w-[1225px] h-[250px] inline-flex bg-gray-100 rounded-xl justify-center items-center';
+
+  const title1 = 'text-4xl text-corPrincipal font-bold mb-4';
+  const container1 = 'w-[700x] h-[240px] mt-10';
+  const title2 = 'text-3xl text-corPrincipal font-bold mb-2';
+  const title3 = 'text-2xl text-corPrincipal font-bold mb-5';
+  const title4 = 'text-2xl text-corPrincipal font-bold';
+  const title5 = 'text-1xl text-corPrincipal font-sans-pro';
+  const containerClass = 'w-[800px] h-[100] inline-flex';
+  const containerClass2 = 'w-[800px] h-[218px]';
 
   return (
-    <div className={square}>
+    <div className={backgraund}>
       <h1 className={title1}>{title}</h1>
-      <div className={containerClass3}>
-        <div className={square2}>
+      <div className={squareWhite}>
+        <div className={container1}>
           <h1 className={title2}>{subtitle}</h1>
           <div className={containerClass}>
             <h1 className={title3}>Data Limite: {date?.toLocaleDateString('pt-BR')}</h1>
