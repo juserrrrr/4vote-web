@@ -13,6 +13,7 @@ const configMenuItems = {
   className: 'w-7 h-7',
   strokeWidth: 2,
 };
+
 export type IMenuOptions = {
   href: string;
   text: string;
