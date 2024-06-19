@@ -2,14 +2,14 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: 'Recuperar Senha',
-  description: 'Página de Recuperação de Senha',
+  title: 'Envio de Email',
+  description: 'Página de Envio de Email para Recuperar Senha',
 };
 
 export default function EnvioEmail() {
   return (
     <>
-      <div className="h-full flex flex-col justify-center items-center gap-20">
+      <div className="h-full w-full flex flex-col justify-center items-center gap-20">
         <div className="flex flex-col justify-center items-center gap-5 px-10">
           <h2 className="font-bold text-center text-corPrincipal text-3xl">
             Enviamos um link para seu e-mail cadastrado

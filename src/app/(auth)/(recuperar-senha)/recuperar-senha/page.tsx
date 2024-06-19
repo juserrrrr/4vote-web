@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 export default function RecuperarSenha() {
   return (
     <>
-      <div className="flex flex-col gap-20">
+      <div className="h-full w-full flex flex-col justify-center items-center gap-20">
         <div className="flex flex-col text-corPrincipal text-center px-10 gap-10">
           <h2 className="font-bold text-3xl">Esqueci minha senha</h2>
           <p className="text-xl">Informe seu e-mail cadastrado para enviarmos as instruções de redefinição de senha.</p>
