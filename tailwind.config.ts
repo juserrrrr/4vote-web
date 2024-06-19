@@ -12,6 +12,7 @@ const config: Config = {
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+        'custom-gradient-landingpage': 'linear-gradient(90deg, #034F9C 0%, #0372BF 50%, #0282D0 100%)',
       },
       colors: {
         corPrincipal: '#052A76',
@@ -24,6 +25,10 @@ const config: Config = {
       boxShadow: {
         sombraCard: '0px 4px 4px 0px rgba(0, 0, 0, 0.25)',
         sombraHeader: '0px 1px 4px 0px rgba(0, 0, 0, 0.25)',
+        sombraLogin: '4px 4px 20px 0px rgba(0, 0, 0, 0.50)',
+      },
+      height: {
+        percent90: '90vh',
       },
     },
   },
