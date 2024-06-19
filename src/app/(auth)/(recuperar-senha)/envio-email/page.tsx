@@ -1,3 +1,4 @@
+import { CheckBadgeIcon } from '@heroicons/react/24/solid';
 import { Metadata } from 'next';
 import Link from 'next/link';
 
@@ -11,6 +12,7 @@ export default function EnvioEmail() {
     <>
       <div className="h-full w-full flex flex-col justify-center items-center gap-20">
         <div className="flex flex-col justify-center items-center gap-5 px-10">
+          <CheckBadgeIcon className="w-1/2 h-1/2 text-corPrincipal" />
           <h2 className="font-bold text-center text-corPrincipal text-3xl">
             Enviamos um link para seu e-mail cadastrado
           </h2>
