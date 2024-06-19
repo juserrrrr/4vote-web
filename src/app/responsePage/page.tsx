@@ -35,7 +35,7 @@ const ResponsePage: React.FC = () => {
           <div className={container3}>
             <Butao
               texto="VOLTAR"
-              variante="rounded"
+              variant="rounded"
             />
           </div>
         </div>
