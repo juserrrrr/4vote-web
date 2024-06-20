@@ -15,7 +15,7 @@ const ResponsePage: React.FC = () => {
   const backgraund = 'flex flex-col w-[1438px] h-[922px] bg-gray-300 justify-center items-center';
   const container1 = 'w-[1260px] p-5';
   const container2 = 'w-[1260px] p-5';
-  const container3 = 'w-[1238px] h-[10px] flex justify-end p-3';
+  const container3 = 'w-[320px] h-[5px] absolute right-0';
 
   return (
     <div className={'flex justify-center items-center min-h-screen'}>
