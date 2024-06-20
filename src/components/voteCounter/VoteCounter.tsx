@@ -7,7 +7,7 @@ interface VoteCounterProps {
 const VoteCounter: React.FC<VoteCounterProps> = ({ votes }) => {
   return (
     <div className="flex items-center justify-center">
-      <span className="text-sm font-bold text-corPrincipal">TOTAL DE VOTOS: {votes}</span>
+      <span className="text-base font-bold text-corPrincipal">TOTAL DE VOTOS: {votes}</span>
     </div>
   );
 };
