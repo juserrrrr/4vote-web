@@ -12,6 +12,11 @@ const config: Config = {
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+        'custom-gradient-landingpage': 'linear-gradient(to right, #034F9C 0%, #0282DF 50%)',
+        'background-word': "url('../components/landingPage/assets/background-word.svg')",
+        'background-rectangle': "url('../components/landingPage/assets/rectangle-gray.svg')",
+        'background-blue': "url('../components/landingPage/assets/background-blue.svg')",
+        'custom-gradient-footer': 'linear-gradient(to right, #052A76 0%, #02A6F4 100%)',
       },
       colors: {
         corPrincipal: '#052A76',
@@ -20,10 +25,15 @@ const config: Config = {
         corErro: '#FF4444',
         corContraste: '#F3CD4B',
         corNeutro: '#F0F0F0',
+        corBotaoLP: '#0199F4',
       },
       boxShadow: {
         sombraCard: '0px 4px 4px 0px rgba(0, 0, 0, 0.25)',
         sombraHeader: '0px 1px 4px 0px rgba(0, 0, 0, 0.25)',
+        sombraLogin: '4px 4px 20px 0px rgba(0, 0, 0, 0.50)',
+      },
+      height: {
+        percent90: '90vh',
       },
     },
   },

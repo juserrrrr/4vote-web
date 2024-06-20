@@ -1,28 +1,52 @@
-import { Variantes, CoresFundo, CoresTexto, CoresBorda } from './variantes';
+import { ComponentProps } from 'react';
+import { tv, VariantProps } from 'tailwind-variants';
 
-interface ButtonProps {
-  texto: string;
-  variante?: 'default' | 'rounded' | 'outlined';
-  corTexto?: 'primaria' | 'secundaria' | 'terciaria';
-  corFundo?: 'primaria' | 'secundaria' | 'terciaria' | 'transparente';
-}
+const button = tv({
+  base: 'flex w-[222px] h-[56px] px-[34px] justify-center items-center gap-[-2px] shrink-0',
+  variants: {
+    variant: {
+      default: 'rounded-[7px]',
+      rounded: 'rounded-[28px]',
+      outlined: 'rounded-[7px] border-2',
+    },
+    bgColor: {
+      primaria: 'bg-corPrincipal',
+      secundaria: 'bg-corSecundaria',
+      terciaria: 'bg-white',
+      transparente: 'bg-transparent',
+    },
+    textColor: {
+      primaria: 'text-corPrincipal',
+      secundaria: 'text-corSecundaria',
+      terciaria: 'text-white',
+    },
+    borderColor: {
+      primaria: 'border-corPrincipal',
+      secundaria: 'border-corSecundaria',
+      terciaria: 'border-white',
+    },
+  },
+  defaultVariants: {
+    type: 'default',
+    bgColor: 'primaria',
+    textColor: 'terciaria',
+    borderColor: 'primaria',
+  },
+});
 
-function Butao({ texto, variante = 'default', corTexto = 'terciaria', corFundo = 'primaria' }: ButtonProps) {
-  const padraoButao = 'flex w-[222px] h-[56px] px-[34px] justify-center items-center gap-[-2px] shrink-0';
-  const variacaoButao = Variantes[variante];
-  const variacaoCor = CoresTexto[corTexto];
-  const variacaoFundo = CoresFundo[corFundo];
+export type ButtonProps = ComponentProps<'button'> &
+  VariantProps<typeof button> & {
+    texto: string;
+  };
 
-  var variacaoBorda = '';
-  var ativado = false;
-
-  if (variante == 'outlined') {
-    variacaoBorda = CoresBorda[corTexto];
-  }
-
+function Butao({ texto, variant, bgColor, textColor, borderColor, className, ...props }: ButtonProps) {
+  const hover = `hover:bg-opacity-75 transition duration-300 ease-in-out`;
   return (
     <>
-      <button className={`${padraoButao} ${variacaoButao} ${variacaoCor} ${variacaoFundo} ${variacaoBorda}`}>
+      <button
+        className={`${button({ variant, bgColor, textColor, borderColor, className })} ${hover}`}
+        {...props}
+      >
         {texto}
       </button>
     </>

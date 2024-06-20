@@ -1,11 +1,33 @@
-import { HomeIcon, PlusCircleIcon } from '@heroicons/react/24/outline';
+import {
+  ClipboardDocumentCheckIcon,
+  ClipboardDocumentListIcon,
+  ClockIcon,
+  Cog8ToothIcon,
+  DocumentCheckIcon,
+  HomeIcon,
+  InboxArrowDownIcon,
+  PlusCircleIcon,
+} from '@heroicons/react/24/outline';
 
 const configMenuItems = {
   className: 'w-7 h-7',
   strokeWidth: 2,
 };
 
-export const menuItems = [
+export type IMenuOptions = {
+  href: string;
+  text: string;
+  icon: React.ReactNode;
+};
+
+interface IMenuItems {
+  href: string;
+  text: string;
+  icon: React.ReactNode;
+  options?: IMenuOptions[];
+}
+
+export const menuItems: IMenuItems[] = [
   {
     href: '/inicio',
     text: 'Início',
@@ -15,25 +37,29 @@ export const menuItems = [
     href: '/criar',
     text: 'Criar',
     icon: <PlusCircleIcon {...configMenuItems} />,
+    options: [
+      { href: 'criar/votacao', text: 'Votação', icon: <DocumentCheckIcon {...configMenuItems} /> },
+      { href: 'criar/enquete', text: 'Enquete', icon: <ClipboardDocumentListIcon {...configMenuItems} /> },
+    ],
   },
   {
     href: '/participar',
     text: 'Participar',
-    icon: <PlusCircleIcon {...configMenuItems} />,
+    icon: <InboxArrowDownIcon {...configMenuItems} />,
   },
   {
     href: '/historico',
     text: 'Histórico',
-    icon: <PlusCircleIcon {...configMenuItems} />,
+    icon: <ClockIcon {...configMenuItems} />,
   },
   {
     href: '/validar',
     text: 'Validar voto',
-    icon: <PlusCircleIcon {...configMenuItems} />,
+    icon: <ClipboardDocumentCheckIcon {...configMenuItems} />,
   },
   {
     href: '/configuracoes',
     text: 'Configurações',
-    icon: <PlusCircleIcon {...configMenuItems} />,
+    icon: <Cog8ToothIcon {...configMenuItems} />,
   },
 ];
