@@ -14,8 +14,8 @@ const InfoAns: React.FC<InfoAnsProps> = ({ title, description, date, hours, imag
     <div className="flex justify-between items-center">
       <div className="flex flex-col place-items-start">
         <span className="font-bold text-corPrincipal text-3xl uppercase">{title}</span>
-        <span className="text-corPrincipal text-base">{description}</span>
-        <span className="text-corPrincipal text-xs">{'Aberto até o dia ' + date + ' às ' + hours}</span>
+        <span className="text-corPrincipal text-xl">{description}</span>
+        <span className="text-corPrincipal text-base">{'Aberto até o dia ' + date + ' às ' + hours}</span>
       </div>
       <img
         src={imageUrl}
