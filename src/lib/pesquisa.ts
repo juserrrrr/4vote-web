@@ -30,9 +30,9 @@ export function findAllPesquisas() {
 export function createPesquisa() {
   const pesquisa = {
     titulo: 'Título Teste',
-    codigo: '12sj8822dfe',
-    dataCriacao: '',
-    dataTermino: '',
+    codigo: '12sj8822df2',
+    dataCriacao: new Date('2001-08-12').toISOString(),
+    dataTermino: new Date('2006-12-24').toISOString(),
     ehPublico: true,
     criador: 1,
     arquivado: false,
@@ -40,7 +40,20 @@ export function createPesquisa() {
   };
 
   api
-    .create('pesquisas', pesquisa)
+    .post('pesquisas', pesquisa)
+    .then((response: AxiosResponse) => {
+      console.log(response.data);
+      return true;
+    })
+    .catch((error: AxiosError) => {
+      console.log(error);
+      return false;
+    });
+}
+
+export function deletePesquisa(id: number) {
+  api
+    .delete(`pesquisas/${id}`)
     .then((response: AxiosResponse) => {
       console.log(response.data);
       return true;
