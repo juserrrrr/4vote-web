@@ -1,6 +1,26 @@
 import { AxiosError, AxiosResponse } from 'axios';
 import api from './app';
 
+interface Pesquisa {
+  titulo: string;
+  codigo: string;
+  dataCriacao: Date;
+  dataTermino: Date;
+  ehPublico: boolean;
+  descricao?: string;
+  criador: number;
+  arquivado: boolean;
+  URLimagem?: string;
+  ehVotacao: boolean;
+}
+
+function DateToISOString(pesquisa: Pesquisa): { dataCriacao: string; dataTermino: string } {
+  return {
+    dataCriacao: pesquisa.dataCriacao.toISOString(),
+    dataTermino: pesquisa.dataTermino.toISOString(),
+  };
+}
+
 export function setArquivado(id: number) {
   api
     .patch(`pesquisas/arquivar/${id}`)
@@ -27,16 +47,10 @@ export function findAllPesquisas() {
     });
 }
 
-export function createPesquisa() {
-  const pesquisa = {
-    titulo: 'Título Teste',
-    codigo: '12sj8822df2',
-    dataCriacao: new Date('2001-08-12').toISOString(),
-    dataTermino: new Date('2006-12-24').toISOString(),
-    ehPublico: true,
-    criador: 1,
-    arquivado: false,
-    ehVotacao: true,
+export function createPesquisa(pesquisa: Pesquisa) {
+  const pesquisaComDatasISO = {
+    ...pesquisa,
+    ...DateToISOString(pesquisa),
   };
 
   api
