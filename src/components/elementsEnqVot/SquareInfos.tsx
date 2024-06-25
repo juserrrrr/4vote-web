@@ -44,9 +44,9 @@ const SquareInfos: React.FC<SquareInfosProps> = ({ title }) => {
               />
             </div>
           </div>
-          <div className="w-[1188px]">
+          <div className="w-[1188px] h-[100px]">
             <InputCustom
-              label="Descrição"
+              label="Descrição..."
               alturaInput="[100px]"
             />
           </div>
