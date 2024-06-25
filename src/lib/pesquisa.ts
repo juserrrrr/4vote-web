@@ -64,16 +64,3 @@ export function createPesquisa(pesquisa: Pesquisa) {
       return false;
     });
 }
-
-export function deletePesquisa(id: number) {
-  api
-    .delete(`pesquisas/${id}`)
-    .then((response: AxiosResponse) => {
-      console.log(response.data);
-      return true;
-    })
-    .catch((error: AxiosError) => {
-      console.log(error);
-      return false;
-    });
-}
