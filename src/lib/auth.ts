@@ -1,15 +1,18 @@
 import { AxiosError, AxiosResponse } from 'axios';
 import api from './app';
 
-const data = { email: 'joao.silva@gmail.com', password: 'senha552' };
-
-export function entrar() {
-  api
-    .post('/auth/entrar', data)
+export async function entrar(email: string, senha: string) {
+  await api
+    .post('/auth/entrar', { email, senha })
     .then((response: AxiosResponse) => {
-      console.log(response.data);
+      const token = response.data.accessToken;
+      console.log(`Token recebido: ${token}`);
+
+      return token;
     })
     .catch((error: AxiosError) => {
       console.log(error);
+
+      return null;
     });
 }
