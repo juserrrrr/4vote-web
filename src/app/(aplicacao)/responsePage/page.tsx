@@ -12,7 +12,7 @@ const ResponsePage: React.FC = () => {
     'Essa é uma eleição aprovada pelo conselho para leger os mais novos menbros do DA do curso de ECOMP.';
   const imageUrl = 'https://picsum.photos/300/104';
   const question = 'Quem você escolhe para ser o novo Diretório Acadêmico do curso?';
-  const backgraund = 'flex flex-col w-[1366px] h-[922px] bg-gray-200 justify-center items-center';
+  const backgraund = 'flex flex-col w-[1438px] h-[922px] bg-gray-300 justify-center items-center';
   const container1 = 'w-[1260px] p-5';
   const container2 = 'w-[1260px] p-5';
   const container3 = 'w-[320px] h-[5px] absolute right-0';
