@@ -22,7 +22,6 @@ export default function Login() {
   const router = useRouter();
 
   const sendSignIn = (email: any, senha: any) => {
-
     axiosClient
       .post('/auth/entrar', {
         email: email,
