@@ -9,7 +9,7 @@ export default function LayoutAuthenticated({
   modal: React.ReactNode;
 }>) {
   return (
-    <div className="flex h-screen bg-corNeutro">
+    <div className="flex h-full bg-corNeutro">
       <Header usuarioLogado={false} />
       <MenuContainer>{children}</MenuContainer>
       {modal}
