@@ -8,7 +8,7 @@ interface ModalProps {
   onClose: () => void;
 }
 
-const Modal: React.FC<ModalProps> = ({ isOpen, onClose, variante }) => {
+const ModalFilters: React.FC<ModalProps> = ({ isOpen, onClose, variante }) => {
   const Filters = variante === 'filtrar' ? Filter : Order;
   const text = variante === 'filtrar' ? 'Filtros:' : 'Ordenar por:';
 
@@ -41,4 +41,4 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, variante }) => {
   );
 };
 
-export default Modal;
+export default ModalFilters;

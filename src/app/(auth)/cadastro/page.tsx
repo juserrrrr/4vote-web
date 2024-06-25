@@ -4,7 +4,8 @@ import InputCustom from '@/components/InputCustom/InputCustom';
 import Butao from '@/components/buttons/button';
 import { Metadata } from 'next';
 import clsx from 'clsx';
-import { axiosClient, getCookie, setCookie } from '../../../../lib';
+import { getCookie, setCookie } from '@/lib/auth';
+import api from '@/lib/app';
 
 // retirei o export daqui
 const metadata: Metadata = {
@@ -41,7 +42,7 @@ export default function Cadastro() {
       return;
     }
 
-    axiosClient
+    api
       .post('/auth/cadastro', {
         email: email,
         senha: senha,

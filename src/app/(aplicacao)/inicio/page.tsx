@@ -1,8 +1,7 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import FilterButton from '@/components/buttonFilter/FilterButton';
 import { Card } from '@/components/card/card';
-import { axiosClient, getCookie, getCurrentUserId } from '../../../../lib';
 
 type Variant = 'VOTAÇÃO' | 'ENQUETE';
 
@@ -12,97 +11,77 @@ const cards = [
     description: 'Descrição da enquete 1',
     variant: 'VOTAÇÃO' as Variant,
     hashtags: ['tag1', 'tag2'],
-    imageUrl: 'url1',
+    imageUrl: 'https://picsum.photos/300/200',
   },
   {
     title: 'Enquete 2',
     description: 'Descrição da enquete 2',
     variant: 'ENQUETE' as Variant,
     hashtags: ['tag1', 'tag2'],
-    imageUrl: 'url2',
+    imageUrl: 'https://picsum.photos/300/200',
   },
   {
     title: 'Enquete 3',
     description: 'Descrição da enquete 3',
     variant: 'VOTAÇÃO' as Variant,
     hashtags: ['tag1', 'tag2'],
-    imageUrl: 'url3',
+    imageUrl: 'https://picsum.photos/300/200',
   },
   {
     title: 'Enquete 4',
     description: 'Descrição da enquete 4',
     variant: 'ENQUETE' as Variant,
     hashtags: ['tag1', 'tag2'],
-    imageUrl: 'url4',
+    imageUrl: 'https://picsum.photos/300/200',
   },
   {
     title: 'Enquete 5',
     description: 'Descrição da enquete 5',
     variant: 'VOTAÇÃO' as Variant,
     hashtags: ['tag1', 'tag2'],
-    imageUrl: '5',
+    imageUrl: 'https://picsum.photos/300/200',
   },
   {
     title: 'Enquete 6',
     description: 'Descrição da enquete 6',
     variant: 'ENQUETE' as Variant,
     hashtags: ['tag1', 'tag2'],
-    imageUrl: 'url6',
+    imageUrl: 'https://picsum.photos/300/200',
   },
   {
     title: 'Enquete 7',
     description: 'Descrição da enquete 7',
     variant: 'VOTAÇÃO' as Variant,
     hashtags: ['tag1', 'tag2'],
-    imageUrl: 'url7',
+    imageUrl: 'https://picsum.photos/300/200',
   },
   {
     title: 'Enquete 8',
     description: 'Descrição da enquete 8',
     variant: 'ENQUETE' as Variant,
     hashtags: ['tag1', 'tag2'],
-    imageUrl: 'url8',
+    imageUrl: 'https://picsum.photos/300/200',
   },
   {
     title: 'Enquete 9',
     description: 'Descrição da enquete 9',
     variant: 'VOTAÇÃO' as Variant,
     hashtags: ['tag1', 'tag2'],
-    imageUrl: 'url9',
+    imageUrl: 'https://picsum.photos/300/200',
   },
   {
     title: 'Enquete 10',
     description: 'Descrição da enquete 10',
     variant: 'ENQUETE' as Variant,
     hashtags: ['tag1', 'tag2'],
-    imageUrl: 'url10',
+    imageUrl: 'https://picsum.photos/300/200',
   },
 ];
 
 export default function HomePage() {
-  const [nomeUser, setNewNomeUser] = useState('Estou no início');
-
-  // Para rodar assim que a página iniciar
-  useEffect(() => {
-    const userId = getCurrentUserId();
-    const token = getCookie('accessToken');
-
-    if (userId != null) {
-      axiosClient
-        .get('/usuarios/' + userId, { headers: { Authorization: `Bearer ${token}` } })
-        .then((res) => {
-          setNewNomeUser('Bem-vindo ' + res.data.nome + '!');
-        })
-        .catch((err) => {
-          return null;
-        });
-    }
-  }, []);
-
   return (
     <div className="main">
       <main>
-        <h2 className=" bg-corNeutro">{nomeUser}</h2>
         <div className="flex flex-col justify-center items-center px-16 py-6 gap-6 text-corPrincipal">
           <div className="flex flex-col w-full justify-start">
             <h1 className="text-4xl font-bold">Início</h1>
