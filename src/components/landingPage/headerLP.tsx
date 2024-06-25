@@ -1,27 +1,41 @@
+import Image from 'next/image';
 import { ItemHeader } from './itemHeader';
-import { Logo4vote } from '../header/logo4vote';
 
 export function HeaderLP() {
   return (
-    <header className="flex items-center w-full h-20 bg-white">
+    <header className="flex items-center w-full h-20 fixed bg-white z-10">
       <div className="w-full max-w-auto px-[15px] mx-auto flex items-center justify-between">
-        <div className="flex items-center">
-          <Logo4vote />
+        <div className="flex items-center ml-7 mr-auto">
+          <Image
+            src={'/imagens/4vote-principal.png'}
+            alt="Logo"
+            width={166}
+            height={166}
+          />
         </div>
-        <div className="flex items-center gap-14 absolute left-1/2 transform -translate-x-1/2">
+        <div className="hidden lg:flex items-center gap-14 absolute left-1/2 transform -translate-x-1/2">
           <ul className="flex items-center gap-2">
             <li>
-              <ItemHeader nome="+Informações" />
+              <ItemHeader
+                nome="+Informações"
+                href="informacoes"
+              />
             </li>
             <li>
-              <ItemHeader nome="Sobre a Empresa" />
+              <ItemHeader
+                nome="Sobre a Empresa"
+                href="sobre"
+              />
             </li>
             <li>
-              <ItemHeader nome="Benefícios" />
+              <ItemHeader
+                nome="Benefícios"
+                href="beneficios"
+              />
             </li>
           </ul>
         </div>
-        <div className="flex items-center ml-auto">
+        <div className="flex items-center ml-auto mr-7">
           <div className="flex flex-col items-center mr-1">
             <span className="text-corPrincipal mb-1 text-xs">Já tem uma conta?</span>
             <button className="bg-custom-gradient-landingpage flex items-center gap-2 px-6 py-1 rounded-full">

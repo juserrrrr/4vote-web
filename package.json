@@ -10,14 +10,17 @@
   },
   "dependencies": {
     "@heroicons/react": "^2.1.3",
+    "axios": "^1.7.2",
+    "clsx": "^2.1.1",
+    "jwt-decode": "^4.0.0",
     "next": "14.2.3",
     "react": "^18",
     "react-dom": "^18",
     "tailwind-variants": "^0.2.1"
   },
   "devDependencies": {
-    "@types/node": "^20",
-    "@types/react": "^18",
+    "@types/node": "20.14.6",
+    "@types/react": "18.3.3",
     "@types/react-dom": "^18",
     "autoprefixer": "^10.4.19",
     "eslint": "^8",
