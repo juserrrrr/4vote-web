@@ -4,11 +4,13 @@ import icon1 from './icon/VectorBlue.png';
 import icon2 from './icon/VectorRed.png';
 import Image from 'next/image';
 
+type Variant = 'VOTAÇÃO' | 'ENQUETE';
+
 interface CardProps {
   title: string;
   description: string;
-  variant: 'VOTAÇÃO' | 'ENQUETE';
-  hashtags: string;
+  variant: Variant;
+  hashtags: string[];
   imageUrl: string;
 }
 
