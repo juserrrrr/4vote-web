@@ -4,7 +4,6 @@ import InputCustom from '@/components/InputCustom/InputCustom';
 import Butao from '@/components/buttons/button';
 import { Metadata } from 'next';
 import clsx from 'clsx';
-import { getCookie, setCookie } from '@/lib/auth';
 import api from '@/lib/app';
 
 // retirei o export daqui
@@ -49,7 +48,7 @@ export default function Cadastro() {
         cpf: cpf,
         nome: nome,
       })
-      .then((res) => {
+      .then((res: any) => {
         setNewAlerta('Cadastro efetuado com sucesso!');
         setNewShowAlerta(true);
 
@@ -57,7 +56,7 @@ export default function Cadastro() {
           setNewShowAlerta(false);
         }, 3000);
       })
-      .catch((err) => {
+      .catch((err: any) => {
         setNewAlerta('Não foi possível realizar o cadastro');
         setNewShowAlerta(true);
 
