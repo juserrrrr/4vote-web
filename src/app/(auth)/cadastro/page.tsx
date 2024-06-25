@@ -6,6 +6,7 @@ import { Metadata } from 'next';
 import clsx from 'clsx';
 import api from '@/lib/api';
 import { authService } from '@/lib/auth';
+import { triggerAsyncId } from 'async_hooks';
 
 // retirei o export daqui
 const metadata: Metadata = {
@@ -22,7 +23,7 @@ export default function Cadastro() {
   const [alerta, setNewAlerta] = useState('Senhas não conferem');
   const [showAlerta, setNewShowAlerta] = useState(false);
 
-  const sendSignUp = (email: any, senha: any, confSenha: any, cpf: any, nome: any) => {
+  const sendSignUp = async (email: any, senha: any, confSenha: any, cpf: any, nome: any) => {
     if (confSenha != senha) {
       setNewAlerta('Senhas não conferem');
       setNewShowAlerta(true);
@@ -42,7 +43,7 @@ export default function Cadastro() {
       return;
     }
 
-    const data = authService.cadastrar({ nome, email, senha, cpf });
+    const data = await authService.cadastrar({ nome, email, senha, cpf });
     if (data instanceof Error) {
       setNewAlerta('Não foi possível realizar o cadastro');
       setNewShowAlerta(true);
