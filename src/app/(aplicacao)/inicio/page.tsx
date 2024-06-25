@@ -79,9 +79,29 @@ const cards = [
 ];
 
 export default function HomePage() {
+  const [nomeUser, setNewNomeUser] = useState('Estou no início');
+
+  // Para rodar assim que a página iniciar
+  useEffect(() => {
+    const userId = getCurrentUserId();
+    const token = getCookie('accessToken');
+
+    if (userId != null) {
+      axiosClient
+        .get('/usuarios/' + userId, { headers: { Authorization: `Bearer ${token}` } })
+        .then((res) => {
+          setNewNomeUser('Bem-vindo ' + res.data.nome + '!');
+        })
+        .catch((err) => {
+          return null;
+        });
+    }
+  }, []);
+  
   return (
     <div className="main">
       <main>
+        <h2 className=" bg-corNeutro">{nomeUser}</h2>
         <div className="flex flex-col justify-center items-center px-16 py-6 gap-6 text-corPrincipal">
           <div className="flex flex-col w-full justify-start">
             <h1 className="text-4xl font-bold">Início</h1>
