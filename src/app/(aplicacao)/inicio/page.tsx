@@ -1,7 +1,8 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import FilterButton from '@/components/buttonFilter/FilterButton';
 import { Card } from '@/components/card/card';
+import { axiosClient, getCookie, getCurrentUserId } from '../../../../lib';
 
 type Variant = 'VOTAÇÃO' | 'ENQUETE';
 
@@ -97,7 +98,7 @@ export default function HomePage() {
         });
     }
   }, []);
-  
+
   return (
     <div className="main">
       <main>
