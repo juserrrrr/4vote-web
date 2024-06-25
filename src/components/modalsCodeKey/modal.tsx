@@ -37,24 +37,22 @@ const Modal: React.FC<ModalInterface> = ({ isOpen, closeModal, title, subtitle, 
           ></InputCustom>
         </div>
         <div className="absolute bottom-4 right-8 flex justify-end items-end flex-1 self-stretch font-sans">
-          <button onClick={closeModal}>
-            <Butao
-              texto={'SAIR'}
-              variant="rounded"
-              textColor="primaria"
-              bgColor="transparente"
-              className="text-corErro text-[15px] flex w-[120px] h-[37px] py-0 pr-58 px-[38px] justify-center items-center font-bold gap-0.5 pl-1"
-            ></Butao>
-          </button>
-          <button onClick={closeModal}>
-            <Butao
-              texto={'CONFIRMAR'}
-              variant="outlined"
-              textColor="terciaria"
-              bgColor="transparente"
-              className="w-[120px] h-[37px] text-corPrincipal font-bold font-sans"
-            ></Butao>
-          </button>
+          <Butao
+            onClick={closeModal}
+            texto={'SAIR'}
+            variant="rounded"
+            textColor="primaria"
+            bgColor="transparente"
+            className="text-corErro text-[15px] flex w-[120px] h-[37px] py-0 pr-58 px-[38px] justify-center items-center font-bold gap-0.5 pl-1"
+          ></Butao>
+          <Butao
+            onClick={closeModal}
+            texto={'CONFIRMAR'}
+            variant="outlined"
+            textColor="terciaria"
+            bgColor="transparente"
+            className="w-[120px] h-[37px] text-corPrincipal font-bold font-sans"
+          ></Butao>
         </div>
       </div>
     </div>
