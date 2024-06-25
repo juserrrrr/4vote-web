@@ -1,3 +1,14 @@
+import { jwtDecode } from 'jwt-decode';
+
+type payloadUser = {
+  exp: number;
+  iat: number;
+  id: number;
+  iss: string;
+  nome: string;
+  sub: string;
+};
+
 export function setCookie(name: string, val: string) {
   const date = new Date();
   const value = val;

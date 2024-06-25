@@ -4,9 +4,10 @@ import InputCustom from '@/components/InputCustom/InputCustom';
 import Butao from '@/components/buttons/button';
 import { Metadata } from 'next';
 import Link from 'next/link';
-import { entrar, setCookie } from '@/lib/auth';
 import clsx from 'clsx';
 import { useRouter } from 'next/navigation';
+import { authService } from '@/lib/auth';
+import { setCookie } from '@/lib/utils';
 
 // retirei o export daqui
 const metadata: Metadata = {
@@ -22,17 +23,16 @@ export default function Login() {
   const router = useRouter();
 
   const sendSignIn = async (email: string, senha: string) => {
-    const token = await entrar(email, senha);
-
-    if (token) {
-      setCookie('accessToken', token);
-      router.push('/inicio');
-    } else {
+    const data = await authService.entrar(email, senha);
+    if (data instanceof Error) {
       setNewShowAlerta(true);
       setTimeout(() => {
         setNewShowAlerta(false);
       }, 3000);
+      return;
     }
+    setCookie('accessToken', data.accessToken);
+    router.push('/inicio');
   };
 
   return (

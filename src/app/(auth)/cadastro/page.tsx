@@ -4,7 +4,8 @@ import InputCustom from '@/components/InputCustom/InputCustom';
 import Butao from '@/components/buttons/button';
 import { Metadata } from 'next';
 import clsx from 'clsx';
-import api from '@/lib/app';
+import api from '@/lib/api';
+import { authService } from '@/lib/auth';
 
 // retirei o export daqui
 const metadata: Metadata = {
@@ -41,29 +42,22 @@ export default function Cadastro() {
       return;
     }
 
-    api
-      .post('/auth/cadastro', {
-        email: email,
-        senha: senha,
-        cpf: cpf,
-        nome: nome,
-      })
-      .then((res: any) => {
-        setNewAlerta('Cadastro efetuado com sucesso!');
-        setNewShowAlerta(true);
+    const data = authService.cadastrar({ nome, email, senha, cpf });
+    if (data instanceof Error) {
+      setNewAlerta('Não foi possível realizar o cadastro');
+      setNewShowAlerta(true);
 
-        setTimeout(() => {
-          setNewShowAlerta(false);
-        }, 3000);
-      })
-      .catch((err: any) => {
-        setNewAlerta('Não foi possível realizar o cadastro');
-        setNewShowAlerta(true);
+      setTimeout(() => {
+        setNewShowAlerta(false);
+      }, 3000);
+      return;
+    }
+    setNewAlerta('Cadastro efetuado com sucesso!');
+    setNewShowAlerta(true);
 
-        setTimeout(() => {
-          setNewShowAlerta(false);
-        }, 3000);
-      });
+    setTimeout(() => {
+      setNewShowAlerta(false);
+    }, 3000);
   };
 
   return (
