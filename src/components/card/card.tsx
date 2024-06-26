@@ -16,22 +16,10 @@ interface CardProps {
 
 export const Card: React.FC<CardProps> = ({ title, description, variant, hashtags, imageUrl }) => {
   const cardStyles = 'bg-white w-300 h-250 rounded-lg shadow-md flex flex-col mx-2 my-1';
-  // Função para renderizar o ícone com base na variante
 
-  const colorLine = () => {
-    return variant === 'VOTAÇÃO' ? (
-      <p className="rounded-t-lg bg-red-600 text-transparent text-xs h-3">linha</p>
-    ) : (
-      <p className="rounded-t-lg bg-blue-700 text-transparent text-xs h-3">linha</p>
-    );
-  };
   return (
     <div className={cardStyles}>
-      <p
-        className={`rounded-t-lg ${variant === 'ENQUETE' ? 'bg-blue-700' : 'bg-red-600'} text-transparent text-xs h-3`}
-      >
-        linha
-      </p>
+      <div className={`rounded-t-lg h-3 ${variant === 'ENQUETE' ? 'bg-blue-700' : 'bg-red-600'}`} />
       <img
         src={imageUrl}
         alt="Card Image"
