@@ -26,7 +26,7 @@ function ButtonMenu({ href, icon, expanded, text, options, toggleSidebar, ...res
     !expanded && toggleSidebar();
   };
   return (
-    <div className="flex flex-row items-center relative group whitespace-nowrap">
+    <div className="flex flex-row items-center relative group whitespace-nowrap z-20">
       <div className="flex flex-col">
         <Link
           href={options ? '#' : href}

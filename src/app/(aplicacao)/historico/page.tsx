@@ -12,70 +12,70 @@ const cards = [
     description: 'Descrição da enquete 1',
     variant: 'VOTAÇÃO' as Variant,
     hashtags: ['tag1', 'tag2'],
-    imageUrl: 'https://picsum.photos/300/200',
+    imageUrl: 'https://picsum.photos/300/300',
   },
   {
     title: 'Enquete 2',
     description: 'Descrição da enquete 2',
     variant: 'ENQUETE' as Variant,
     hashtags: ['tag1', 'tag2'],
-    imageUrl: 'https://picsum.photos/300/200',
+    imageUrl: 'https://picsum.photos/300/300',
   },
   {
     title: 'Enquete 3',
     description: 'Descrição da enquete 3',
     variant: 'VOTAÇÃO' as Variant,
     hashtags: ['tag1', 'tag2'],
-    imageUrl: 'https://picsum.photos/300/200',
+    imageUrl: 'https://picsum.photos/300/300',
   },
   {
     title: 'Enquete 4',
     description: 'Descrição da enquete 4',
     variant: 'ENQUETE' as Variant,
     hashtags: ['tag1', 'tag2'],
-    imageUrl: 'https://picsum.photos/300/200',
+    imageUrl: 'https://picsum.photos/300/300',
   },
   {
     title: 'Enquete 5',
     description: 'Descrição da enquete 5',
     variant: 'VOTAÇÃO' as Variant,
     hashtags: ['tag1', 'tag2'],
-    imageUrl: 'https://picsum.photos/300/200',
+    imageUrl: 'https://picsum.photos/300/300',
   },
   {
     title: 'Enquete 6',
     description: 'Descrição da enquete 6',
     variant: 'ENQUETE' as Variant,
     hashtags: ['tag1', 'tag2'],
-    imageUrl: 'https://picsum.photos/300/200',
+    imageUrl: 'https://picsum.photos/300/300',
   },
   {
     title: 'Enquete 7',
     description: 'Descrição da enquete 7',
     variant: 'VOTAÇÃO' as Variant,
     hashtags: ['tag1', 'tag2'],
-    imageUrl: 'https://picsum.photos/300/200',
+    imageUrl: 'https://picsum.photos/300/300',
   },
   {
     title: 'Enquete 8',
     description: 'Descrição da enquete 8',
     variant: 'ENQUETE' as Variant,
     hashtags: ['tag1', 'tag2'],
-    imageUrl: 'https://picsum.photos/300/200',
+    imageUrl: 'https://picsum.photos/300/300',
   },
   {
     title: 'Enquete 9',
     description: 'Descrição da enquete 9',
     variant: 'VOTAÇÃO' as Variant,
     hashtags: ['tag1', 'tag2'],
-    imageUrl: 'https://picsum.photos/300/200',
+    imageUrl: 'https://picsum.photos/300/300',
   },
   {
     title: 'Enquete 10',
     description: 'Descrição da enquete 10',
     variant: 'ENQUETE' as Variant,
     hashtags: ['tag1', 'tag2'],
-    imageUrl: 'https://picsum.photos/300/200',
+    imageUrl: 'https://picsum.photos/300/300',
   },
 ];
 
@@ -84,7 +84,7 @@ export default function HomePage() {
   const [isOpenFiltrar, setIsOpenFiltrar] = React.useState(false);
 
   return (
-    <div className="main">
+    <div>
       <ModalFilters
         variante="ordenar"
         isOpen={isOpenOrdenar}
@@ -120,16 +120,20 @@ export default function HomePage() {
               variante="filtrar"
             />
           </div>
-          <div className="flex flex-row flex-wrap justify-start content-between gap-9 ">
+          <div className="w-full flex flex-row flex-wrap justify-start gap-9 ">
             {cards.map((card, index) => (
-              <Card
+              <div
                 key={index}
-                title={card.title}
-                description={card.description}
-                variant={card.variant}
-                hashtags={card.hashtags}
-                imageUrl={card.imageUrl}
-              />
+                className="flex-grow max-w-80 z-10"
+              >
+                <Card
+                  title={card.title}
+                  description={card.description}
+                  variant={card.variant}
+                  hashtags={card.hashtags}
+                  imageUrl={card.imageUrl}
+                />
+              </div>
             ))}
           </div>
         </div>

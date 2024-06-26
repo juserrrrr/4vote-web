@@ -20,12 +20,12 @@ export const Card: React.FC<CardProps> = ({ title, description, variant, hashtag
       {/* Barra com cor do topo */}
       <div className={`rounded-t-lg h-3 ${variant === 'ENQUETE' ? 'bg-blue-700' : 'bg-red-600'}`} />
       {/* Div para colocar a imagem no tamanho certo */}
-      <div className="relative h-48 w-full">
+      <div className="relative h-72 w-full ">
         <Image
           src={imageUrl}
           fill
           alt="Imagem da enquete"
-          objectFit={'cover'}
+          className="object-cover"
         />
       </div>
       <div>
@@ -33,7 +33,7 @@ export const Card: React.FC<CardProps> = ({ title, description, variant, hashtag
         <p className="text-sm font-bold mx-3">{description}</p>
       </div>
       <div className="h-full flex flex-col justify-end">
-        <div className="flex items-center justify-center">
+        <div className="flex items-center justify-center z-10">
           <Image
             src={variant === 'ENQUETE' ? icon1 : icon2}
             alt="Icon"

@@ -3,7 +3,6 @@ import React from 'react';
 import FilterButton from '@/components/buttonFilter/FilterButton';
 import { Card } from '@/components/card/card';
 import ModalFilters from '@/components/modalsFilters/modal';
-import { Modern_Antiqua } from 'next/font/google';
 
 type Variant = 'VOTAÇÃO' | 'ENQUETE';
 
@@ -13,70 +12,70 @@ const cards = [
     description: 'Descrição da enquete 1',
     variant: 'VOTAÇÃO' as Variant,
     hashtags: ['tag1', 'tag2'],
-    imageUrl: 'https://picsum.photos/300/200',
+    imageUrl: 'https://picsum.photos/400/300',
   },
   {
     title: 'Enquete 2',
     description: 'Descrição da enquete 2',
     variant: 'ENQUETE' as Variant,
     hashtags: ['tag1', 'tag2'],
-    imageUrl: 'https://picsum.photos/300/200',
+    imageUrl: 'https://picsum.photos/400/300',
   },
   {
     title: 'Enquete 3',
     description: 'Descrição da enquete 3',
     variant: 'VOTAÇÃO' as Variant,
     hashtags: ['tag1', 'tag2'],
-    imageUrl: 'https://picsum.photos/300/200',
+    imageUrl: 'https://picsum.photos/400/300',
   },
   {
     title: 'Enquete 4',
     description: 'Descrição da enquete 4',
     variant: 'ENQUETE' as Variant,
     hashtags: ['tag1', 'tag2'],
-    imageUrl: 'https://picsum.photos/300/200',
+    imageUrl: 'https://picsum.photos/400/300',
   },
   {
     title: 'Enquete 5',
     description: 'Descrição da enquete 5',
     variant: 'VOTAÇÃO' as Variant,
     hashtags: ['tag1', 'tag2'],
-    imageUrl: 'https://picsum.photos/300/200',
+    imageUrl: 'https://picsum.photos/400/300',
   },
   {
     title: 'Enquete 6',
     description: 'Descrição da enquete 6',
     variant: 'ENQUETE' as Variant,
     hashtags: ['tag1', 'tag2'],
-    imageUrl: 'https://picsum.photos/300/200',
+    imageUrl: 'https://picsum.photos/400/300',
   },
   {
     title: 'Enquete 7',
     description: 'Descrição da enquete 7',
     variant: 'VOTAÇÃO' as Variant,
     hashtags: ['tag1', 'tag2'],
-    imageUrl: 'https://picsum.photos/300/200',
+    imageUrl: 'https://picsum.photos/400/300',
   },
   {
     title: 'Enquete 8',
     description: 'Descrição da enquete 8',
     variant: 'ENQUETE' as Variant,
     hashtags: ['tag1', 'tag2'],
-    imageUrl: 'https://picsum.photos/300/200',
+    imageUrl: 'https://picsum.photos/400/300',
   },
   {
     title: 'Enquete 9',
     description: 'Descrição da enquete 9',
     variant: 'VOTAÇÃO' as Variant,
     hashtags: ['tag1', 'tag2'],
-    imageUrl: 'https://picsum.photos/300/200',
+    imageUrl: 'https://picsum.photos/400/300',
   },
   {
     title: 'Enquete 10',
     description: 'Descrição da enquete 10',
     variant: 'ENQUETE' as Variant,
     hashtags: ['tag1', 'tag2'],
-    imageUrl: 'https://picsum.photos/300/200',
+    imageUrl: 'https://picsum.photos/400/300',
   },
 ];
 
@@ -86,6 +85,16 @@ export default function HomePage() {
 
   return (
     <div className="main">
+      <ModalFilters
+        variante="ordenar"
+        isOpen={isOpenOrdenar}
+        onClose={() => setIsOpenOrdenar(false)}
+      />
+      <ModalFilters
+        variante="filtrar"
+        isOpen={isOpenFiltrar}
+        onClose={() => setIsOpenFiltrar(false)}
+      />
       <main>
         <div className="flex flex-col justify-center items-center px-16 py-6 gap-6 text-corPrincipal">
           <div className="flex flex-col w-full justify-start">

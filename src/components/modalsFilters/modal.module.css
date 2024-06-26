@@ -8,6 +8,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 30;
 }
 
 .modal {
@@ -15,16 +16,16 @@
   display: flex;
   width: 280px;
   border-radius: 5px;
-  border: 2px solid #052A76;
+  border: 2px solid #052a76;
   height: 310px;
   padding: 28px 10px 14px 24px;
   flex-direction: column;
   align-items: flex-start;
   gap: 38px;
   border-radius: 7px;
-  background: #FFF;
+  background: #fff;
+  z-index: 40;
 }
-
 
 .h2 {
   color: #052a76;
@@ -43,8 +44,8 @@
 }
 
 .modalButton {
-  position: absolute; 
-  bottom: 14px;       
+  position: absolute;
+  bottom: 14px;
   right: 10px;
   display: flex;
   justify-content: flex-end;
@@ -61,7 +62,7 @@
   align-items: center;
   gap: 10px;
   flex-shrink: 0;
-  }
+}
 
 .button {
   display: flex;
@@ -70,7 +71,7 @@
   width: 120px;
   height: 37px;
   border-radius: 7px;
-  border: 2px solid #052A76;
+  border: 2px solid #052a76;
 }
 
 .textButton {
