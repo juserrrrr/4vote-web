@@ -86,16 +86,6 @@ export default function HomePage() {
 
   return (
     <div className="main">
-      <ModalFilters
-        variante="ordenar"
-        isOpen={isOpenOrdenar}
-        onClose={() => setIsOpenOrdenar(false)}
-      />
-      <ModalFilters
-        variante="filtrar"
-        isOpen={isOpenFiltrar}
-        onClose={() => setIsOpenFiltrar(false)}
-      />
       <main>
         <div className="flex flex-col justify-center items-center px-16 py-6 gap-6 text-corPrincipal">
           <div className="flex flex-col w-full justify-start">
@@ -119,16 +109,20 @@ export default function HomePage() {
               variante="filtrar"
             />
           </div>
-          <div className="flex flex-row flex-wrap justify-start content-between gap-9 ">
+          <div className="w-full flex flex-row flex-wrap justify-start gap-9 ">
             {cards.map((card, index) => (
-              <Card
+              <div
                 key={index}
-                title={card.title}
-                description={card.description}
-                variant={card.variant}
-                hashtags={card.hashtags}
-                imageUrl={card.imageUrl}
-              />
+                className="flex-grow max-w-80"
+              >
+                <Card
+                  title={card.title}
+                  description={card.description}
+                  variant={card.variant}
+                  hashtags={card.hashtags}
+                  imageUrl={card.imageUrl}
+                />
+              </div>
             ))}
           </div>
         </div>
