@@ -5,10 +5,12 @@ interface InputCustomProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   error?: boolean;
   helperText?: string;
+  alturaInput?: string;
+  larguraInput?: string;
 }
 
 const InputCustom = forwardRef<HTMLInputElement, InputCustomProps>(function InputCustom(
-  { label = '', helperText, error = false, ...restProps }: InputCustomProps,
+  { label = '', alturaInput = '10', larguraInput = 'full', helperText, error = false, ...restProps }: InputCustomProps,
   ref,
 ) {
   const [isFocused, setisFocused] = useState<Boolean>(false);
@@ -25,7 +27,7 @@ const InputCustom = forwardRef<HTMLInputElement, InputCustomProps>(function Inpu
   };
 
   return (
-    <div className="flex flex-col relative w-full p-1 h-auto">
+    <div className={`flex flex-col relative w-${larguraInput} p-1 h-auto`}>
       <label
         htmlFor={inputId}
         className={`left-3 top-6 absolute transition-all duration-200 text-blue-950 font-bold text-md pointer-events-none 
@@ -35,7 +37,7 @@ const InputCustom = forwardRef<HTMLInputElement, InputCustomProps>(function Inpu
       </label>
       <input
         id={inputId}
-        className={`p-2 h-10 mt-3 rounded-md text-blue-950 
+        className={`p-2 h-${alturaInput} mt-3 rounded-md text-blue-950 
         border-2  border-solid border-blue-950 focus:outline-none focus:border-blue-900
         ${error && 'border-red-600 focus:border-red-600'}`}
         ref={ref}
