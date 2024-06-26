@@ -6,7 +6,7 @@ import InputCustom from '@/components/InputCustom/InputCustom';
 import SingleSelect from '../selectBox';
 
 interface SquareInfosProps {
-  title?: 'CONFIGURAÇÃO DA VOTAÇÃO' | 'CONFIGURAÇÃO DA ENQUENTE';
+  title?: 'CRIAR VOTAÇÃO' | 'CRIAR ENQUETE';
 }
 
 const options = [
@@ -16,7 +16,7 @@ const options = [
 
 const SquareInfos: React.FC<SquareInfosProps> = ({ title }) => {
   const backgraund = 'w-[1260px] h-[316px]';
-  const squareWhite = 'w-[1225px] h-[250px] p-5 inline-flex bg-gray-100 rounded-xl ';
+  const squareWhite = 'w-[1225px] h-[250px] p-5 inline-flex bg-white rounded-xl ';
 
   const title1 = 'text-4xl text-corPrincipal font-bold mb-4';
   const [selectedValue, setSelectedValue] = useState<string>('');

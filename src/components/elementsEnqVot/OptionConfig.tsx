@@ -1,6 +1,7 @@
 import React from 'react';
 import { renderToPipeableStream } from 'react-dom/server';
 import InputCustom from '@/components/InputCustom/InputCustom';
+import IconButton from '../IconButton/IconButton';
 
 interface OptionConfigPropos {
   title: string;
@@ -48,7 +49,11 @@ const OptionConfig: React.FC<OptionConfigPropos> = ({ title }) => {
   );
   return (
     <div className={backgraund}>
-      <IconX />
+      <IconButton
+        icon={<IconX />}
+        ariaLabel="Fechar"
+        onClick={() => console.log('Icon X clicked')}
+      />
       <InputCustom
         label={title}
         alturaInput="[60px]"
@@ -56,7 +61,11 @@ const OptionConfig: React.FC<OptionConfigPropos> = ({ title }) => {
       <div className="inline-flex">
         <h2 className="font-semibold mt-3 ml-10 mr-5 text-corPrincipal"> Enviar Imagem</h2>
         <div className="mt-4">
-          <IconSend />
+          <IconButton
+            icon={<IconSend />}
+            ariaLabel="Enviar Imagem"
+            onClick={() => console.log('Icon Send clicked')}
+          />
         </div>
       </div>
     </div>

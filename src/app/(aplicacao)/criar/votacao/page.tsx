@@ -4,8 +4,8 @@ import Butao from '@/components/buttons/button';
 import SquareOptions from '@/components/elementsEnqVot/SquareOptions';
 
 const CreatePage: React.FC = () => {
-  const title = 'CONFIGURAÇÃO DA VOTAÇÃO';
-  const backgraund = 'flex flex-col w-[1438px] h-[922px] bg-gray-300 justify-center items-center';
+  const title = 'CRIAR VOTAÇÃO';
+  const backgraund = 'flex flex-col w-[1438px] h-[1000px] justify-center items-center';
   const container1 = 'w-[1260px] h-[825px] p-3 mb-10';
   const container2 = 'w-[350px] h-[10px] absolute right-0 mt-10 p-5';
 
@@ -17,7 +17,7 @@ const CreatePage: React.FC = () => {
           <SquareOptions />
           <div className={container2}>
             <Butao
-              texto="VOLTAR"
+              texto="CRIAR VOTAÇÃO"
               variant="rounded"
             />
           </div>

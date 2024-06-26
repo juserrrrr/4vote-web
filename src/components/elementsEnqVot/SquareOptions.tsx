@@ -3,6 +3,7 @@ import React from 'react';
 import { renderToPipeableStream } from 'react-dom/server';
 import InputCustom from '@/components/InputCustom/InputCustom';
 import OptionConfig from './OptionConfig';
+import IconButton from '../IconButton/IconButton';
 import Image from 'next/image';
 
 const SquareOptions = () => {
@@ -50,8 +51,34 @@ const SquareOptions = () => {
       />
     </svg>
   );
-  const backgraund = 'w-[1260px] h-[400px] mt-3';
-  const squareWhite = 'w-[1225px] h-[380px] p-5 inline-flex bg-gray-100 rounded-xl ';
+
+  const IconMais: React.FC = () => (
+    <svg
+      width="34"
+      height="33"
+      viewBox="0 0 34 33"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <ellipse
+        cx="17"
+        cy="16.5"
+        rx="17"
+        ry="16.5"
+        fill="#052A76"
+      />
+      <path
+        d="M17 6V26M7 16H27"
+        stroke="white"
+        stroke-width="3"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </svg>
+  );
+
+  const backgraund = 'w-[1260px] h-[450px] mt-3';
+  const squareWhite = 'w-[1225px] h-[420px] p-5 inline-flex bg-white rounded-xl ';
   const title = 'PERGUNTAS';
   const title1 = 'text-4xl text-corPrincipal font-bold mb-4';
   const line = 'w-[1150px] h-[1px] inline-flex bg-corPrincipal';
@@ -61,7 +88,7 @@ const SquareOptions = () => {
       <h1 className={title1}>{title}</h1>
       <div className={squareWhite}>
         <div className="w-[394px] flex flex-col">
-          <div className="w-[1188px] h-[80px] inline-flex"></div>
+          <div className="w-[1188px] inline-flex"></div>
           <div className="w-[1000px]">
             <div className="inline-flex">
               <div className="w-[1180px] mr-4 inline-flex">
@@ -70,8 +97,12 @@ const SquareOptions = () => {
                   alturaInput="[60px]"
                 />
                 <h2 className="font-semibold mt-3 text-corPrincipal ml-4"> Remover Pergunta</h2>
-                <div className="mt-">
-                  <IconTrash />
+                <div className="">
+                  <IconButton
+                    icon={<IconTrash />}
+                    ariaLabel="Apagar Pergunta"
+                    onClick={() => console.log('Icon Trash clicked')}
+                  />
                 </div>
               </div>
             </div>
@@ -80,7 +111,14 @@ const SquareOptions = () => {
               <OptionConfig title="opção 1" />
               <OptionConfig title="opção 2" />
               <OptionConfig title="opção 3" />
-              <OptionConfig title="opção 4" />
+            </div>
+            <div className="w-[500px] inline-flex mb-4 absolute right-0">
+              <div className="font-bold text-corPrincipal mr-1 mt-5"> NOVA OPÇÃO</div>
+              <IconButton
+                icon={<IconMais />}
+                ariaLabel="add nova opção"
+                onClick={() => console.log('add option clicked')}
+              />
             </div>
           </div>
         </div>
