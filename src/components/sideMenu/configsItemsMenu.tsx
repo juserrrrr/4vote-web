@@ -58,7 +58,7 @@ export const menuItems: IMenuItems[] = [
     icon: <ClipboardDocumentCheckIcon {...configMenuItems} />,
   },
   {
-    href: '/configuracoes',
+    href: '/perfil',
     text: 'Configurações',
     icon: <Cog8ToothIcon {...configMenuItems} />,
   },

@@ -1,5 +1,5 @@
 import { AxiosError, AxiosResponse } from 'axios';
-import api from './app';
+import api from './api';
 
 interface Pesquisa {
   titulo: string;

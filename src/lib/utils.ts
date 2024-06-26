@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
 
 type payloadUser = {
@@ -45,10 +44,6 @@ export function deleteCookie(name: string) {
   // Set it
   document.cookie = name + '=; expires=' + date.toUTCString() + '; path=/';
 }
-
-export const axiosClient = axios.create({
-  baseURL: 'http://localhost:4000',
-});
 
 export function getCurrentUserId() {
   const token = getCookie('accessToken');

@@ -1,44 +1,38 @@
 'use client';
-import React, { ElementRef, useEffect, useRef } from 'react';
+
+import React, { type ElementRef, useEffect, useRef } from 'react';
+import { useRouter } from 'next/navigation';
+import { createPortal } from 'react-dom';
 import InputCustom from '@/components/InputCustom/InputCustom';
 import Butao from '@/components/buttons/button';
-import { modalVariants } from './variantesModal';
+import { modalVariants } from '@/components/modalsCodeKey/variantesModal';
 
 interface ModalInterface {
   variant: 'hash' | 'key';
 }
 
-const ModalKey: React.FC<ModalInterface> = ({ variant }) => {
+export function ModalMenu({ variant }: ModalInterface) {
+  const router = useRouter();
   const dialogRef = useRef<ElementRef<'dialog'>>(null);
   const variantModal = variant === 'hash' ? modalVariants.modalHash : modalVariants.modalCodigo;
 
   useEffect(() => {
-    if (dialogRef.current?.open) {
+    if (!dialogRef.current?.open) {
       dialogRef.current?.showModal();
     }
   }, []);
 
-  function onConfirm() {}
-
   function onDismiss() {
-    if (dialogRef.current?.open) {
-      dialogRef.current?.close();
-    }
+    router.back();
   }
 
-  return (
-    <div
-      id="overlay"
-      className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
-    >
+  return createPortal(
+    <div>
       <dialog
         ref={dialogRef}
         onClose={onDismiss}
-        className={
-          'bg-corNeutro w-[750px] h-[310px] rounded-md border-corPrincipal border-2 text-center text-corPrincipal flex flex-col items-center justify-center font-sans relative '
-        }
+        className="bg-corNeutro max-w-full max-h-full w-[750px] h-[310px] rounded-md text-center text-corPrincipal flex flex-col items-center justify-center font-sans relative"
       >
-        {' '}
         <div className="font-bold text-center">
           <h1 className={'mb-0  text-[32px] -mt-20'}>{variantModal.title}</h1>
           <h2 className={'mb-8 text-[12px] w-full'}>{variantModal.subtitle}</h2>
@@ -60,7 +54,6 @@ const ModalKey: React.FC<ModalInterface> = ({ variant }) => {
             className="text-corErro text-[15px] flex w-[120px] h-[37px] py-0 pr-58 px-[38px] justify-center items-center font-bold gap-0.5 pl-1"
           ></Butao>
           <Butao
-            onClick={onConfirm}
             texto={'CONFIRMAR'}
             variant="outlined"
             textColor="terciaria"
@@ -69,8 +62,7 @@ const ModalKey: React.FC<ModalInterface> = ({ variant }) => {
           ></Butao>
         </div>
       </dialog>
-    </div>
+    </div>,
+    document.getElementById('modal-root')!,
   );
-};
-
-export default ModalKey;
+}

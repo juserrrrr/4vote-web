@@ -4,7 +4,9 @@ import InputCustom from '@/components/InputCustom/InputCustom';
 import Butao from '@/components/buttons/button';
 import { Metadata } from 'next';
 import clsx from 'clsx';
-import { axiosClient, getCookie, setCookie } from '../../../../lib';
+import api from '@/lib/api';
+import { authService } from '@/lib/auth';
+import { triggerAsyncId } from 'async_hooks';
 
 // retirei o export daqui
 const metadata: Metadata = {
@@ -21,7 +23,7 @@ export default function Cadastro() {
   const [alerta, setNewAlerta] = useState('Senhas não conferem');
   const [showAlerta, setNewShowAlerta] = useState(false);
 
-  const sendSignUp = (email: any, senha: any, confSenha: any, cpf: any, nome: any) => {
+  const sendSignUp = async (email: any, senha: any, confSenha: any, cpf: any, nome: any) => {
     if (confSenha != senha) {
       setNewAlerta('Senhas não conferem');
       setNewShowAlerta(true);
@@ -41,29 +43,22 @@ export default function Cadastro() {
       return;
     }
 
-    axiosClient
-      .post('/auth/cadastro', {
-        email: email,
-        senha: senha,
-        cpf: cpf,
-        nome: nome,
-      })
-      .then((res) => {
-        setNewAlerta('Cadastro efetuado com sucesso!');
-        setNewShowAlerta(true);
+    const data = await authService.cadastrar({ nome, email, senha, cpf });
+    if (data instanceof Error) {
+      setNewAlerta('Não foi possível realizar o cadastro');
+      setNewShowAlerta(true);
 
-        setTimeout(() => {
-          setNewShowAlerta(false);
-        }, 3000);
-      })
-      .catch((err) => {
-        setNewAlerta('Não foi possível realizar o cadastro');
-        setNewShowAlerta(true);
+      setTimeout(() => {
+        setNewShowAlerta(false);
+      }, 3000);
+      return;
+    }
+    setNewAlerta('Cadastro efetuado com sucesso!');
+    setNewShowAlerta(true);
 
-        setTimeout(() => {
-          setNewShowAlerta(false);
-        }, 3000);
-      });
+    setTimeout(() => {
+      setNewShowAlerta(false);
+    }, 3000);
   };
 
   return (

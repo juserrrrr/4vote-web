@@ -4,9 +4,10 @@ import InputCustom from '@/components/InputCustom/InputCustom';
 import Butao from '@/components/buttons/button';
 import { Metadata } from 'next';
 import Link from 'next/link';
-import { axiosClient, setCookie } from '../../../../lib';
 import clsx from 'clsx';
 import { useRouter } from 'next/navigation';
+import { authService } from '@/lib/auth';
+import { setCookie } from '@/lib/utils';
 
 // retirei o export daqui
 const metadata: Metadata = {
@@ -21,23 +22,17 @@ export default function Login() {
   const [showAlerta, setNewShowAlerta] = useState(false);
   const router = useRouter();
 
-  const sendSignIn = (email: any, senha: any) => {
-    axiosClient
-      .post('/auth/entrar', {
-        email: email,
-        senha: senha,
-      })
-      .then((res) => {
-        console.log('opa');
-        setCookie('accessToken', res.data.accessToken);
-        router.push('/inicio');
-      })
-      .catch((err) => {
-        setNewShowAlerta(true);
-        setTimeout(() => {
-          setNewShowAlerta(false);
-        }, 3000);
-      });
+  const sendSignIn = async (email: string, senha: string) => {
+    const data = await authService.entrar(email, senha);
+    if (data instanceof Error) {
+      setNewShowAlerta(true);
+      setTimeout(() => {
+        setNewShowAlerta(false);
+      }, 3000);
+      return;
+    }
+    setCookie('accessToken', data.accessToken);
+    router.push('/inicio');
   };
 
   return (
