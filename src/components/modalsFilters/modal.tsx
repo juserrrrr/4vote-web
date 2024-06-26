@@ -1,4 +1,4 @@
-import styles from './Modal.module.css';
+import styles from './modal.module.css';
 import { Filter, Order } from './selectCheckbox';
 import Button from '../buttons/button';
 

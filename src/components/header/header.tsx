@@ -10,7 +10,7 @@ interface HeaderProps {
 
 export function Header({ usuarioLogado, nomeUsuario, urlPerfil }: HeaderProps) {
   return (
-    <header className="flex items-center w-full h-[70px] fixed z-10 bg-white shadow y-">
+    <header className="flex items-center w-full h-[70px] fixed z-20 bg-white shadow y-">
       <div className="w-full max-w-auto px-[15px] mx-auto flex items-center justify-between">
         <Logo4vote />
         <div className="flex items-center ml-auto">
