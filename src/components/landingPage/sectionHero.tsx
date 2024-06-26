@@ -1,6 +1,5 @@
 import Image from 'next/image';
 import conection from '@/components/landingPage/assets/conection-word.svg';
-import Link from 'next/link';
 
 export function SectionHero() {
   return (
@@ -17,19 +16,19 @@ export function SectionHero() {
             Descubra uma plataforma intuitiva e poderosa, projetada para tornar suas enquetes e votações uma experiência
             fácil, envolvente e significativa. Junte-se a nós e faça cada voto contar!
           </p>
-          <Link href="cadastro">
+          <a href="cadastro">
             <button
               className="text-white bg-corContraste hover:opacity-90 font-extrabold text-3xl rounded-full h-[84px]
           w-[244px] ml-[60px] mr-2 mt-8"
             >
               cadastre-se agora
             </button>
-          </Link>
-          <Link href="inicio">
+          </a>
+          <a href="inicio">
             <button className="text-white opacity-80 bg-corBotaoLP hover:opacity-70 font-extrabold text-3xl rounded-full h-[84px] w-[254px]">
               entrar como convidado
             </button>
-          </Link>
+          </a>
         </div>
         <Image
           src={conection}
