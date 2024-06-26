@@ -3,7 +3,7 @@ import React from 'react';
 import { renderToPipeableStream } from 'react-dom/server';
 
 interface SquareInformationsProps {
-  title?: 'VOTAÇÃO' | 'ENQUENTE';
+  title?: 'VOTAÇÃO' | 'ENQUETE';
   subtitle: string;
   date?: Date;
   acess?: 'Privado' | 'Público';
@@ -20,7 +20,7 @@ const SquareInformations: React.FC<SquareInformationsProps> = ({
   imageUrl = 'https://picsum.photos/300/104',
 }) => {
   const backgraund = 'w-[1260px] h-[305px]';
-  const squareWhite = 'w-[1225px] h-[250px] inline-flex bg-gray-100 rounded-xl justify-center items-center';
+  const squareWhite = 'w-[1225px] h-[260px] inline-flex bg-white rounded-xl justify-center items-center';
 
   const title1 = 'text-4xl text-corPrincipal font-bold mb-2';
   const container1 = 'w-[700x] h-[240px] mt-10';
