@@ -113,7 +113,7 @@ export function ProfileConfig() {
               disabled={nomeDisabled}
             />
             <PencilIcon
-              className="text-corPrincipal w-4 absolute right-96 cursor-pointer"
+              className="text-corPrincipal w-4 absolute  right-96 cursor-pointer"
               onClick={toggleNomeInput}
             />
           </div>
