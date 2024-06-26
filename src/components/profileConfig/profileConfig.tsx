@@ -38,6 +38,7 @@ export function ProfileConfig() {
   }
 
   function toggleNomeInput() {
+    console.log('chamou');
     setNomeDisabled(!nomeDisabled);
     if (!nomeDisabled) {
       setnomeBorderColor('grey');
@@ -101,7 +102,7 @@ export function ProfileConfig() {
           >
             Nome
           </label>
-          <div className={`flex items-center border border-${nomeBorderColor}-300 rounded py-2 px-3`}>
+          <div className={'flex items-center border border-' + nomeBorderColor + '-300 rounded py-2 px-3'}>
             <input
               type="text"
               id="nome"
@@ -125,7 +126,7 @@ export function ProfileConfig() {
           >
             Email
           </label>
-          <div className={`flex items-center border border-${emailBorderColor}-300 rounded py-2 px-3`}>
+          <div className={'flex items-center border border-' + emailBorderColor + '-300 rounded py-2 px-3'}>
             <input
               type="text"
               id="email"
