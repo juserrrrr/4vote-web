@@ -1,12 +1,17 @@
 import { jwtDecode } from 'jwt-decode';
 
-type payloadUser = {
+export type payloadUser = {
   exp: number;
   iat: number;
   id: number;
   iss: string;
   nome: string;
   sub: string;
+};
+
+export type userData = {
+  nome: string;
+  email: string;
 };
 
 export function setCookie(name: string, val: string) {

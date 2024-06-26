@@ -1,5 +1,6 @@
 import { EyeSlashIcon, PencilIcon } from '@heroicons/react/24/solid';
 import Image from 'next/image';
+import { ProfileConfig } from '@/components/profileConfig/profileConfig';
 
 export default function Home() {
   return (
@@ -19,86 +20,7 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="max-w-md mx-auto px-4">
-        <div className="mb-4 mt-10">
-          <label
-            className="block text-gray-700 text-sm mb-2"
-            htmlFor="nome"
-          >
-            Nome
-          </label>
-          <div className="flex items-center border border-gray-300 rounded py-2 px-3">
-            <input
-              type="text"
-              id="nome"
-              name="nome"
-              className="appearance-none bg-transparent border-none w-full text-gray-700 leading-tight focus:outline-none text-sm"
-              value="Francisco da Silva"
-            />
-            <PencilIcon className="text-corPrincipal w-4 absolute right-96 cursor-pointer" />
-          </div>
-        </div>
-
-        <div className="mb-4">
-          <label
-            className="block text-gray-700 text-sm mb-2"
-            htmlFor="email"
-          >
-            Email
-          </label>
-          <div className="flex items-center border border-gray-300 rounded py-2 px-3">
-            <input
-              type="text"
-              id="email"
-              name="email"
-              className="appearance-none bg-transparent border-none w-full text-gray-700 leading-tight focus:outline-none text-sm"
-              value="franciscodasilva@email.com"
-            />
-            <PencilIcon className="text-corPrincipal w-4 absolute right-96 cursor-pointer" />
-          </div>
-        </div>
-
-        <div className="mb-4">
-          <label
-            className="block text-gray-700 text-sm mb-2"
-            htmlFor="cpf"
-          >
-            CPF
-          </label>
-          <div className="flex items-center border border-gray-300 rounded py-2 px-3">
-            <input
-              type="text"
-              id="cpf"
-              name="cpf"
-              className="appearance-none bg-transparent border-none w-full text-gray-700 leading-tight focus:outline-none text-sm"
-              value="123.456.789-00"
-            />
-          </div>
-        </div>
-
-        <div className="mb-6">
-          <label
-            className="block text-gray-700 text-sm mb-2"
-            htmlFor="senha"
-          >
-            Senha
-          </label>
-          <div className="flex items-center border border-gray-300 rounded py-2 px-3">
-            <input
-              type="password"
-              id="senha"
-              name="senha"
-              className="appearance-none bg-transparent border-none w-full text-gray-700 leading-tight focus:outline-none text-sm"
-              value="******"
-            />
-            <EyeSlashIcon className="text-corPrincipal w-5 ml-3" />
-            <PencilIcon className="text-corPrincipal w-4 absolute right-96 cursor-pointer" />
-          </div>
-        </div>
-        <button className="w-full bg-corPrincipal text-white py-2 rounded hover:bg-corPrincipal-dark">
-          Salvar alterações
-        </button>
-      </div>
+      <ProfileConfig />
     </div>
   );
 }
