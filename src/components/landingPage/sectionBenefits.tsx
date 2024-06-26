@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import { ItemBenefits } from './itemBenefits';
 import woman from '@/components/landingPage/assets/happy-woman.svg';
+import Link from 'next/link';
 
 export function SectionBenefits() {
   return (
@@ -54,14 +55,14 @@ export function SectionBenefits() {
               </>
             }
           />
-          <a href="inicio">
+          <Link href="inicio">
             <button
               className="text-white bg-corContraste hover:opacity-90 font-extrabold text-3xl rounded-full h-[84px]
           w-[244px] ml-[230px] mr-6 mt-2"
             >
               entrar como convidado
             </button>
-          </a>
+          </Link>
         </div>
       </div>
     </section>
