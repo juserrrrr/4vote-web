@@ -124,7 +124,7 @@ export default function HomePage() {
             {cards.map((card, index) => (
               <div
                 key={index}
-                className="flex-grow max-w-80 z-10"
+                className="flex-grow max-w-80"
               >
                 <Card
                   title={card.title}
