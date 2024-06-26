@@ -6,15 +6,25 @@ import SquareQuestion from '@/components/elementsEnqVot/SquareQuestion';
 import Butao from '@/components/buttons/button';
 import Pagination from '@/components/pagination/Pagination';
 
-const questions = [
-  'Quem você escolhe para ser o novo Diretório Acadêmico do curso?',
-  'Qual a sua opinião sobre a gestão atual do Diretório Acadêmico?',
-  'Quais melhorias você gostaria de ver no próximo mandato?',
+// Lista de perguntas com suas respectivas opções
+const questionsWithOptions = [
+  {
+    question: 'Quem você escolhe para ser o novo Diretório Acadêmico do curso?',
+    options: ['BitMasters', 'CyberSquad', 'TechTitans'],
+  },
+  {
+    question: 'Qual a sua opinião sobre a gestão atual do Diretório Acadêmico?',
+    options: ['Excelente', 'Boa', 'Ruim'],
+  },
+  {
+    question: 'Quais melhorias você gostaria de ver no próximo mandato?',
+    options: ['Mais eventos', 'Melhor comunicação', 'Apoio aos estudantes'],
+  },
 ];
 
 const Resposta: React.FC = () => {
-  const title = 'VOTAÇÃO';
-  const subtitle = 'Eleição do Diretório Acadêmico de Ecomp';
+  const title = 'ENQUETE';
+  const subtitle = 'Pesquisa Sobre a Eleição do DA de Ecomp';
   const date = new Date();
   const acess = 'Privado';
   const description =
@@ -26,10 +36,10 @@ const Resposta: React.FC = () => {
   const container3 = 'w-[320px] h-[5px] absolute right-0';
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [currentQuestion, setCurrentQuestion] = useState(questions[0]);
+  const [currentData, setCurrentData] = useState(questionsWithOptions[0]);
 
   useEffect(() => {
-    setCurrentQuestion(questions[currentPage - 1]);
+    setCurrentData(questionsWithOptions[currentPage - 1]);
   }, [currentPage]);
 
   return (
@@ -46,10 +56,13 @@ const Resposta: React.FC = () => {
           />
         </div>
         <div className={container2}>
-          <SquareQuestion question={currentQuestion} />
+          <SquareQuestion
+            question={currentData.question}
+            options={currentData.options}
+          />
           <div className="flex justify-center mt-4">
             <Pagination
-              totalPages={questions.length}
+              totalPages={questionsWithOptions.length}
               currentPage={currentPage}
               setCurrentPage={setCurrentPage}
             />

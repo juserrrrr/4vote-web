@@ -3,7 +3,7 @@ import React from 'react';
 import { renderToPipeableStream } from 'react-dom/server';
 
 interface SquareInformationsProps {
-  title?: 'VOTAÇÃO' | 'ENQUENTE';
+  title?: 'VOTAÇÃO' | 'ENQUETE';
   subtitle: string;
   date?: Date;
   acess?: 'Privado' | 'Público';
