@@ -1,10 +1,14 @@
 import Image from 'next/image';
 import { ItemBenefits } from './itemBenefits';
 import woman from '@/components/landingPage/assets/happy-woman.svg';
+import Link from 'next/link';
 
 export function SectionBenefits() {
   return (
-    <section className="bg-white min-w-max h-[645px] bg-no-repeat bg-center bg-cover">
+    <section
+      id="/beneficios"
+      className="bg-white min-w-max h-[645px] bg-no-repeat bg-center bg-cover"
+    >
       <div className="w-full max-w-auto px-[15px] mx-auto flex justify-between">
         <div>
           <Image
@@ -51,12 +55,14 @@ export function SectionBenefits() {
               </>
             }
           />
-          <button
-            className="text-white bg-corContraste hover:opacity-90 font-extrabold text-3xl rounded-full h-[84px]
-          w-[244px] ml-[230px] mr-6 mt-2"
-          >
-            entrar como convidado
-          </button>
+          <Link href="inicio">
+            <div
+              className="text-white bg-corContraste hover:opacity-90 font-extrabold text-3xl rounded-full h-[84px]
+              w-[244px] ml-[230px] mr-6 mt-2 cursor-pointer text-center"
+            >
+              entrar como convidado
+            </div>
+          </Link>
         </div>
       </div>
     </section>

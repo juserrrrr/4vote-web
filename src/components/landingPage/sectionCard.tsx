@@ -2,7 +2,10 @@ import { CardLP } from './cardLP';
 
 export function SectionCard() {
   return (
-    <section className="min-w-max h-[503px]">
+    <section
+      id="/informacoes"
+      className="min-w-max h-[503px]"
+    >
       <ul className="flex justify-between ml-[85px] mr-[75px] gap-16 mt-[100px]">
         <li className="opacity-100 hover:opacity-90">
           <CardLP
