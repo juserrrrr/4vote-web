@@ -2,6 +2,8 @@
 import React from 'react';
 import FilterButton from '@/components/buttonFilter/FilterButton';
 import { Card } from '@/components/card/card';
+import ModalFilters from '@/components/modalsFilters/modal';
+import { Modern_Antiqua } from 'next/font/google';
 
 type Variant = 'VOTAÇÃO' | 'ENQUETE';
 
@@ -79,8 +81,21 @@ const cards = [
 ];
 
 export default function HomePage() {
+  const [isOpenOrdenar, setIsOpenOrdenar] = React.useState(false);
+  const [isOpenFiltrar, setIsOpenFiltrar] = React.useState(false);
+
   return (
     <div className="main">
+      <ModalFilters
+        variante="ordenar"
+        isOpen={isOpenOrdenar}
+        onClose={() => setIsOpenOrdenar(false)}
+      />
+      <ModalFilters
+        variante="filtrar"
+        isOpen={isOpenFiltrar}
+        onClose={() => setIsOpenFiltrar(false)}
+      />
       <main>
         <div className="flex flex-col justify-center items-center px-16 py-6 gap-6 text-corPrincipal">
           <div className="flex flex-col w-full justify-start">
@@ -91,8 +106,18 @@ export default function HomePage() {
             Encontre as pesquisas que você procura: vote e participe!
           </div>
           <div className="w-full flex flex-row items-center gap-8">
-            <FilterButton variante="ordenar" />
-            <FilterButton variante="filtrar" />
+            <FilterButton
+              variante="ordenar"
+              onClick={() => {
+                setIsOpenOrdenar(true);
+              }}
+            />
+            <FilterButton
+              onClick={() => {
+                setIsOpenFiltrar(true);
+              }}
+              variante="filtrar"
+            />
           </div>
           <div className="flex flex-row flex-wrap justify-start content-between gap-9 ">
             {cards.map((card, index) => (
