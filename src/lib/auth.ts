@@ -18,10 +18,11 @@ async function entrar(email: string, senha: string): Promise<IToken | Error> {
     if (data) return data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
-      return Error(error.response?.data.message);
+      return new Error(error.response?.data.message);
     }
+    return new Error('Erro desconhecido');
   }
-  return Error('Erro ao tentar efetuar o login');
+  return new Error('Erro ao tentar efetuar o login');
 }
 
 async function cadastrar(dto: ICadastroDto): Promise<IToken | Error> {
@@ -30,10 +31,11 @@ async function cadastrar(dto: ICadastroDto): Promise<IToken | Error> {
     if (data) return data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
-      return Error(error.response?.data.message);
+      return new Error(error.response?.data.message);
     }
+    return new Error('Erro desconhecido');
   }
-  return Error('Erro ao tentar efetuar o cadastro');
+  return new Error('Erro ao tentar efetuar o cadastro');
 }
 
 export const authService = {
