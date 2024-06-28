@@ -17,7 +17,7 @@ async function getById(pesquisa_id: number): Promise<Error> {
     }
     return new Error('Erro desconhecido');
   }
-  return new Error('Erro ao tentar efetuar pegar o id de pergunta');
+  return new Error('Erro ao tentar pegar o id de pergunta');
 }
 
 export const authService = {

@@ -1,58 +1,37 @@
-import { AxiosError, AxiosResponse } from 'axios';
+import axios from 'axios';
 import api from './api';
 
 interface Tag {
   nome: string;
 }
 
-export function findAllTag(): Promise<boolean> {
-  return api
-    .get('tag')
-    .then((response: AxiosResponse) => {
-      console.log(response.data);
-      return true;
-    })
-    .catch((error: AxiosError) => {
-      console.log(error);
-      return false;
-    });
+async function getById(tag_id: number): Promise<Error> {
+  try {
+    const { data } = await api.get('/tag/id', tag_id);
+    if (data) return data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      return new Error(error.response?.data.message);
+    }
+    return new Error('Erro desconhecido');
+  }
+  return new Error('Erro ao tentar pegar o id de tag');
 }
 
-export function createTag(tag: Tag): Promise<boolean> {
-  return api
-    .post('tag', tag)
-    .then((response: AxiosResponse) => {
-      console.log(response.data);
-      return true;
-    })
-    .catch((error: AxiosError) => {
-      console.log(error);
-      return false;
-    });
+async function findAll(tag: Tag): Promise<Error> {
+  try {
+    const { data } = await api.get('tag', tag);
+    if (data) return data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      return new Error(error.response?.data.message);
+    }
+    return new Error('Erro desconhecido');
+  }
+  return new Error('Erro ao tentar achar tag');
 }
 
-export function deleteTag(id: number, tag: Tag): Promise<boolean> {
-  return api
-    .delete(`tag/${id}`, tag)
-    .then((response: AxiosResponse) => {
-      console.log(response.data);
-      return true;
-    })
-    .catch((error: AxiosError) => {
-      console.log(error);
-      return false;
-    });
-}
-
-export function updateTag(id: number, tag: Tag): Promise<boolean> {
-  return api
-    .put(`tag/${id}`, tag)
-    .then((response: AxiosResponse) => {
-      console.log(response.data);
-      return true;
-    })
-    .catch((error: AxiosError) => {
-      console.log(error);
-      return false;
-    });
-}
+export const authService = {
+  getById,
+  findAll,
+};
