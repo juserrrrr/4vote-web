@@ -1,4 +1,4 @@
-import { AxiosError, AxiosResponse } from 'axios';
+import axios from 'axios';
 import api from './api';
 
 interface Opcao {
@@ -8,41 +8,19 @@ interface Opcao {
   quantVotos: number;
 }
 
-export function findAllOpcao(): Promise<boolean> {
-  return api
-    .get('opcoes')
-    .then((response: AxiosResponse) => {
-      console.log(response.data);
-      return true;
-    })
-    .catch((error: AxiosError) => {
-      console.log(error);
-      return false;
-    });
+async function getById(id: number): Promise<Error> {
+  try {
+    const { data } = await api.get('/opcoes/id', id);
+    if (data) return data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      return new Error(error.response?.data.message);
+    }
+    return new Error('Erro desconhecido');
+  }
+  return new Error('Erro ao tentar pegar o id de opção');
 }
 
-export function createOpcao(opcao: Opcao): Promise<boolean> {
-  return api
-    .post('opcoes', opcao)
-    .then((response: AxiosResponse) => {
-      console.log(response.data);
-      return true;
-    })
-    .catch((error: AxiosError) => {
-      console.log(error);
-      return false;
-    });
-}
-
-export function deleteOpcao(id: number, opcao: Opcao): Promise<boolean> {
-  return api
-    .delete(`opcoes/${id}`, opcao)
-    .then((response: AxiosResponse) => {
-      console.log(response.data);
-      return true;
-    })
-    .catch((error: AxiosError) => {
-      console.log(error);
-      return false;
-    });
-}
+export const authService = {
+  getById,
+};
