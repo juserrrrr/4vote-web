@@ -1,7 +1,7 @@
 import axios from 'axios';
 import api from './api';
-import Voto from '../src/lib/voto';
-import OpcaoVotada from '../src/lib/opcaovotada';
+import { Voto } from './voto';
+import { OpcaoVotada } from './opcaovotada';
 
 interface Participacoes {
   usuario_id: number;

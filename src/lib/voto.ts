@@ -1,34 +1,25 @@
-import { AxiosError, AxiosResponse } from 'axios';
+import axios from 'axios';
 import api from './api';
 
-interface Voto {
+export interface Voto {
   id: number;
   data: string;
   hash: string;
 }
 
-export function findAllVoto(): Promise<boolean> {
-  return api
-    .get('voto')
-    .then((response: AxiosResponse) => {
-      console.log(response.data);
-      return true;
-    })
-    .catch((error: AxiosError) => {
-      console.log(error);
-      return false;
-    });
+async function getById(id: number): Promise<Voto | Error> {
+  try {
+    const { data } = await api.get('/voto/id', id);
+    if (data) return data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      return new Error(error.response?.data.message);
+    }
+    return new Error('Erro desconhecido');
+  }
+  return new Error('Erro ao tentar pegar o id de voto');
 }
 
-export function createVoto(voto: Voto): Promise<boolean> {
-  return api
-    .post('voto', voto)
-    .then((response: AxiosResponse) => {
-      console.log(response.data);
-      return true;
-    })
-    .catch((error: AxiosError) => {
-      console.log(error);
-      return false;
-    });
-}
+export const authService = {
+  getById,
+};
