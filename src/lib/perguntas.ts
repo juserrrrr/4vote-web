@@ -1,4 +1,4 @@
-import { AxiosError, AxiosResponse } from 'axios';
+import axios from 'axios';
 import api from './api';
 
 interface Perguntas {
@@ -7,41 +7,19 @@ interface Perguntas {
   pesquisa_id: number;
 }
 
-export function findAllPerguntas(): Promise<boolean> {
-  return api
-    .get('perguntas')
-    .then((response: AxiosResponse) => {
-      console.log(response.data);
-      return true;
-    })
-    .catch((error: AxiosError) => {
-      console.log(error);
-      return false;
-    });
+async function getById(pesquisa_id: number): Promise<Error> {
+  try {
+    const { data } = await api.get('/perguntas/id', pesquisa_id);
+    if (data) return data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      return new Error(error.response?.data.message);
+    }
+    return new Error('Erro desconhecido');
+  }
+  return new Error('Erro ao tentar efetuar pegar o id de pergunta');
 }
 
-export function deletePerguntas(pesquisa_id: number): Promise<boolean> {
-  return api
-    .delete('perguntas/${id}')
-    .then((response: AxiosResponse) => {
-      console.log(response.data);
-      return true;
-    })
-    .catch((error: AxiosError) => {
-      console.log(error);
-      return false;
-    });
-}
-
-export function createPerguntas(perguntas: Perguntas): Promise<boolean> {
-  return api
-    .post('perguntas', perguntas)
-    .then((response: AxiosResponse) => {
-      console.log(response.data);
-      return true;
-    })
-    .catch((error: AxiosError) => {
-      console.log(error);
-      return false;
-    });
-}
+export const authService = {
+  getById,
+};
