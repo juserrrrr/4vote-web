@@ -23,6 +23,12 @@ const ModalFilters: React.FC<ModalProps> = ({ isOpen, onClose, variante }) => {
         </div>
         <div className={styles.comfirmacao}>
           <div className={styles.modalButton}>
+            <button
+              className="text-[#F44] font-opensans text-[15px] font-bold leading-normal"
+              onClick={onClose}
+            >
+              SAIR
+            </button>
             <button onClick={onClose}>
               <span className={styles.textButton}>
                 <Button

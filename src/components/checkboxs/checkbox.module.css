@@ -34,7 +34,7 @@
 }
 
 .checkbox:checked::before {
-  content: '✔';
+  content: '✓';
   color: #fff;
   font-size: 18px;
   position: absolute;
