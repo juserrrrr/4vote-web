@@ -43,16 +43,17 @@ export default function Login() {
   const [showAlerta, setNewShowAlerta] = useState(false);
   const router = useRouter();
 
-  const sendSignIn = async (email: string, senha: string) => {
-    const data = await authService.entrar(email, senha);
-    if (data instanceof Error) {
+  const sendSignIn = async (data: { email: string; senha: string }) => {
+    const { email, senha } = data;
+    const response = await authService.entrar(email, senha);
+    if (response instanceof Error) {
       setNewShowAlerta(true);
       setTimeout(() => {
         setNewShowAlerta(false);
       }, 3000);
       return;
     }
-    setCookie('accessToken', data.accessToken);
+    setCookie('accessToken', response.accessToken);
     router.push('/inicio');
   };
 
