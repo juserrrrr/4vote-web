@@ -8,6 +8,9 @@ import clsx from 'clsx';
 import { useRouter } from 'next/navigation';
 import { authService } from '@/lib/auth';
 import { setCookie } from '@/lib/utils';
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useForm } from 'react-hook-form';
 
 // retirei o export daqui
 const metadata: Metadata = {
@@ -15,9 +18,27 @@ const metadata: Metadata = {
   description: 'Página de Login',
 };
 
+interface LoginValues {
+  email: string;
+  senha: string;
+}
+
 export default function Login() {
-  const [email, setNewEmail] = useState('');
-  const [senha, setNewSenha] = useState('');
+  const schema = yup.object().shape({
+    email: yup.string().email('E-mail inválido').required('Campo Obrigatório'),
+    senha: yup.string().required('Campo Obrigatório'),
+  });
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setError,
+    clearErrors,
+  } = useForm<LoginValues>({
+    resolver: yupResolver(schema),
+  });
+
   const [alerta, setNewAlerta] = useState('Usuário ou senha inválidos');
   const [showAlerta, setNewShowAlerta] = useState(false);
   const router = useRouter();
