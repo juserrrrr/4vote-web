@@ -10,7 +10,7 @@ import { authService } from '@/lib/auth';
 import { setCookie } from '@/lib/utils';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useForm } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
 
 // retirei o export daqui
 const metadata: Metadata = {
@@ -20,13 +20,13 @@ const metadata: Metadata = {
 
 interface LoginValues {
   email: string;
-  senha: string;
+  password: string;
 }
 
 export default function Login() {
   const schema = yup.object().shape({
     email: yup.string().email('E-mail inválido').required('Campo Obrigatório'),
-    senha: yup.string().required('Campo Obrigatório'),
+    password: yup.string().required('Campo Obrigatório'),
   });
 
   const {
@@ -39,17 +39,17 @@ export default function Login() {
     resolver: yupResolver(schema),
   });
 
-  const [alerta, setNewAlerta] = useState('Usuário ou senha inválidos');
-  const [showAlerta, setNewShowAlerta] = useState(false);
   const router = useRouter();
 
-  const sendSignIn = async (data: { email: string; senha: string }) => {
-    const { email, senha } = data;
-    const response = await authService.entrar(email, senha);
+  const sendSignIn: SubmitHandler<LoginValues> = async (data: { email: string; password: string }) => {
+    const { email, password } = data;
+    const response = await authService.entrar(email, password);
     if (response instanceof Error) {
-      setNewShowAlerta(true);
+      setError('email', { message: 'Usuário ou senha inválidos' });
+      setError('password', { message: 'Usuário ou senha inválidos' });
       setTimeout(() => {
-        setNewShowAlerta(false);
+        clearErrors('email');
+        clearErrors('password');
       }, 3000);
       return;
     }
@@ -65,21 +65,21 @@ export default function Login() {
           <div className="w-full flex flex-col justify-between gap-5">
             <InputCustom
               label="Email"
-              helperText="Campo Obrigatório"
-              onChange={(e) => setNewEmail(e.target.value)}
-              error={true}
+              helperText={errors.email ? errors.email.message : 'Campo Obrigatório'}
+              {...register('email')}
+              error={errors.email ? true : false}
             />
             <InputCustom
               label="Senha"
-              helperText="Campo Obrigatório"
+              helperText={errors.password ? errors.password.message : 'Campo Obrigatório'}
               type="password"
-              onChange={(e) => setNewSenha(e.target.value)}
-              error={true}
+              {...register('password')}
+              error={errors.password ? true : false}
             />
           </div>
           <div className="w-full">
             <Butao
-              onClick={() => sendSignIn(email, senha)}
+              onClick={handleSubmit(sendSignIn)}
               texto="Fazer Login"
               variant="rounded"
               className="w-full"
@@ -88,12 +88,12 @@ export default function Login() {
         </div>
         <div
           className={clsx('bg-orange-100 border-orange-500 text-orange-700', {
-            hidden: !showAlerta,
-            block: showAlerta,
+            hidden: { errors } ? false : true,
+            block: { errors } ? true : false,
           })}
           role="alert"
         >
-          <p className="font-bold">{alerta}</p>
+          <p className="font-bold">{'Usuário ou senha inválidos'}</p>
         </div>
 
         <div className="flex flex-col justify-center text-gray-500 text-center font-open-sans font-bold text-lg underline">
