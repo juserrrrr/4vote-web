@@ -27,9 +27,9 @@ interface RegisterValues {
 
 export default function Cadastro() {
   const schema = yup.object().shape({
-    name: yup.string().max(255).required('Campo Obrigatório'),
+    name: yup.string().max(255, 'O nome deve ser menor').required('Campo Obrigatório'),
     email: yup.string().email('Email inválido').required('Campo Obrigatório'),
-    cpf: yup.string().length(11, 'CPF inválido ').required('Campo Obrigatório'),
+    cpf: yup.string().required('Campo Obrigatório').length(11, 'CPF inválido'),
     password: yup.string().required('Campo Obrigatório'),
     confirmPassword: yup
       .string()
@@ -65,31 +65,36 @@ export default function Cadastro() {
           <div className="w-full flex flex-col justify-between gap-3">
             <InputCustom
               label="Nome"
+              helperText={errors.name ? errors.name.message : 'Campo Obrigatório'}
               {...register('name')}
+              error={errors.name ? true : false}
             />
-            <div className="text-orange-700">{errors.name?.message}</div>
             <InputCustom
               label="Email"
+              helperText={errors.email ? errors.email.message : 'Campo Obrigatório'}
               {...register('email')}
+              error={errors.email ? true : false}
             />
-            <div className="text-orange-700">{errors.email?.message}</div>
             <InputCustom
               label="CPF"
+              helperText={errors.cpf ? errors.cpf.message : 'Campo Obrigatório'}
               {...register('cpf')}
+              error={errors.cpf ? true : false}
             />
-            <div className="text-orange-700">{errors.cpf?.message}</div>
             <InputCustom
               label="Senha"
+              helperText={errors.password ? errors.password.message : 'Campo Obrigatório'}
               type="password"
               {...register('password')}
+              error={errors.password ? true : false}
             />
-            <div className="text-orange-700">{errors.password?.message}</div>
             <InputCustom
               label="Confirmar Senha"
+              helperText={errors.confirmPassword ? errors.confirmPassword.message : 'Campo Obrigatório'}
               type="password"
               {...register('confirmPassword')}
+              error={errors.confirmPassword ? true : false}
             />
-            <div className="text-orange-700">{errors.confirmPassword?.message}</div>
           </div>
           <div className="w-full py-5">
             <Butao
