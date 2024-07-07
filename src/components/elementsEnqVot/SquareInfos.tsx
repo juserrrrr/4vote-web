@@ -1,51 +1,48 @@
 'use client';
 import React from 'react';
-import { useState } from 'react';
-import { renderToPipeableStream } from 'react-dom/server';
+import { FieldValues, UseFormRegister, FieldErrors } from 'react-hook-form';
 import InputCustom from '@/components/InputCustom/InputCustom';
-import SingleSelect from '../selectBox';
+import SelectCustom from '../selectBox';
 
 interface SquareInfosProps {
   title?: 'CRIAR VOTAÇÃO' | 'CRIAR ENQUETE';
+  register: UseFormRegister<FieldValues>;
 }
 
 const options = [
-  { label: 'Privada', value: 'Privada' },
-  { label: 'Pública', value: 'Pública' },
+  { label: 'Pública', value: 1 },
+  { label: 'Privada', value: 0 },
 ];
 
-const SquareInfos: React.FC<SquareInfosProps> = ({ title }) => {
-  const backgraund = 'w-[1260px] h-[316px]';
-  const squareWhite = 'w-[1225px] h-[250px] p-5 inline-flex bg-white rounded-xl ';
-
-  const title1 = 'text-4xl text-corPrincipal font-bold mb-4';
-  const [selectedValue, setSelectedValue] = useState<string>('');
-
+const SquareInfos: React.FC<SquareInfosProps> = ({ title, register }) => {
   return (
-    <div className={backgraund}>
-      <h1 className={title1}>{title}</h1>
-      <div className={squareWhite}>
+    <div className="w-[1260px] h-[316px]">
+      <h1 className="text-4xl text-corPrincipal font-bold mb-4">{title}</h1>
+      <div className="w-[1225px] h-[250px] p-5 inline-flex bg-white rounded-xl ">
         <div className="w-[394px] flex flex-col">
           <div className="w-[1188px] h-[80px] inline-flex">
-            <InputCustom label="Nome" />
             <InputCustom
+              {...register('nome')}
+              label="Nome"
+            />
+            <InputCustom
+              {...register('dataTermino')}
               label="Data Limite"
               larguraInput="40px"
             />
             <InputCustom
+              {...register('tags')}
               label="Tags"
               larguraInput="40px"
             />
-            <div className="mt-2 p-1">
-              <SingleSelect
-                options={options}
-                selectedValue={selectedValue}
-                onChange={setSelectedValue}
-              />
-            </div>
+            <SelectCustom
+              {...register('ehPublico')}
+              options={options}
+            />
           </div>
           <div className="w-[1188px] h-[100px]">
             <InputCustom
+              {...register('descricao')}
               label="Descrição..."
               alturaInput="[100px]"
             />
