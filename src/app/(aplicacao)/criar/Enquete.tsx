@@ -3,10 +3,10 @@ import Butao from '@/components/buttons/button';
 import SquareInfos from '@/components/elementsEnqVot/SquareInfos';
 import SquareOptions from '@/components/elementsEnqVot/SquareOptions';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useFieldArray, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 
-export interface VotacaoDto {
+export interface EnqueteDto {
   titulo: string;
   dataTermino: string;
   ehPublico: number;
@@ -20,7 +20,7 @@ export interface VotacaoDto {
   tags?: string;
 }
 
-const defaultValues: VotacaoDto = {
+const defaultValues: EnqueteDto = {
   titulo: '',
   dataTermino: '',
   ehPublico: 1,
@@ -34,8 +34,8 @@ const defaultValues: VotacaoDto = {
   tags: '',
 };
 
-function CriarVotacao() {
-  const votacaoSchema = yup.object({
+function CriarEnquete() {
+  const enqueteSchema = yup.object({
     titulo: yup.string().required('Nome é obrigatório'),
     dataTermino: yup.string().required('Data é obrigatória'),
     ehPublico: yup.number().required('Tipo é obrigatório'),
@@ -56,8 +56,7 @@ function CriarVotacao() {
             .min(2, 'Mínimo de 2 opções'),
         }),
       )
-      .required('Perguntas são obrigatórias')
-      .max(1, 'Máximo de 1 pergunta'),
+      .required('Perguntas são obrigatórias'),
     tags: yup.string(),
   });
   const {
@@ -65,28 +64,29 @@ function CriarVotacao() {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<VotacaoDto>({
-    resolver: yupResolver(votacaoSchema),
+  } = useForm<EnqueteDto>({
+    resolver: yupResolver(enqueteSchema),
     defaultValues: defaultValues,
   });
 
   return (
-    <div className="mx-20">
+    <div className="mx-20 pb-4">
       <form onSubmit={handleSubmit((data) => console.log(data))}>
         <SquareInfos
           register={register}
-          title="CRIAR VOTAÇÃO"
+          title="CRIAR ENQUETE"
           errors={errors}
         />
         <SquareOptions
           control={control}
+          type="enquete"
           register={register}
           errors={errors}
         />
-        <div className="w-full flex justify-end items-center mt-6">
+        <div className="w-full flex justify-end items-center">
           <Butao
             type="submit"
-            texto="CRIAR VOTAÇÃO"
+            texto="CRIAR ENQUETE"
             variant="default"
             onClick={handleSubmit((data) => console.log(data))}
           />
@@ -96,4 +96,4 @@ function CriarVotacao() {
   );
 }
 
-export default CriarVotacao;
+export default CriarEnquete;

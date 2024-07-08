@@ -18,9 +18,9 @@ const options = [
 
 const SquareInfos: React.FC<SquareInfosProps> = ({ title, register, errors }) => {
   return (
-    <div className="w-full h-72">
+    <div className="w-full h-72 flex flex-col">
       <h1 className="text-4xl text-corPrincipal font-bold mb-4 text-">{title}</h1>
-      <div className="w-full h-56 p-5 bg-white rounded-xl drop-shadow-xl">
+      <div className="w-full h-full p-5 bg-white rounded-xl drop-shadow-xl">
         <div className="w-full h-full flex flex-col justify-between">
           <div className="w-full flex flex-row justify-between">
             <InputCustom
@@ -52,7 +52,7 @@ const SquareInfos: React.FC<SquareInfosProps> = ({ title, register, errors }) =>
             <InputCustom
               {...register('descricao')}
               label="Descrição..."
-              alturaInput="24"
+              alturaInput="20"
               error={!!errors?.descricao}
               helperText={errors?.descricao?.message}
             />
