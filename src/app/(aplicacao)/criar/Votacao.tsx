@@ -76,10 +76,12 @@ function CriarVotacao() {
         <SquareInfos
           register={register}
           title="CRIAR VOTAÇÃO"
+          errors={errors}
         />
         <SquareOptions
           control={control}
           register={register}
+          errors={errors}
         />
         <div className="w-full flex justify-end items-center mt-6">
           <Butao

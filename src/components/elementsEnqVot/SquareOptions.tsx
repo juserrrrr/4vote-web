@@ -3,15 +3,16 @@ import React from 'react';
 import InputCustom from '@/components/InputCustom/InputCustom';
 import Divider from '../divider/Divider';
 import { ArrowUpTrayIcon, PlusIcon, XCircleIcon } from '@heroicons/react/24/outline';
-import { Control, UseFormRegister, useFieldArray } from 'react-hook-form';
+import { Control, FieldErrors, UseFormRegister, useFieldArray } from 'react-hook-form';
 import { VotacaoDto } from '@/app/(aplicacao)/criar/Votacao';
 
 interface SquareOptionsProps {
   register: UseFormRegister<VotacaoDto>;
   control: Control<VotacaoDto, any>;
+  errors?: FieldErrors<VotacaoDto>;
 }
 
-function SquareOptions({ register, control }: SquareOptionsProps) {
+function SquareOptions({ register, control, errors }: SquareOptionsProps) {
   const {
     fields: opcoesFields,
     append: opcoesAppend,
@@ -28,16 +29,18 @@ function SquareOptions({ register, control }: SquareOptionsProps) {
           <InputCustom
             {...register('perguntas.0.pergunta')}
             label="Pergunta"
+            error={!!errors?.perguntas?.[0]?.pergunta}
+            helperText={errors?.perguntas?.[0]?.pergunta?.message}
           />
           <Divider />
         </div>
         <div className="flex-grow overflow-y-auto scrollbar-thin ">
-          <div className="flex flex-col gap-4 px-5 pb-5">
+          <div className="flex flex-col gap-2 px-5 pb-5">
             {opcoesFields.map((_, index) => (
               <>
                 <div
                   key={index}
-                  className="h-14 flex flex-row gap-2 justify-center items-center"
+                  className="h-auto flex flex-row gap-2 justify-normal items-center"
                 >
                   <XCircleIcon
                     onClick={() => opcoesRemove(index)}
@@ -46,6 +49,8 @@ function SquareOptions({ register, control }: SquareOptionsProps) {
                   <InputCustom
                     {...register(`perguntas.0.opcoes.${index}.texto`)}
                     label={`Opção ${index + 1}`}
+                    error={!!errors?.perguntas?.[0]?.opcoes?.[index]?.texto}
+                    helperText={errors?.perguntas?.[0]?.opcoes?.[index]?.texto?.message}
                   />
                   <span className="text-center w-16">Enviar Imagem</span>
                   <div>

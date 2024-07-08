@@ -13,17 +13,19 @@ const InputCustom = forwardRef<HTMLInputElement, InputCustomProps>(function Inpu
   { label = '', alturaInput = '12', larguraInput = 'full', helperText, error = false, ...restProps },
   ref,
 ) {
-  const [isFocused, setisFocused] = useState<Boolean>(false);
+  const [isFocused, setIsFocused] = useState<Boolean>(false);
   const [hasContent, sethasContent] = useState<Boolean>(false);
   const inputId = useId();
 
-  const handleFocus = () => {
-    setisFocused(true);
+  const handleFocus = (e: React.FocusEvent<HTMLInputElement>) => {
+    setIsFocused(true);
+    if (restProps.onFocus) restProps.onFocus(e);
   };
 
   const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
-    setisFocused(false);
+    setIsFocused(false);
     sethasContent(!!e.target.value);
+    if (restProps.onBlur) restProps.onBlur(e);
   };
 
   return (
@@ -41,9 +43,9 @@ const InputCustom = forwardRef<HTMLInputElement, InputCustomProps>(function Inpu
         border-2 font-semibold border-solid border-blue-950 focus:outline-none focus:border-blue-900
         ${error && 'border-red-600 focus:border-red-600'}`}
         ref={ref}
+        {...restProps}
         onFocus={handleFocus}
         onBlur={handleBlur}
-        {...restProps}
       />
       {helperText && <p className="text-red-600 text-sm">{helperText}</p>}
     </div>
