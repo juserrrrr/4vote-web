@@ -52,9 +52,9 @@ export default function Cadastro() {
     email: string;
     cpf: string;
     password: string;
-    confirmPassword: string;
   }) => {
-    const { name, email, cpf, password, confirmPassword } = data;
+    const { name, email, cpf, password } = data;
+    const response = await authService.cadastrar(name, email, cpf, password);
   };
 
   return (
