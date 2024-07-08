@@ -1,16 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 
-//Essa função é responsável por criar a caixa de seleção
-//O singleSelect seleciona apenas uma opção
-
 interface Option {
   label: string;
   value: string;
 }
 
-//option - são as opções
-//selectedValue - contém o valor da opção que está atualmente selecionada no componente dropdown.
-// onChange - é uma função de callback que é chamada sempre que o usuário seleciona uma nova opção no dropdown
 interface SingleSelectProps {
   options: Option[];
   selectedValue: string;
