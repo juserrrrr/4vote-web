@@ -3,12 +3,12 @@ import React from 'react';
 import { UseFormRegister, FieldErrors } from 'react-hook-form';
 import InputCustom from '@/components/InputCustom/InputCustom';
 import SelectCustom from '../selectBox';
-import { VotacaoDto } from '@/app/(aplicacao)/criar/Votacao';
+import { PesquisaDto } from '@/lib/pesquisa';
 
 interface SquareInfosProps {
   title?: 'CRIAR VOTAÇÃO' | 'CRIAR ENQUETE';
-  register: UseFormRegister<VotacaoDto>;
-  errors?: FieldErrors<VotacaoDto>;
+  register: UseFormRegister<PesquisaDto>;
+  errors?: FieldErrors<PesquisaDto>;
 }
 
 const options = [
@@ -30,14 +30,14 @@ const SquareInfos: React.FC<SquareInfosProps> = ({ title, register, errors }) =>
               helperText={errors?.titulo?.message}
             />
             <InputCustom
-              {...register('dataTermino')}
+              // {...register('dataTermino')}
               label="Data Limite"
               larguraInput="40px"
               error={!!errors?.dataTermino}
               helperText={errors?.dataTermino?.message}
             />
             <InputCustom
-              {...register('tags')}
+              // {...register('tags')}
               label="Tags"
               larguraInput="40px"
               error={!!errors?.tags}

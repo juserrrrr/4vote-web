@@ -1,13 +1,13 @@
 import axios from 'axios';
 import api from './api';
+import { OpcaoVotadaDto } from './opcaovotada';
 
-export interface Voto {
+export interface VotoDto {
   id: number;
-  data: string;
-  hash: string;
+  opcoesVotadas: OpcaoVotadaDto[];
 }
 
-async function getById(id: number): Promise<Voto | Error> {
+async function getById(id: number): Promise<VotoDto | Error> {
   try {
     const { data } = await api.get('/voto/id', id);
     if (data) return data;
@@ -20,6 +20,6 @@ async function getById(id: number): Promise<Voto | Error> {
   return new Error('Erro ao tentar pegar o id de voto');
 }
 
-export const authService = {
+export const voteService = {
   getById,
 };

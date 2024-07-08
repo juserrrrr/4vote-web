@@ -4,13 +4,13 @@ import InputCustom from '@/components/InputCustom/InputCustom';
 import Divider from '../divider/Divider';
 import { ArrowUpTrayIcon, PlusIcon, XCircleIcon } from '@heroicons/react/24/outline';
 import { Control, FieldErrors, UseFormRegister, useFieldArray } from 'react-hook-form';
-import { VotacaoDto } from '@/app/(aplicacao)/criar/Votacao';
 import { TrashIcon } from '@heroicons/react/24/solid';
+import { PesquisaDto } from '@/lib/pesquisa';
 
 interface SquareOptionsProps {
-  register: UseFormRegister<VotacaoDto>;
-  control: Control<VotacaoDto, any>;
-  errors?: FieldErrors<VotacaoDto>;
+  register: UseFormRegister<PesquisaDto>;
+  control: Control<PesquisaDto, any>;
+  errors?: FieldErrors<PesquisaDto>;
   type?: 'votacao' | 'enquete';
 }
 
@@ -63,7 +63,7 @@ function RenderOptions({ index, control, register, errors, type = 'votacao' }: R
                 className="h-12 text-red-500 cursor-pointer"
               />
               <InputCustom
-                {...register(`perguntas.0.opcoes.${index}.texto`)}
+                {...register(`perguntas.${index}.opcoes.${indexOption}.texto`)}
                 label={`Opção ${indexOption + 1}`}
                 error={!!errors?.perguntas?.[0]?.opcoes?.[indexOption]?.texto}
                 helperText={errors?.perguntas?.[0]?.opcoes?.[indexOption]?.texto?.message}
@@ -108,10 +108,10 @@ function RenderQuestions({ control, register, errors, type = 'votacao' }: Square
             <div>
               <div className="px-5 pt-5 flex flex-row gap-2 justify-center items-center">
                 <InputCustom
-                  {...register(`perguntas.${indexQuestion}.pergunta`)}
+                  {...register(`perguntas.${indexQuestion}.texto`)}
                   label={`${type === 'enquete' ? `Pergunta ${indexQuestion + 1}` : 'Pergunta'}`}
-                  error={!!errors?.perguntas?.[0]?.pergunta}
-                  helperText={errors?.perguntas?.[0]?.pergunta?.message}
+                  error={!!errors?.perguntas?.[0]?.texto}
+                  helperText={errors?.perguntas?.[0]?.texto?.message}
                 />
                 {type === 'enquete' && (
                   <>
@@ -141,7 +141,7 @@ function RenderQuestions({ control, register, errors, type = 'votacao' }: Square
         ))}
         {type === 'enquete' && (
           <NewButton
-            onClick={() => questionAppend({ pergunta: '', opcoes: [{ texto: '' }, { texto: '' }] })}
+            onClick={() => questionAppend({ texto: '', opcoes: [{ texto: '' }, { texto: '' }] })}
             text="nova Pergunta"
           />
         )}

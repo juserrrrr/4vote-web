@@ -2,77 +2,96 @@
 import Butao from '@/components/buttons/button';
 import SquareInfos from '@/components/elementsEnqVot/SquareInfos';
 import SquareOptions from '@/components/elementsEnqVot/SquareOptions';
+import { PesquisaDto } from '@/lib/pesquisa';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useFieldArray, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
+import { onSubimitAction } from './formSubmit';
+import { useFormState, useFormStatus } from 'react-dom';
 
-export interface VotacaoDto {
-  titulo: string;
-  dataTermino: string;
-  ehPublico: number;
-  descricao: string;
-  perguntas: {
-    pergunta: string;
-    opcoes: {
-      texto: string;
-    }[];
-  }[];
-  tags?: string;
-}
-
-const defaultValues: VotacaoDto = {
+const defaultValues: PesquisaDto = {
   titulo: '',
-  dataTermino: '',
-  ehPublico: 1,
+  dataTermino: '2024-07-20 15:30:00',
+  ehPublico: true,
   descricao: '',
+  ehVotacao: false,
   perguntas: [
     {
-      pergunta: '',
+      texto: '',
       opcoes: [{ texto: '' }, { texto: '' }],
     },
   ],
-  tags: '',
+  tags: [
+    {
+      nome: 'Politica',
+    },
+  ],
 };
 
+function ButtonSubmit() {
+  const status = useFormStatus();
+  console.log(status);
+  return (
+    <Butao
+      type="submit"
+      disabled={status.pending}
+      texto="CRIAR VOTAÇÃO"
+      variant="default"
+    />
+  );
+}
+
 function CriarVotacao() {
-  const votacaoSchema = yup.object({
-    titulo: yup.string().required('Nome é obrigatório'),
-    dataTermino: yup.string().required('Data é obrigatória'),
-    ehPublico: yup.number().required('Tipo é obrigatório'),
-    descricao: yup.string().required('Descrição é obrigatória'),
-    perguntas: yup
-      .array()
-      .of(
-        yup.object({
-          pergunta: yup.string().required('Pergunta é obrigatória'),
-          opcoes: yup
-            .array()
-            .of(
-              yup.object({
-                texto: yup.string().required('Opção é obrigatória'),
-              }),
-            )
-            .required('Opções são obrigatórias')
-            .min(2, 'Mínimo de 2 opções'),
-        }),
-      )
-      .required('Perguntas são obrigatórias')
-      .max(1, 'Máximo de 1 pergunta'),
-    tags: yup.string(),
+  const opcaoSchema = yup.object({
+    texto: yup.string().required('Opção é obrigatória'),
   });
+
+  const perguntaSchema = yup.object({
+    texto: yup.string().required('Pergunta é obrigatória'),
+    opcoes: yup.array().of(opcaoSchema).required('Opções são obrigatórias').min(2, 'Mínimo de 2 opções'),
+  });
+
+  const tagSchema = yup.object({
+    nome: yup.string().required('Nome é obrigatório'),
+  });
+
+  const pesquisaSchema = yup.object({
+    titulo: yup.string().required('Título é obrigatório'),
+    descricao: yup.string(),
+    dataTermino: yup.string().required('Data de término é obrigatória'),
+    ehPublico: yup.boolean().required('É público é obrigatório'),
+    ehVotacao: yup.boolean().required('É votação é obrigatório'),
+    perguntas: yup.array().of(perguntaSchema).required('Perguntas são obrigatórias'),
+    tags: yup.array().of(tagSchema),
+  });
+
   const {
     register,
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<VotacaoDto>({
-    resolver: yupResolver(votacaoSchema),
+  } = useForm<PesquisaDto>({
+    resolver: yupResolver(pesquisaSchema),
     defaultValues: defaultValues,
   });
 
+  const [state, formAction] = useFormState(onSubimitAction, { message: '' });
+
+  async function onSubmit(data: PesquisaDto) {
+    const formData = new FormData();
+    formData.append('titulo', data.titulo);
+    formData.append('descricao', data.descricao || '');
+    formData.append('dataTermino', data.dataTermino);
+    formData.append('ehPublico', data.ehPublico.toString());
+    formData.append('ehVotacao', data.ehVotacao.toString());
+    formData.append('perguntas', JSON.stringify(data.perguntas));
+    formData.append('tags', JSON.stringify(data.tags));
+    formAction(formData);
+  }
+
   return (
     <div className="mx-20">
-      <form onSubmit={handleSubmit((data) => console.log(data))}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <SquareInfos
           register={register}
           title="CRIAR VOTAÇÃO"
@@ -84,12 +103,7 @@ function CriarVotacao() {
           errors={errors}
         />
         <div className="w-full flex justify-end items-center mt-6">
-          <Butao
-            type="submit"
-            texto="CRIAR VOTAÇÃO"
-            variant="default"
-            onClick={handleSubmit((data) => console.log(data))}
-          />
+          <ButtonSubmit />
         </div>
       </form>
     </div>

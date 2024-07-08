@@ -1,7 +1,7 @@
 import axios from 'axios';
 import api from './api';
 
-interface Tag {
+export interface TagDto {
   nome: string;
 }
 
@@ -18,7 +18,7 @@ async function getById(tag_id: number): Promise<Error> {
   return new Error('Erro ao tentar pegar o id de tag');
 }
 
-async function findAll(tag: Tag): Promise<Error> {
+async function findAll(tag: TagDto): Promise<Error> {
   try {
     const { data } = await api.get('tag', tag);
     if (data) return data;
@@ -31,7 +31,7 @@ async function findAll(tag: Tag): Promise<Error> {
   return new Error('Erro ao tentar achar tag');
 }
 
-export const authService = {
+export const tagService = {
   getById,
   findAll,
 };

@@ -1,11 +1,8 @@
 import axios from 'axios';
 import api from './api';
 
-interface Opcao {
-  id: number;
-  pergunta_id: number;
+export interface OpcaoDto {
   texto: string;
-  quantVotos: number;
 }
 
 async function getById(id: number): Promise<Error> {
@@ -21,6 +18,6 @@ async function getById(id: number): Promise<Error> {
   return new Error('Erro ao tentar pegar o id de opção');
 }
 
-export const authService = {
+export const optionService = {
   getById,
 };

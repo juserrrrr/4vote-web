@@ -1,27 +1,48 @@
-import { AxiosError, AxiosResponse } from 'axios';
+import axios, { AxiosError, AxiosResponse } from 'axios';
+import { PerguntaDto } from './perguntas';
+import { TagDto } from './tag';
 import api from './api';
 
-interface Pesquisa {
+export interface PesquisaDto {
   titulo: string;
-  codigo: string;
-  dataCriacao: Date;
-  dataTermino: Date;
-  ehPublico: boolean;
   descricao?: string;
-  criador: number;
-  arquivado: boolean;
-  URLimagem?: string;
+  dataTermino: string;
+  ehPublico: boolean;
   ehVotacao: boolean;
+  perguntas: PerguntaDto[];
+  tags?: TagDto[];
 }
 
-function DateToISOString(pesquisa: Pesquisa): { dataCriacao: string; dataTermino: string } {
-  return {
-    dataCriacao: pesquisa.dataCriacao.toISOString(),
-    dataTermino: pesquisa.dataTermino.toISOString(),
-  };
+export interface PesquisaResponse {
+  codigo?: string;
+  titulo?: string;
 }
 
-export function setArquivado(id: number) {
+const headerAutorization = {
+  headers: {
+    Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJub21lIjoiSm9hbyIsImlhdCI6MTcyMDQ2MzA1MiwiZXhwIjoxNzIwNTQ5NDUyLCJpc3MiOiJBc3NpbmF0dXJhNFZvdGUiLCJzdWIiOiIyIn0.g6yjqFHMpEt8agKVqJ2IW6LzQxBK3iimeISyrHBecK0`,
+  },
+};
+
+// function DateToISOString(pesquisa: PesquisaDto): { dataTermino: string } {
+//   return {
+//     dataTermino: pesquisa.dataTermino.toISOString(),
+//   };
+// }
+
+async function createPesquisa(pesquisaDto: PesquisaDto): Promise<PesquisaResponse | Error> {
+  try {
+    const { data } = await api.post('/pesquisas', pesquisaDto, headerAutorization);
+    return data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      return new Error(error.response?.data.message);
+    }
+    return new Error('Erro desconhecido');
+  }
+}
+
+function setArquivado(id: number) {
   api
     .patch(`pesquisas/arquivar/${id}`)
     .then((response: AxiosResponse) => {
@@ -34,7 +55,7 @@ export function setArquivado(id: number) {
     });
 }
 
-export function findAllPesquisas() {
+function findAllPesquisas() {
   api
     .get('pesquisas')
     .then((response: AxiosResponse) => {
@@ -47,20 +68,8 @@ export function findAllPesquisas() {
     });
 }
 
-export function createPesquisa(pesquisa: Pesquisa) {
-  const pesquisaComDatasISO = {
-    ...pesquisa,
-    ...DateToISOString(pesquisa),
-  };
-
-  api
-    .post('pesquisas', pesquisa)
-    .then((response: AxiosResponse) => {
-      console.log(response.data);
-      return true;
-    })
-    .catch((error: AxiosError) => {
-      console.log(error);
-      return false;
-    });
-}
+export const surveyService = {
+  setArquivado,
+  findAllPesquisas,
+  createPesquisa,
+};

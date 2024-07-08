@@ -1,14 +1,13 @@
 import axios from 'axios';
 import api from './api';
 
-export interface OpcaoVotada {
+export interface OpcaoVotadaDto {
   id_opcao: number;
-  id_voto: number;
 }
 
-async function getById(id_opcao: number): Promise<OpcaoVotada | Error> {
+async function getById(idVote: number): Promise<OpcaoVotadaDto | Error> {
   try {
-    const { data } = await api.get('/opcaovotada/id', id_opcao);
+    const { data } = await api.get('/opcaoVotada', idVote);
     if (data) return data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
@@ -19,6 +18,6 @@ async function getById(id_opcao: number): Promise<OpcaoVotada | Error> {
   return new Error('Erro ao tentar pegar o id de opção votada');
 }
 
-export const authService = {
+export const optionVotedervice = {
   getById,
 };

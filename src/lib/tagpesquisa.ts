@@ -19,6 +19,6 @@ async function getByPesquisa(pesquisa_id: number): Promise<TagPesquisa | Error> 
   return new Error('Erro ao tentar pegar o id de tagpesquisa por pesquisa');
 }
 
-export const authService = {
+export const tagQuestionService = {
   getByPesquisa,
 };
