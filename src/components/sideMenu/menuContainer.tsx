@@ -19,7 +19,7 @@ function MenuContainer({
         isOpen={isOpen}
         toggleSidebar={toggleSidebar}
       />
-      <div className={`overflow-auto transition-all mt-[70px] ${isOpen ? 'ml-64' : 'ml-20'}`}>{children}</div>
+      <div className={`transition-all mt-[70px] ${isOpen ? 'ml-64' : 'ml-20'}`}>{children}</div>
     </>
   );
 }

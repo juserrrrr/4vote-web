@@ -3,10 +3,11 @@ import React from 'react';
 import { FieldValues, UseFormRegister, FieldErrors } from 'react-hook-form';
 import InputCustom from '@/components/InputCustom/InputCustom';
 import SelectCustom from '../selectBox';
+import { VotacaoDto } from '@/app/(aplicacao)/criar/Votacao';
 
 interface SquareInfosProps {
   title?: 'CRIAR VOTAÇÃO' | 'CRIAR ENQUETE';
-  register: UseFormRegister<FieldValues>;
+  register: UseFormRegister<VotacaoDto>;
 }
 
 const options = [
@@ -16,11 +17,11 @@ const options = [
 
 const SquareInfos: React.FC<SquareInfosProps> = ({ title, register }) => {
   return (
-    <div className="w-[1260px] h-[316px]">
-      <h1 className="text-4xl text-corPrincipal font-bold mb-4">{title}</h1>
-      <div className="w-[1225px] h-[250px] p-5 inline-flex bg-white rounded-xl ">
-        <div className="w-[394px] flex flex-col">
-          <div className="w-[1188px] h-[80px] inline-flex">
+    <div className="w-full h-72">
+      <h1 className="text-4xl text-corPrincipal font-bold mb-4 text-">{title}</h1>
+      <div className="w-full h-56 p-5 bg-white rounded-xl drop-shadow-md">
+        <div className="w-full h-full flex flex-col justify-between">
+          <div className="w-full flex flex-row justify-between">
             <InputCustom
               {...register('nome')}
               label="Nome"
@@ -40,7 +41,7 @@ const SquareInfos: React.FC<SquareInfosProps> = ({ title, register }) => {
               options={options}
             />
           </div>
-          <div className="w-[1188px] h-[100px]">
+          <div className="w-full">
             <InputCustom
               {...register('descricao')}
               label="Descrição..."

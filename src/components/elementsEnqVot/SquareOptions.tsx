@@ -1,130 +1,78 @@
 'use client';
 import React from 'react';
-import { renderToPipeableStream } from 'react-dom/server';
 import InputCustom from '@/components/InputCustom/InputCustom';
-import OptionConfig from './OptionConfig';
-import IconButton from '../IconButton/IconButton';
-import Image from 'next/image';
+import Divider from '../divider/Divider';
+import { ArrowUpTrayIcon, PlusIcon, XCircleIcon } from '@heroicons/react/24/outline';
+import { Control, FieldValues, UseFormRegister, useFieldArray } from 'react-hook-form';
+import { VotacaoDto } from '@/app/(aplicacao)/criar/Votacao';
 
-const SquareOptions = () => {
-  const IconTrash: React.FC = () => (
-    <svg
-      width="55"
-      height="55"
-      viewBox="0 0 55 55"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <circle
-        cx="27.5"
-        cy="27.5"
-        r="27.5"
-        fill="#FF4444"
-      />
-      <path
-        d="M18 21H20H36"
-        stroke="white"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      />
-      <path
-        d="M34 21V35C34 35.5304 33.7893 36.0391 33.4142 36.4142C33.0391 36.7893 32.5304 37 32 37H22C21.4696 37 20.9609 36.7893 20.5858 36.4142C20.2107 36.0391 20 35.5304 20 35V21M23 21V19C23 18.4696 23.2107 17.9609 23.5858 17.5858C23.9609 17.2107 24.4696 17 25 17H29C29.5304 17 30.0391 17.2107 30.4142 17.5858C30.7893 17.9609 31 18.4696 31 19V21"
-        stroke="white"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      />
-      <path
-        d="M25 26V32"
-        stroke="white"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      />
-      <path
-        d="M29 26V32"
-        stroke="white"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      />
-    </svg>
-  );
+interface SquareOptionsProps {
+  register: UseFormRegister<VotacaoDto>;
+  control: Control<VotacaoDto, any>;
+}
 
-  const IconMais: React.FC = () => (
-    <svg
-      width="34"
-      height="33"
-      viewBox="0 0 34 33"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <ellipse
-        cx="17"
-        cy="16.5"
-        rx="17"
-        ry="16.5"
-        fill="#052A76"
-      />
-      <path
-        d="M17 6V26M7 16H27"
-        stroke="white"
-        stroke-width="3"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      />
-    </svg>
-  );
-
-  const backgraund = 'w-[1260px] h-[450px] mt-3';
-  const squareWhite = 'w-[1225px] h-[420px] p-5 inline-flex bg-white rounded-xl ';
-  const title = 'PERGUNTAS';
-  const title1 = 'text-4xl text-corPrincipal font-bold mb-4';
-  const line = 'w-[1150px] h-[1px] inline-flex bg-corPrincipal';
-
+function SquareOptions({ register, control }: SquareOptionsProps) {
+  const {
+    fields: opcoesFields,
+    append: opcoesAppend,
+    remove: opcoesRemove,
+  } = useFieldArray({
+    control,
+    name: 'perguntas.0.opcoes',
+  });
   return (
-    <div className={backgraund}>
-      <h1 className={title1}>{title}</h1>
-      <div className={squareWhite}>
-        <div className="w-[394px] flex flex-col">
-          <div className="w-[1188px] inline-flex"></div>
-          <div className="w-[1000px]">
-            <div className="inline-flex">
-              <div className="w-[1180px] mr-4 inline-flex">
-                <InputCustom
-                  label="Pergunta"
-                  alturaInput="[60px]"
-                />
-                <h2 className="font-semibold mt-3 text-corPrincipal ml-4"> Remover Pergunta</h2>
-                <div className="">
-                  <IconButton
-                    icon={<IconTrash />}
-                    ariaLabel="Apagar Pergunta"
-                    onClick={() => console.log('Icon Trash clicked')}
+    <div className="w-full mt-3">
+      <h1 className="text-4xl text-corPrincipal font-bold mb-4">PERGUNTAS</h1>
+      <div className="w-full h-96 bg-white rounded-xl drop-shadow-md shadow flex flex-col">
+        <div className="px-5 pt-5">
+          <InputCustom
+            {...register('perguntas.0.pergunta')}
+            label="Pergunta"
+          />
+          <Divider />
+        </div>
+        <div className="flex-grow overflow-y-auto scrollbar-thin">
+          <div className="flex flex-col gap-4 px-5  pb-5">
+            {opcoesFields.map((_, index) => (
+              <>
+                <div
+                  key={index}
+                  className="h-14 flex flex-row gap-2 justify-center items-center"
+                >
+                  <XCircleIcon
+                    onClick={() => opcoesRemove(index)}
+                    className="h-12 text-red-500 cursor-pointer"
+                  />
+                  <InputCustom
+                    {...register(`perguntas.0.opcoes.${index}.texto`)}
+                    label={`Opção ${index + 1}`}
+                  />
+                  <span className="text-center w-16">Enviar Imagem</span>
+                  <button className="w-14 h-12 rounded-full bg-corPrincipal text-white flex items-center justify-center hover:bg-corSecundaria focus:outline-none">
+                    <ArrowUpTrayIcon className="h-6" />
+                  </button>
+                </div>
+              </>
+            ))}
+            <div className="flex w-full justify-end items-center">
+              <div
+                onClick={() => opcoesAppend({ texto: '' })}
+                className="flex flex-row justify-center items-center gap-2 uppercase text-center font-bold text-corPrincipal hover:text-corSecundaria cursor-pointer px-32"
+              >
+                <span>nova opção</span>
+                <div className="w-7 h-7 rounded-full bg-corPrincipal text-white flex justify-center items-center">
+                  <PlusIcon
+                    strokeWidth={2}
+                    className="h-6 cursor-pointer"
                   />
                 </div>
               </div>
-            </div>
-            <div className={line}></div>
-            <div className="w-[900px]">
-              <OptionConfig title="opção 1" />
-              <OptionConfig title="opção 2" />
-              <OptionConfig title="opção 3" />
-            </div>
-            <div className="w-[500px] inline-flex mb-4 absolute right-0">
-              <div className="font-bold text-corPrincipal mr-1 mt-5"> NOVA OPÇÃO</div>
-              <IconButton
-                icon={<IconMais />}
-                ariaLabel="add nova opção"
-                onClick={() => console.log('add option clicked')}
-              />
             </div>
           </div>
         </div>
       </div>
     </div>
   );
-};
+}
 
 export default SquareOptions;
