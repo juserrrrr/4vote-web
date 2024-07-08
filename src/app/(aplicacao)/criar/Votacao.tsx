@@ -7,7 +7,7 @@ import { useFieldArray, useForm } from 'react-hook-form';
 import * as yup from 'yup';
 
 export interface VotacaoDto {
-  nome: string;
+  titulo: string;
   dataTermino: string;
   ehPublico: number;
   descricao: string;
@@ -21,7 +21,7 @@ export interface VotacaoDto {
 }
 
 const defaultValues: VotacaoDto = {
-  nome: '',
+  titulo: '',
   dataTermino: '',
   ehPublico: 1,
   descricao: '',
@@ -36,7 +36,7 @@ const defaultValues: VotacaoDto = {
 
 function CriarVotacao() {
   const votacaoSchema = yup.object({
-    nome: yup.string().required('Nome é obrigatório'),
+    titulo: yup.string().required('Nome é obrigatório'),
     dataTermino: yup.string().required('Data é obrigatória'),
     ehPublico: yup.number().required('Tipo é obrigatório'),
     descricao: yup.string().required('Descrição é obrigatória'),

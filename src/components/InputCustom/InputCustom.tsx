@@ -38,7 +38,7 @@ const InputCustom = forwardRef<HTMLInputElement, InputCustomProps>(function Inpu
       <input
         id={inputId}
         className={`p-2 pt-4 h-${alturaInput} rounded-md text-blue-950 
-        border-2 font-normal  border-solid border-blue-950 focus:outline-none focus:border-blue-900
+        border-2 font-semibold border-solid border-blue-950 focus:outline-none focus:border-blue-900
         ${error && 'border-red-600 focus:border-red-600'}`}
         ref={ref}
         onFocus={handleFocus}

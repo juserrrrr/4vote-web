@@ -3,7 +3,7 @@ import React from 'react';
 import InputCustom from '@/components/InputCustom/InputCustom';
 import Divider from '../divider/Divider';
 import { ArrowUpTrayIcon, PlusIcon, XCircleIcon } from '@heroicons/react/24/outline';
-import { Control, FieldValues, UseFormRegister, useFieldArray } from 'react-hook-form';
+import { Control, UseFormRegister, useFieldArray } from 'react-hook-form';
 import { VotacaoDto } from '@/app/(aplicacao)/criar/Votacao';
 
 interface SquareOptionsProps {
@@ -23,7 +23,7 @@ function SquareOptions({ register, control }: SquareOptionsProps) {
   return (
     <div className="w-full mt-3">
       <h1 className="text-4xl text-corPrincipal font-bold mb-4">PERGUNTAS</h1>
-      <div className="w-full h-96 bg-white rounded-xl drop-shadow-md shadow flex flex-col">
+      <div className="w-full h-96 bg-white rounded-xl drop-shadow-xl flex flex-col">
         <div className="px-5 pt-5">
           <InputCustom
             {...register('perguntas.0.pergunta')}
@@ -31,8 +31,8 @@ function SquareOptions({ register, control }: SquareOptionsProps) {
           />
           <Divider />
         </div>
-        <div className="flex-grow overflow-y-auto scrollbar-thin">
-          <div className="flex flex-col gap-4 px-5  pb-5">
+        <div className="flex-grow overflow-y-auto scrollbar-thin ">
+          <div className="flex flex-col gap-4 px-5 pb-5">
             {opcoesFields.map((_, index) => (
               <>
                 <div
@@ -48,9 +48,11 @@ function SquareOptions({ register, control }: SquareOptionsProps) {
                     label={`Opção ${index + 1}`}
                   />
                   <span className="text-center w-16">Enviar Imagem</span>
-                  <button className="w-14 h-12 rounded-full bg-corPrincipal text-white flex items-center justify-center hover:bg-corSecundaria focus:outline-none">
-                    <ArrowUpTrayIcon className="h-6" />
-                  </button>
+                  <div>
+                    <button className="w-12 h-12 rounded-full bg-corPrincipal text-white flex items-center justify-center hover:bg-corSecundaria focus:outline-none">
+                      <ArrowUpTrayIcon className="h-6" />
+                    </button>
+                  </div>
                 </div>
               </>
             ))}
