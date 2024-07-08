@@ -3,7 +3,7 @@ import React from 'react';
 import { useState } from 'react';
 import { renderToPipeableStream } from 'react-dom/server';
 import InputCustom from '@/components/InputCustom/InputCustom';
-import SingleSelect from '../selectBox';
+import SingleSelect from '../selectBox/selectBox';
 
 interface SquareInfosProps {
   title?: 'CRIAR VOTAÇÃO' | 'CRIAR ENQUETE';

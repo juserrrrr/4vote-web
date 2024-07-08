@@ -1,10 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+
+//Essa função é responsável por criar a caixa de seleção
+//O singleSelect seleciona apenas uma opção
 
 interface Option {
   label: string;
   value: string;
 }
 
+//option - são as opções
+//selectedValue - contém o valor da opção que está atualmente selecionada no componente dropdown.
+// onChange - é uma função de callback que é chamada sempre que o usuário seleciona uma nova opção no dropdown
 interface SingleSelectProps {
   options: Option[];
   selectedValue: string;
@@ -13,6 +19,7 @@ interface SingleSelectProps {
 
 const SingleSelect: React.FC<SingleSelectProps> = ({ options, selectedValue, onChange }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
 
   const toggleSelect = () => setIsOpen(!isOpen);
 
@@ -21,8 +28,24 @@ const SingleSelect: React.FC<SingleSelectProps> = ({ options, selectedValue, onC
     setIsOpen(false);
   };
 
+  const handleClickOutside = (event: MouseEvent) => {
+    if (ref.current && !ref.current.contains(event.target as Node)) {
+      setIsOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
   return (
-    <div className="relative inline-block w-64">
+    <div
+      ref={ref}
+      className="relative inline-block w-64"
+    >
       <button
         type="button"
         onClick={toggleSelect}

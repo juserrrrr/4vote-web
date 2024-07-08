@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import Answer from '@/components/answers/answer';
 import InfoAns from '@/components/infoVoteAns/infoAns';
-import VoteCounter from '@/components/voteCounter/VoteCounter';
+import VoteCounter from '@/components/selectBox/VoteCounter';
 import Pagination from '@/components/pagination/Pagination';
 
 export default function Votacao() {
