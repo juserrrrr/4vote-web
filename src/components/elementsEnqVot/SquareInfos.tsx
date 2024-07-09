@@ -3,6 +3,7 @@ import React from 'react';
 import { useState } from 'react';
 import { renderToPipeableStream } from 'react-dom/server';
 import InputCustom from '@/components/InputCustom/InputCustom';
+import DateInput from '../dateInput/dateInput';
 import SingleSelect from '../selectBox';
 
 interface SquareInfosProps {
@@ -28,10 +29,9 @@ const SquareInfos: React.FC<SquareInfosProps> = ({ title }) => {
         <div className="w-[394px] flex flex-col">
           <div className="w-[1188px] h-[80px] inline-flex">
             <InputCustom label="Nome" />
-            <InputCustom
-              label="Data Limite"
-              larguraInput="40px"
-            />
+            <div className="mt-4">
+              <DateInput />
+            </div>
             <InputCustom
               label="Tags"
               larguraInput="40px"
