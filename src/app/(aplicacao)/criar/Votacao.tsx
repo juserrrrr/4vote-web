@@ -30,7 +30,6 @@ const defaultValues: PesquisaDto = {
 function ButtonSubmit() {
   const { formState } = useFormContext();
   const { isSubmitting } = formState;
-  console.log(isSubmitting);
 
   return (
     <Butao

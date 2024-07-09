@@ -95,7 +95,6 @@ export default function HomePage() {
         isOpen={isOpenFiltrar}
         onClose={() => setIsOpenFiltrar(false)}
       />
-      <main>
         <div className="flex flex-col justify-center items-center px-16 py-6 gap-6 text-corPrincipal">
           <div className="flex flex-col w-full justify-start">
             <h1 className="text-4xl font-bold">Histórico</h1>
@@ -137,7 +136,6 @@ export default function HomePage() {
             ))}
           </div>
         </div>
-      </main>
     </div>
   );
 }

@@ -60,7 +60,7 @@ function RenderOptions({ index, control, register, errors, type = 'votacao' }: R
             >
               <XCircleIcon
                 onClick={() => optionsRemove(indexOption)}
-                className="h-12 text-red-500 cursor-pointer"
+                className="h-12 text-red-500 hover:text-red-700 cursor-pointer"
               />
               <InputCustom
                 {...register(`perguntas.${index}.opcoes.${indexOption}.texto`)}

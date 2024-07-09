@@ -9,11 +9,10 @@ function PageVotacao() {
     console.log(titulo);
   }
   return (
-    <main>
+
       <div className="w-full h-auto mt-5">
         <CriarVotacao />
       </div>
-    </main>
   );
 }
 
