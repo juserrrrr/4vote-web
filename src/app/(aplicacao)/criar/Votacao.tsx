@@ -86,7 +86,7 @@ function CriarVotacao() {
   }
 
   return (
-    <div className="mx-20">
+    <div className="mx-20 pb-4">
       <FormProvider {...methods}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <SquareInfos

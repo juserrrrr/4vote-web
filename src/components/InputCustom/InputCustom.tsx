@@ -1,5 +1,4 @@
-'use client';
-import React, { InputHTMLAttributes, forwardRef, useId, useState } from 'react';
+import React, { useRef, useImperativeHandle, forwardRef, useId, useState, InputHTMLAttributes, useEffect } from 'react';
 
 interface InputCustomProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
@@ -13,9 +12,15 @@ const InputCustom = forwardRef<HTMLInputElement, InputCustomProps>(function Inpu
   { label = '', alturaInput = '12', larguraInput = 'full', helperText, error = false, ...restProps },
   ref,
 ) {
+  const internalRef = useRef<HTMLInputElement>(null);
+  useImperativeHandle(ref, () => internalRef.current as HTMLInputElement);
   const [isFocused, setIsFocused] = useState<Boolean>(false);
   const [hasContent, sethasContent] = useState<Boolean>(false);
   const inputId = useId();
+
+  useEffect(() => {
+    sethasContent(!!internalRef.current?.value);
+  }, []);
 
   const handleFocus = (e: React.FocusEvent<HTMLInputElement>) => {
     setIsFocused(true);
@@ -40,9 +45,9 @@ const InputCustom = forwardRef<HTMLInputElement, InputCustomProps>(function Inpu
       <input
         id={inputId}
         className={`p-2 pt-4 h-${alturaInput} rounded-md text-blue-950 
-        border-2 font-semibold border-solid border-blue-950 focus:outline-none focus:border-blue-900
+        border-2 font-medium border-solid border-blue-950 focus:outline-none focus:border-blue-900
         ${error && 'border-red-600 focus:border-red-600'}`}
-        ref={ref}
+        ref={internalRef}
         {...restProps}
         onFocus={handleFocus}
         onBlur={handleBlur}

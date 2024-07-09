@@ -5,7 +5,7 @@ interface FormState extends PesquisaResponse {
   message: string;
 }
 
-export async function onSubimitAction( data: FormData): Promise<FormState> {
+export async function onSubimitAction(data: FormData): Promise<FormState> {
   const values = Object.fromEntries(data.entries());
   const formValues: PesquisaDto = {
     titulo: values.titulo as string,

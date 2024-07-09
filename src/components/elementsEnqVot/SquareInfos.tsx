@@ -12,8 +12,8 @@ interface SquareInfosProps {
 }
 
 const options = [
-  { label: 'Pública', value: 1 },
-  { label: 'Privada', value: 0 },
+  { label: 'Pública', value: true },
+  { label: 'Privada', value: false },
 ];
 
 const SquareInfos: React.FC<SquareInfosProps> = ({ title, register, errors }) => {
@@ -30,14 +30,14 @@ const SquareInfos: React.FC<SquareInfosProps> = ({ title, register, errors }) =>
               helperText={errors?.titulo?.message}
             />
             <InputCustom
-              // {...register('dataTermino')}
+              {...register('dataTermino')}
               label="Data Limite"
               larguraInput="40px"
               error={!!errors?.dataTermino}
               helperText={errors?.dataTermino?.message}
             />
             <InputCustom
-              // {...register('tags')}
+              {...register('tags')}
               label="Tags"
               larguraInput="40px"
               error={!!errors?.tags}

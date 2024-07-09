@@ -2,7 +2,7 @@ import React, { forwardRef, useState } from 'react';
 
 interface Option {
   label: string;
-  value: number | string;
+  value: number | string | boolean;
 }
 
 interface SelectCustomProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
@@ -28,8 +28,8 @@ const SelectCustom = forwardRef<HTMLSelectElement, SelectCustomProps>(function I
       >
         {options.map((option) => (
           <option
-            key={option.value}
-            value={option.value}
+            key={option.value.toString()}
+            value={option.value.toString()}
           >
             {option.label}
           </option>
