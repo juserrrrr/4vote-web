@@ -4,10 +4,9 @@ import SquareInfos from '@/components/elementsEnqVot/SquareInfos';
 import SquareOptions from '@/components/elementsEnqVot/SquareOptions';
 import { PesquisaDto } from '@/lib/pesquisa';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useForm } from 'react-hook-form';
+import { useForm, FormProvider, useFormContext } from 'react-hook-form';
 import * as yup from 'yup';
 import { onSubimitAction } from './formSubmit';
-import { useFormState, useFormStatus } from 'react-dom';
 
 const defaultValues: PesquisaDto = {
   titulo: '',
@@ -29,13 +28,15 @@ const defaultValues: PesquisaDto = {
 };
 
 function ButtonSubmit() {
-  const status = useFormStatus();
-  console.log(status);
+  const { formState } = useFormContext();
+  const { isSubmitting } = formState;
+  console.log(isSubmitting);
+
   return (
     <Butao
       type="submit"
-      disabled={status.pending}
-      texto="CRIAR VOTAÇÃO"
+      disabled={isSubmitting}
+      texto={isSubmitting ? 'CRIANDO...' : 'CRIAR VOTAÇÃO'}
       variant="default"
     />
   );
@@ -65,17 +66,12 @@ function CriarVotacao() {
     tags: yup.array().of(tagSchema),
   });
 
-  const {
-    register,
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<PesquisaDto>({
+  const methods = useForm<PesquisaDto>({
     resolver: yupResolver(pesquisaSchema),
     defaultValues: defaultValues,
   });
 
-  const [state, formAction] = useFormState(onSubimitAction, { message: '' });
+  const { handleSubmit } = methods;
 
   async function onSubmit(data: PesquisaDto) {
     const formData = new FormData();
@@ -86,26 +82,28 @@ function CriarVotacao() {
     formData.append('ehVotacao', data.ehVotacao.toString());
     formData.append('perguntas', JSON.stringify(data.perguntas));
     formData.append('tags', JSON.stringify(data.tags));
-    formAction(formData);
+    await onSubimitAction(formData);
   }
 
   return (
     <div className="mx-20">
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <SquareInfos
-          register={register}
-          title="CRIAR VOTAÇÃO"
-          errors={errors}
-        />
-        <SquareOptions
-          control={control}
-          register={register}
-          errors={errors}
-        />
-        <div className="w-full flex justify-end items-center mt-6">
-          <ButtonSubmit />
-        </div>
-      </form>
+      <FormProvider {...methods}>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <SquareInfos
+            register={methods.register}
+            title="CRIAR VOTAÇÃO"
+            errors={methods.formState.errors}
+          />
+          <SquareOptions
+            control={methods.control}
+            register={methods.register}
+            errors={methods.formState.errors}
+          />
+          <div className="w-full flex justify-end items-center mt-6">
+            <ButtonSubmit />
+          </div>
+        </form>
+      </FormProvider>
     </div>
   );
 }
