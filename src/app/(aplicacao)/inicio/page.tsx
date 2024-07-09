@@ -95,12 +95,12 @@ export default function HomePage() {
         isOpen={isOpenFiltrar}
         onClose={() => setIsOpenFiltrar(false)}
       />
-      <div className="flex flex-col justify-center items-center px-16 py-6 gap-6 text-corPrincipal">
+      <div className="flex flex-col justify-center items-center px-4 md:px-16 py-6 gap-4 text-corPrincipal">
         <div className="flex flex-col w-full justify-start">
           <h1 className="text-4xl font-bold">Início</h1>
           <h2 className="text-2xl font-sans">Visualize aqui enquetes e votações públicas.</h2>
         </div>
-        <div className="search-bar-text w-full flex flex-row items-center gap-4 px-4 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-corPrincipal focus:border-transparent bg-white text-corPrincipal">
+        <div className="search-bar-text w-full flex flex-row items-center gap- px-4 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-corPrincipal focus:border-transparent bg-white text-corPrincipal">
           Encontre as pesquisas que você procura: vote e participe!
         </div>
         <div className="w-full flex flex-col md:flex-row items-center gap-4 md:gap-8">

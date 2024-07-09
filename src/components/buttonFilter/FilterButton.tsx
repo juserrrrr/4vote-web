@@ -27,7 +27,7 @@ const FilterButton: React.FC<filterButtonProps> = ({ variante, onClick }) => {
       onClick={onClick}
     >
       <span>{icon}</span>
-      <span className="text-[#052a76] text-[16px] font-bold">{text}</span>
+      <span className="w-36 text-[#052a76] text-[16px] font-bold">{text}</span>
     </button>
   );
 };
