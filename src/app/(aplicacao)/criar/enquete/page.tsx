@@ -1,7 +1,7 @@
 import React from 'react';
 import CriarEnquete from '../Enquete';
 
-function CreatePage() {
+function PageEnquete() {
   return (
     <div className="w-full h-auto mt-5">
       <CriarEnquete />
@@ -9,4 +9,4 @@ function CreatePage() {
   );
 }
 
-export default CreatePage;
+export default PageEnquete;

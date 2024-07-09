@@ -6,6 +6,7 @@ import { ArrowUpTrayIcon, PlusIcon, XCircleIcon } from '@heroicons/react/24/outl
 import { Control, FieldErrors, UseFormRegister, useFieldArray } from 'react-hook-form';
 import { TrashIcon } from '@heroicons/react/24/solid';
 import { PesquisaDto } from '@/lib/pesquisa';
+import FileUploadCustom from '../InputCustom/FileUploadCustom';
 
 interface SquareOptionsProps {
   register: UseFormRegister<PesquisaDto>;
@@ -68,12 +69,8 @@ function RenderOptions({ index, control, register, errors, type = 'votacao' }: R
                 error={!!errors?.perguntas?.[0]?.opcoes?.[indexOption]?.texto}
                 helperText={errors?.perguntas?.[0]?.opcoes?.[indexOption]?.texto?.message}
               />
-              <span className="text-center w-16">Enviar Imagem</span>
-              <div>
-                <button className="w-12 h-12 rounded-full bg-corPrincipal text-white flex items-center justify-center hover:bg-corSecundaria focus:outline-none">
-                  <ArrowUpTrayIcon className="h-6" />
-                </button>
-              </div>
+
+              <FileUploadCustom />
             </div>
           ))}
           <div className="flex w-full justify-end items-center">
