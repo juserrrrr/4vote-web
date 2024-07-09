@@ -103,7 +103,7 @@ export default function HomePage() {
         <div className="search-bar-text w-full flex flex-row items-center gap-4 px-4 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-corPrincipal focus:border-transparent bg-white text-corPrincipal">
           Encontre as pesquisas que você procura: vote e participe!
         </div>
-        <div className="w-full flex flex-row items-center gap-8">
+        <div className="w-full flex flex-col md:flex-row items-center gap-4 md:gap-8">
           <FilterButton
             variante="ordenar"
             onClick={() => {
@@ -117,7 +117,7 @@ export default function HomePage() {
             variante="filtrar"
           />
         </div>
-        <div className="w-full flex flex-row flex-wrap justify-start gap-9 ">
+        <div className="w-full flex flex-row flex-wrap justify-center md:justify-start gap-9 ">
           {cards.map((card, index) => (
             <div
               key={index}
