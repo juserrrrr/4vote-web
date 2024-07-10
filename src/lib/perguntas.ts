@@ -1,10 +1,10 @@
 import axios from 'axios';
 import api from './api';
+import { OpcaoDto } from './opcao';
 
-interface Perguntas {
+export interface PerguntaDto {
   texto: string;
-  URLimagem?: string;
-  pesquisa_id: number;
+  opcoes: OpcaoDto[];
 }
 
 async function getById(pesquisa_id: number): Promise<Error> {
@@ -20,6 +20,6 @@ async function getById(pesquisa_id: number): Promise<Error> {
   return new Error('Erro ao tentar pegar o id de pergunta');
 }
 
-export const authService = {
+export const questionService = {
   getById,
 };

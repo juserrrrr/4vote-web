@@ -15,7 +15,7 @@ const ModalFilters: React.FC<ModalProps> = ({ isOpen, onClose, variante }) => {
 
   return (
     <div className="fixed top-[0] left-[0] right-[0] bottom-[0] bg-[rgba(0,_0,_0,_0.8)] flex items-center justify-center z-30">
-      <div className="relative flex w-[280px] rounded-[5px] border-[2px] border-[solid] border-[#052a76] h-[310px] pt-[28px] pr-[10px] pb-[14px] pl-[24px] flex-col items-start gap-[38px] rounded-[7px] bg-[#fff] z-40">
+      <div className="relative flex w-[280px] border-[2px] border-[solid] border-[#052a76] h-[310px] pt-[28px] pr-[10px] pb-[14px] pl-[24px] flex-col items-start gap-[38px] rounded-[7px] bg-[#fff] z-40">
         <h2 className="text-[#052a76] text-[24px] font-bold">{text}</h2>
         <div className="flex flex-col w-[180px] items-start content-start gap-[10px] flex-wrap">
           <Filters />
