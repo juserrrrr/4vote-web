@@ -1,14 +1,12 @@
 'use client';
 import React from 'react';
-import { UseFormRegister, FieldErrors } from 'react-hook-form';
 import InputCustom from '@/components/InputCustom/InputCustom';
 import SelectCustom from '../selectBox';
-import { PesquisaDto } from '@/lib/pesquisa';
+import { useFormContext } from 'react-hook-form';
+import { PesquisaDto } from '../../lib/pesquisa';
 
 interface SquareInfosProps {
   title?: 'CRIAR VOTAÇÃO' | 'CRIAR ENQUETE';
-  register: UseFormRegister<PesquisaDto>;
-  errors?: FieldErrors<PesquisaDto>;
 }
 
 const options = [
@@ -16,7 +14,22 @@ const options = [
   { label: 'Privada', value: false },
 ];
 
-const SquareInfos: React.FC<SquareInfosProps> = ({ title, register, errors }) => {
+//Função para transformar as tags entre espaços em um array de strings
+function transformTags(tags: string): { nome: string }[] | undefined {
+  if (typeof tags !== 'string') return undefined;
+  //Transforma a string em um array de strings
+  const splitArray = tags.split(' ');
+  //Mapeia o array de strings e transforma em um objeto com a propriedade nome
+  const mappedArray = splitArray.map((tag) => ({ nome: tag.trim() }));
+  //Filtra o array para remover as strings vazias
+  const filteredArray = mappedArray.filter((tag) => tag.nome !== '');
+  return filteredArray;
+}
+const SquareInfos: React.FC<SquareInfosProps> = ({ title }) => {
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext<PesquisaDto>();
   return (
     <div className="w-full h-72 flex flex-col">
       <h1 className="text-4xl text-corPrincipal font-bold mb-4 text-">{title}</h1>
@@ -37,7 +50,7 @@ const SquareInfos: React.FC<SquareInfosProps> = ({ title, register, errors }) =>
               helperText={errors?.dataTermino?.message}
             />
             <InputCustom
-              {...register('tags')}
+              {...register('tags', { setValueAs: (value: string) => transformTags(value) })}
               label="Tags"
               larguraInput="40px"
               error={!!errors?.tags}

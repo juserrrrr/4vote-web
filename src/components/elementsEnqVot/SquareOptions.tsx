@@ -3,15 +3,12 @@ import React from 'react';
 import InputCustom from '@/components/InputCustom/InputCustom';
 import Divider from '../divider/Divider';
 import { ArrowUpTrayIcon, PlusIcon, XCircleIcon } from '@heroicons/react/24/outline';
-import { Control, FieldErrors, UseFormRegister, useFieldArray } from 'react-hook-form';
+import { Control, FieldErrors, UseFormRegister, useFieldArray, useFormContext } from 'react-hook-form';
 import { TrashIcon } from '@heroicons/react/24/solid';
 import { PesquisaDto } from '@/lib/pesquisa';
 import FileUploadCustom from '../InputCustom/FileUploadCustom';
 
 interface SquareOptionsProps {
-  register: UseFormRegister<PesquisaDto>;
-  control: Control<PesquisaDto, any>;
-  errors?: FieldErrors<PesquisaDto>;
   type?: 'votacao' | 'enquete';
 }
 
@@ -41,7 +38,13 @@ function NewButton({ onClick, text }: NewButtonProps) {
   );
 }
 
-function RenderOptions({ index, control, register, errors, type = 'votacao' }: RenderOptionsProps) {
+function RenderOptions({ index }: RenderOptionsProps) {
+  const {
+    control,
+    register,
+    formState: { errors },
+  } = useFormContext<PesquisaDto>();
+
   const {
     fields: optionsFields,
     append: optionsAppend,
@@ -66,8 +69,8 @@ function RenderOptions({ index, control, register, errors, type = 'votacao' }: R
               <InputCustom
                 {...register(`perguntas.${index}.opcoes.${indexOption}.texto`)}
                 label={`Opção ${indexOption + 1}`}
-                error={!!errors?.perguntas?.[0]?.opcoes?.[indexOption]?.texto}
-                helperText={errors?.perguntas?.[0]?.opcoes?.[indexOption]?.texto?.message}
+                error={!!errors?.perguntas?.[index]?.opcoes?.[indexOption]?.texto}
+                helperText={errors?.perguntas?.[index]?.opcoes?.[indexOption]?.texto?.message}
               />
 
               <FileUploadCustom />
@@ -85,7 +88,13 @@ function RenderOptions({ index, control, register, errors, type = 'votacao' }: R
   );
 }
 
-function RenderQuestions({ control, register, errors, type = 'votacao' }: SquareOptionsProps) {
+function RenderQuestions({ type = 'votacao' }: SquareOptionsProps) {
+  const {
+    control,
+    register,
+    formState: { errors },
+  } = useFormContext<PesquisaDto>();
+
   const {
     fields: questionFields,
     append: questionAppend,
@@ -107,8 +116,8 @@ function RenderQuestions({ control, register, errors, type = 'votacao' }: Square
                 <InputCustom
                   {...register(`perguntas.${indexQuestion}.texto`)}
                   label={`${type === 'enquete' ? `Pergunta ${indexQuestion + 1}` : 'Pergunta'}`}
-                  error={!!errors?.perguntas?.[0]?.texto}
-                  helperText={errors?.perguntas?.[0]?.texto?.message}
+                  error={!!errors?.perguntas?.[indexQuestion]?.texto}
+                  helperText={errors?.perguntas?.[indexQuestion]?.texto?.message}
                 />
                 {type === 'enquete' && (
                   <>
@@ -128,12 +137,7 @@ function RenderQuestions({ control, register, errors, type = 'votacao' }: Square
               </div>
               <Divider />
             </div>
-            <RenderOptions
-              index={indexQuestion}
-              control={control}
-              register={register}
-              errors={errors}
-            />
+            <RenderOptions index={indexQuestion} />
           </div>
         ))}
         {type === 'enquete' && (
@@ -147,16 +151,11 @@ function RenderQuestions({ control, register, errors, type = 'votacao' }: Square
   );
 }
 
-function SquareOptions({ register, control, errors, type = 'votacao' }: SquareOptionsProps) {
+function SquareOptions({ type = 'votacao' }: SquareOptionsProps) {
   return (
     <div className="w-full mt-2">
       <h1 className="text-4xl text-corPrincipal font-bold mb-4">PERGUNTAS</h1>
-      <RenderQuestions
-        control={control}
-        register={register}
-        errors={errors}
-        type={type}
-      />
+      <RenderQuestions type={type} />
     </div>
   );
 }

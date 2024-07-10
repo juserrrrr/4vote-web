@@ -13,14 +13,20 @@ export interface PesquisaDto {
   tags?: TagDto[];
 }
 
-export interface PesquisaResponse {
+interface PesquisaData {
   codigo?: string;
   titulo?: string;
+  message?: string;
+}
+
+export interface PesquisaResponse {
+  data: PesquisaData;
+  statusCode: number;
 }
 
 const headerAutorization = {
   headers: {
-    Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJub21lIjoiSm9hbyIsImlhdCI6MTcyMDQ2MzA1MiwiZXhwIjoxNzIwNTQ5NDUyLCJpc3MiOiJBc3NpbmF0dXJhNFZvdGUiLCJzdWIiOiIyIn0.g6yjqFHMpEt8agKVqJ2IW6LzQxBK3iimeISyrHBecK0`,
+    Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJub21lIjoiSm9hbyIsImlhdCI6MTcyMDU3Nzg3NywiZXhwIjoxNzIwNjY0Mjc3LCJpc3MiOiJBc3NpbmF0dXJhNFZvdGUiLCJzdWIiOiIxIn0.cvJbZ0BZgxgUCLqdwVthlh1DFd1xHSgGM-w4auTiqQU`,
   },
 };
 
@@ -30,15 +36,24 @@ const headerAutorization = {
 //   };
 // }
 
-async function createPesquisa(pesquisaDto: PesquisaDto): Promise<PesquisaResponse | Error> {
+async function createPesquisa(pesquisaDto: PesquisaDto): Promise<PesquisaResponse> {
   try {
-    const { data } = await api.post('/pesquisas', pesquisaDto, headerAutorization);
-    return data;
+    const response = await api.post('/pesquisas', pesquisaDto, headerAutorization);
+    return { data: response.data, statusCode: response.status };
   } catch (error) {
     if (axios.isAxiosError(error)) {
-      return new Error(error.response?.data.message);
+      const codeError = error.response?.status;
+      if (codeError === 401) {
+        return { data: { message: 'Usuário não autorizado' }, statusCode: 401 };
+      }
+      if (codeError === 500) {
+        return { data: { message: 'Erro interno no servidor' }, statusCode: 500 };
+      }
+      if (codeError === 400) {
+        return { data: { message: 'Requisição inválida' }, statusCode: 400 };
+      }
     }
-    return new Error('Erro desconhecido');
+    return { data: { message: 'Serviço fora do ar, tente novamente mais tarde' }, statusCode: 503 };
   }
 }
 

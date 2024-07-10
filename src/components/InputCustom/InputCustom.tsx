@@ -1,3 +1,4 @@
+'use client';
 import React, { useRef, useImperativeHandle, forwardRef, useId, useState, InputHTMLAttributes, useEffect } from 'react';
 
 interface InputCustomProps extends InputHTMLAttributes<HTMLInputElement> {

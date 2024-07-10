@@ -1,10 +1,13 @@
 import React from 'react';
-import CriarEnquete from '../Enquete';
+import CriarPesquisa from '../Pesquisa';
 
 function PageEnquete() {
   return (
     <div className="w-full h-auto mt-5">
-      <CriarEnquete />
+      <CriarPesquisa
+        key={'Enquete'}
+        type="enquete"
+      />
     </div>
   );
 }
