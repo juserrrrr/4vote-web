@@ -93,7 +93,7 @@ export default function Login() {
           })}
           role="alert"
         >
-          <p className="font-bold">{'Usuário ou senha inválidos'}</p>
+          <p className="font-bold">{errors.email || errors.password ? 'Usuário ou senha inválidos' : ''}</p>
         </div>
 
         <div className="flex flex-col justify-center text-gray-500 text-center font-open-sans font-bold text-lg underline">
