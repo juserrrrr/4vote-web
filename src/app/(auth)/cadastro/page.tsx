@@ -88,7 +88,6 @@ export default function Cadastro() {
           </div>
           <div className="w-full py-5">
             <Butao
-              onClick={handleSubmit(sendSignUp)}
               texto="Confirmar Cadastro"
               variant="rounded"
               className="w-full"
