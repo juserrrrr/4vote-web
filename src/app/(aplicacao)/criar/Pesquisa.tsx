@@ -42,15 +42,16 @@ const enqueteSchema = yup.object({
   tags: yup.array().of(tagSchema),
 });
 
-function ButtonSubmit({ isSuccess }: { isSuccess: boolean }) {
+function ButtonSubmit({ isSuccess, type }: { isSuccess: boolean; type: 'votacao' | 'enquete' }) {
   const { formState } = useFormContext();
   const { isSubmitting } = formState;
+  const textButton = type === 'votacao' ? 'CRIAR VOTAÇÃO' : 'CRIAR ENQUETE';
   return (
     <Butao
       type="submit"
       disabled={isSubmitting}
       className={`${isSuccess && 'bg-corSucesso'}`}
-      texto={isSubmitting ? 'CRIANDO...' : 'CRIAR VOTAÇÃO'}
+      texto={isSubmitting ? 'CRIANDO...' : textButton}
       variant="default"
     />
   );
@@ -100,13 +101,16 @@ function CriarPesquisa({ type }: CriarVotacaoProps) {
   }
 
   return (
-    <div className="mx-20 pb-4">
+    <div className="px-3 md:mx-20 pb-4">
       <FormProvider {...methods}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <SquareInfos title={type === 'votacao' ? 'CRIAR VOTAÇÃO' : 'CRIAR ENQUETE'} />
           <SquareOptions type={type} />
-          <div className="w-full flex justify-end items-center mt-6">
-            <ButtonSubmit isSuccess={isSuccess} />
+          <div className="w-full flex justify-center md:justify-end items-center mt-6">
+            <ButtonSubmit
+              isSuccess={isSuccess}
+              type={type}
+            />
           </div>
         </form>
       </FormProvider>

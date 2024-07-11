@@ -13,7 +13,7 @@ const FileUploadCustom = forwardRef<HTMLInputElement, InputHTMLAttributes<HTMLIn
 
   return (
     <>
-      <label className="text-center w-16">Enviar Imagem</label>
+      <label className="text-center w-16 hidden md:block ">Enviar Imagem</label>
       <div>
         <input
           type="file"
@@ -24,7 +24,7 @@ const FileUploadCustom = forwardRef<HTMLInputElement, InputHTMLAttributes<HTMLIn
         <button
           onClick={handleClickFileInput}
           type="button"
-          className="w-12 h-12 rounded-full bg-corPrincipal text-white flex items-center justify-center hover:bg-corSecundaria focus:outline-none"
+          className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-corPrincipal text-white flex items-center justify-center hover:bg-corSecundaria focus:outline-none"
         >
           <ArrowUpTrayIcon className="h-6" />
         </button>

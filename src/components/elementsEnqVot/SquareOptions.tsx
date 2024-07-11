@@ -25,7 +25,7 @@ function NewButton({ onClick, text }: NewButtonProps) {
   return (
     <div
       onClick={onClick}
-      className="flex flex-row justify-center items-center gap-2 uppercase text-center font-bold text-corPrincipal hover:text-corSecundaria cursor-pointer px-32"
+      className="w-auto flex flex-row justify-center items-center gap-2 uppercase text-center font-bold text-corPrincipal hover:text-corSecundaria cursor-pointer md:px-32"
     >
       <span>{text}</span>
       <div className="w-7 h-7 rounded-full bg-corPrincipal text-white flex justify-center items-center">
@@ -56,16 +56,18 @@ function RenderOptions({ index }: RenderOptionsProps) {
   return (
     <>
       <div className="flex-grow overflow-y-auto scrollbar-thin ">
-        <div className="flex flex-col gap-2 px-5 pb-5">
+        <div className="flex flex-col gap-2 px-2 md:px-5 md:pb-5">
           {optionsFields.map((_, indexOption) => (
             <div
               key={indexOption}
-              className="h-auto flex flex-row gap-2 justify-normal items-center"
+              className="flex flex-row md:gap-2 justify-normal items-center"
             >
-              <XCircleIcon
-                onClick={() => optionsRemove(indexOption)}
-                className="h-12 text-red-500 hover:text-red-700 cursor-pointer"
-              />
+              <div>
+                <XCircleIcon
+                  onClick={() => optionsRemove(indexOption)}
+                  className="h-10 md:h-12 text-red-500 hover:text-red-700 cursor-pointer"
+                />
+              </div>
               <InputCustom
                 {...register(`perguntas.${index}.opcoes.${indexOption}.texto`)}
                 label={`Opção ${indexOption + 1}`}
@@ -105,14 +107,14 @@ function RenderQuestions({ type = 'votacao' }: SquareOptionsProps) {
   });
   return (
     <>
-      <div className="flex flex-col gap-8">
+      <div className="w-full h-full flex flex-col gap-8">
         {questionFields.map((_, indexQuestion) => (
           <div
             key={indexQuestion}
             className="w-full h-96 bg-white rounded-xl drop-shadow-xl flex flex-col"
           >
             <div>
-              <div className="px-5 pt-5 flex flex-row gap-2 justify-center items-center">
+              <div className="w-full px-2 md:px-5 pt-5 flex flex-row gap-2 justify-center items-center">
                 <InputCustom
                   {...register(`perguntas.${indexQuestion}.texto`)}
                   label={`${type === 'enquete' ? `Pergunta ${indexQuestion + 1}` : 'Pergunta'}`}
@@ -121,9 +123,10 @@ function RenderQuestions({ type = 'votacao' }: SquareOptionsProps) {
                 />
                 {type === 'enquete' && (
                   <>
-                    <span className="text-center text-sm w-16">Remover Pergunta</span>
+                    <span className="text-center text-sm w-16 hidden md:block">Remover Pergunta</span>
                     <div>
                       <button
+                        type="button"
                         onClick={() => {
                           questionRemove(indexQuestion);
                         }}
@@ -153,7 +156,7 @@ function RenderQuestions({ type = 'votacao' }: SquareOptionsProps) {
 
 function SquareOptions({ type = 'votacao' }: SquareOptionsProps) {
   return (
-    <div className="w-full mt-2">
+    <div className="w-full mt-2 flex flex-col justify-center items-center md:justify-start md:items-start">
       <h1 className="text-4xl text-corPrincipal font-bold mb-4">PERGUNTAS</h1>
       <RenderQuestions type={type} />
     </div>
