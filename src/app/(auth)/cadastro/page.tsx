@@ -34,7 +34,7 @@ export default function Cadastro() {
     password: yup.string().required('Campo Obrigatório'),
     confirmPassword: yup
       .string()
-      .oneOf([yup.ref('password'), null], 'Senhas não conferem')
+      .oneOf([yup.ref('password')], 'Senhas não conferem')
       .required('Campo Obrigatório'),
   });
 
