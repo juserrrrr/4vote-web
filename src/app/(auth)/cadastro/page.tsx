@@ -10,7 +10,6 @@ import { triggerAsyncId } from 'async_hooks';
 import * as yup from 'yup';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useRouter } from 'next/navigation';
 
 // retirei o export daqui
 const metadata: Metadata = {
@@ -47,19 +46,6 @@ export default function Cadastro() {
   } = useForm<RegisterValues>({
     resolver: yupResolver(schema),
   });
-
-  const router = useRouter();
-
-  const sendSignUp: SubmitHandler<RegisterValues> = async (data: {
-    name: string;
-    email: string;
-    cpf: string;
-    password: string;
-  }) => {
-    const { name, email, cpf, password } = data;
-    const response = await authService.cadastrar(name, email, cpf, password);
-    router.push('/login');
-  };
 
   return (
     <>
