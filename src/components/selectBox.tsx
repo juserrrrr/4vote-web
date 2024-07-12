@@ -16,7 +16,7 @@ const SelectCustom = forwardRef<HTMLSelectElement, SelectCustomProps>(function I
   ref,
 ) {
   return (
-    <div className={`flex flex-col relative p-1 h-auto`}>
+    <div className={`flex flex-col w-full relative box-border`}>
       <select
         className={`p-2 h-12 rounded-md text-blue-950 
       border-2  border-solid border-blue-950 focus:outline-none focus:border-blue-900 font-semibold

@@ -3,6 +3,7 @@ import api from './api';
 
 export interface OpcaoDto {
   texto: string;
+  imagemOpcao?: FileList;
 }
 
 async function getById(id: number): Promise<Error> {

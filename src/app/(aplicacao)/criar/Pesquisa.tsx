@@ -11,6 +11,7 @@ import { useState } from 'react';
 
 const opcaoSchema = yup.object({
   texto: yup.string().required('Opção é obrigatória'),
+  imagemOpcao: yup.mixed(),
 });
 
 const perguntaSchema = yup.object({
@@ -25,6 +26,7 @@ const tagSchema = yup.object({
 const votacaoSchema = yup.object({
   titulo: yup.string().required('Título é obrigatório'),
   descricao: yup.string(),
+  imagemPesquisa: yup.mixed(),
   dataTermino: yup.string().required('Data de término é obrigatória'),
   ehPublico: yup.boolean().required('É público é obrigatório'),
   ehVotacao: yup.boolean().required('É votação é obrigatório'),
@@ -63,7 +65,7 @@ interface CriarVotacaoProps {
 function CriarPesquisa({ type }: CriarVotacaoProps) {
   const defaultValues: PesquisaDto = {
     titulo: '',
-    dataTermino: '2024-07-20 15:30:00',
+    dataTermino: '',
     ehPublico: true,
     descricao: '',
     ehVotacao: type === 'votacao' ? true : false,
@@ -86,6 +88,7 @@ function CriarPesquisa({ type }: CriarVotacaoProps) {
   const [isSuccess, setIsSuccess] = useState<boolean>(false);
 
   async function onSubmit(data: PesquisaDto) {
+    console.log(data);
     const formData = new FormData();
     formData.append('titulo', data.titulo);
     formData.append('descricao', data.descricao || '');
@@ -103,7 +106,10 @@ function CriarPesquisa({ type }: CriarVotacaoProps) {
   return (
     <div className="px-3 md:mx-20 pb-4">
       <FormProvider {...methods}>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          autoComplete="off"
+        >
           <SquareInfos title={type === 'votacao' ? 'CRIAR VOTAÇÃO' : 'CRIAR ENQUETE'} />
           <SquareOptions type={type} />
           <div className="w-full flex justify-center md:justify-end items-center mt-6">

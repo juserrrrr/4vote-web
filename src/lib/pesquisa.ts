@@ -9,6 +9,7 @@ export interface PesquisaDto {
   dataTermino: string;
   ehPublico: boolean;
   ehVotacao: boolean;
+  imagemPesquisa?: FileList;
   perguntas: PerguntaDto[];
   tags?: TagDto[];
 }

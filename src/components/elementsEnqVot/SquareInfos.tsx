@@ -4,6 +4,7 @@ import InputCustom from '@/components/InputCustom/InputCustom';
 import SelectCustom from '../selectBox';
 import { useFormContext } from 'react-hook-form';
 import { PesquisaDto } from '../../lib/pesquisa';
+import FileUploadCustom from '../InputCustom/FileUploadCustom';
 
 interface SquareInfosProps {
   title?: 'CRIAR VOTAÇÃO' | 'CRIAR ENQUETE';
@@ -31,11 +32,11 @@ const SquareInfos: React.FC<SquareInfosProps> = ({ title }) => {
     formState: { errors },
   } = useFormContext<PesquisaDto>();
   return (
-    <div className="w-full h-full  flex flex-col justify-center items-center lg:justify-normal lg:items-start">
+    <div className="w-full h-full flex flex-col justify-center items-center lg:justify-normal lg:items-start">
       <h1 className="text-3xl lg:text-4xl text-corPrincipal font-bold mb-4 text-">{title}</h1>
       <div className="w-full h-full p-5 bg-white rounded-xl drop-shadow-xl">
-        <div className="w-full h-full flex flex-col">
-          <div className="w-full flex flex-col lg:flex-row justify-between">
+        <div className="w-full h-full flex flex-col gap-3">
+          <div className="w-full flex flex-col lg:flex-row gap-3">
             <InputCustom
               {...register('titulo')}
               label="Título"
@@ -45,6 +46,7 @@ const SquareInfos: React.FC<SquareInfosProps> = ({ title }) => {
             <InputCustom
               {...register('dataTermino')}
               label="Data Limite"
+              type="datetime-local"
               error={!!errors?.dataTermino}
               helperText={errors?.dataTermino?.message}
             />
@@ -59,14 +61,14 @@ const SquareInfos: React.FC<SquareInfosProps> = ({ title }) => {
               options={options}
             />
           </div>
-          <div className="w-full h-auto">
+          <div className="w-full flex flex-row justify-center items-center gap-3">
             <InputCustom
               {...register('descricao')}
               label="Descrição..."
-              alturaInput="20"
               error={!!errors?.descricao}
               helperText={errors?.descricao?.message}
             />
+            <FileUploadCustom {...register('imagemPesquisa')} />
           </div>
         </div>
       </div>

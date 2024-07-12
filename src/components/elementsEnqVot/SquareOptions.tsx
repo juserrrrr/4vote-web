@@ -2,8 +2,8 @@
 import React from 'react';
 import InputCustom from '@/components/InputCustom/InputCustom';
 import Divider from '../divider/Divider';
-import { ArrowUpTrayIcon, PlusIcon, XCircleIcon } from '@heroicons/react/24/outline';
-import { Control, FieldErrors, UseFormRegister, useFieldArray, useFormContext } from 'react-hook-form';
+import { PlusIcon, XCircleIcon } from '@heroicons/react/24/outline';
+import { useFieldArray, useFormContext } from 'react-hook-form';
 import { TrashIcon } from '@heroicons/react/24/solid';
 import { PesquisaDto } from '@/lib/pesquisa';
 import FileUploadCustom from '../InputCustom/FileUploadCustom';
@@ -56,7 +56,7 @@ function RenderOptions({ index }: RenderOptionsProps) {
   return (
     <>
       <div className="flex-grow overflow-y-auto scrollbar-thin ">
-        <div className="flex flex-col gap-2 px-2 md:px-5 md:pb-5">
+        <div className="flex flex-col gap-3 pt-2 px-2 md:px-5 pb-3">
           {optionsFields.map((_, indexOption) => (
             <div
               key={indexOption}
@@ -75,10 +75,10 @@ function RenderOptions({ index }: RenderOptionsProps) {
                 helperText={errors?.perguntas?.[index]?.opcoes?.[indexOption]?.texto?.message}
               />
 
-              <FileUploadCustom />
+              <FileUploadCustom {...register(`perguntas.${index}.opcoes.${indexOption}.imagemOpcao`)} />
             </div>
           ))}
-          <div className="flex w-full justify-end items-center">
+          <div className="flex w-full justify-center items-center">
             <NewButton
               onClick={() => optionsAppend({ texto: '' })}
               text="nova Opção"
@@ -107,14 +107,14 @@ function RenderQuestions({ type = 'votacao' }: SquareOptionsProps) {
   });
   return (
     <>
-      <div className="w-full h-full flex flex-col gap-8">
+      <div className="w-full h-full flex flex-col gap-6">
         {questionFields.map((_, indexQuestion) => (
           <div
             key={indexQuestion}
             className="w-full h-96 bg-white rounded-xl drop-shadow-xl flex flex-col"
           >
             <div>
-              <div className="w-full px-2 md:px-5 pt-5 flex flex-row gap-2 justify-center items-center">
+              <div className="w-full px-2 md:px-5 pt-5 flex flex-row md:gap-2 justify-center items-center">
                 <InputCustom
                   {...register(`perguntas.${indexQuestion}.texto`)}
                   label={`${type === 'enquete' ? `Pergunta ${indexQuestion + 1}` : 'Pergunta'}`}
@@ -122,7 +122,7 @@ function RenderQuestions({ type = 'votacao' }: SquareOptionsProps) {
                   helperText={errors?.perguntas?.[indexQuestion]?.texto?.message}
                 />
                 {type === 'enquete' && (
-                  <>
+                  <div className="flex flex-row justify-center items-center gap-2">
                     <span className="text-center text-sm w-16 hidden md:block">Remover Pergunta</span>
                     <div>
                       <button
@@ -130,12 +130,12 @@ function RenderQuestions({ type = 'votacao' }: SquareOptionsProps) {
                         onClick={() => {
                           questionRemove(indexQuestion);
                         }}
-                        className="w-12 h-12 rounded-full bg-corErro text-white flex items-center justify-center hover:bg-rose-700 focus:outline-none"
+                        className="w-10 h-10 md:w-12 md:h-12 mx-1 rounded-full bg-corErro text-white flex items-center justify-center hover:bg-rose-700 focus:outline-none"
                       >
                         <TrashIcon className="h-6 text-white" />
                       </button>
                     </div>
-                  </>
+                  </div>
                 )}
               </div>
               <Divider />
