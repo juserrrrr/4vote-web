@@ -13,9 +13,7 @@ const FileUploadCustom = forwardRef<HTMLInputElement, InputHTMLAttributes<HTMLIn
 
   return (
     <div className="flex flex-row gap-2">
-      <label className="text-center w-20 hidden md:block">
-        {inputFileRef.current?.files ? inputFileRef.current.files[0]?.name : 'Enviar Imagem'}
-      </label>
+      <label className="text-center w-20 hidden md:block">{'Enviar Imagem'}</label>
       <div>
         <input
           type="file"

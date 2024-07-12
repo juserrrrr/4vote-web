@@ -123,7 +123,7 @@ function RenderQuestions({ type = 'votacao' }: SquareOptionsProps) {
                 />
                 {type === 'enquete' && (
                   <div className="flex flex-row justify-center items-center gap-2">
-                    <span className="text-center text-sm w-16 hidden md:block">Remover Pergunta</span>
+                    <span className="text-center text-sm w-20 hidden md:block">Remover Pergunta</span>
                     <div>
                       <button
                         type="button"
