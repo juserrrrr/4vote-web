@@ -9,6 +9,16 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      keyframes: {
+        checkBoxAnimation: {
+          '0%': { opacity: '0', transform: 'scale(0.5)' },
+          '50%': { opacity: '0.5', transform: 'scale(1.2)' },
+          '100%': { opacity: '1', transform: 'scale(1)' },
+        },
+      },
+      animation: {
+        checkBoxAnimation: 'checkBoxAnimation 0.5s forwards',
+      },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
@@ -37,6 +47,25 @@ const config: Config = {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    function ({ addUtilities }: { addUtilities: Function }) {
+      addUtilities({
+        '.scrollbar-hide::-webkit-scrollbar': {
+          display: 'none',
+        },
+        '.scrollbar-hide': {
+          '-ms-overflow-style': 'none', // IE and Edge
+          'scrollbar-width': 'none', // Firefox
+        },
+        '.scrollbar-thin::-webkit-scrollbar': {
+          width: '6px',
+        },
+        '.scrollbar-thin::-webkit-scrollbar-thumb': {
+          backgroundColor: '#052A76', // Cor principal ou qualquer cor desejada
+          borderRadius: '6px',
+        },
+      });
+    },
+  ],
 };
 export default config;

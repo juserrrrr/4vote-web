@@ -38,8 +38,8 @@ export const menuItems: IMenuItems[] = [
     text: 'Criar',
     icon: <PlusCircleIcon {...configMenuItems} />,
     options: [
-      { href: 'criar/votacao', text: 'Votação', icon: <DocumentCheckIcon {...configMenuItems} /> },
-      { href: 'criar/enquete', text: 'Enquete', icon: <ClipboardDocumentListIcon {...configMenuItems} /> },
+      { href: '/criar/votacao', text: 'Votação', icon: <DocumentCheckIcon {...configMenuItems} /> },
+      { href: '/criar/enquete', text: 'Enquete', icon: <ClipboardDocumentListIcon {...configMenuItems} /> },
     ],
   },
   {

@@ -1,6 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
 import React from 'react';
-import { renderToPipeableStream } from 'react-dom/server';
 
 interface SquareInformationsProps {
   title?: 'VOTAÇÃO' | 'ENQUETE';

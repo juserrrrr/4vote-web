@@ -14,8 +14,8 @@ type ButtonMenuProps = LinkProps & {
 
 function ButtonMenu({ href, icon, expanded, text, options, toggleSidebar, ...rest }: ButtonMenuProps) {
   const [isExpandMore, setIsExpandMore] = useState<boolean>(false);
-  const pathName = usePathname();
-  const isPath = useMemo(() => pathName === href, [pathName, href]);
+  const pathName = usePathname().split('/')[1];
+  const isPath = useMemo(() => `/${pathName}` === href, [pathName, href]);
 
   useEffect(() => {
     !expanded && setIsExpandMore(false);
@@ -26,7 +26,7 @@ function ButtonMenu({ href, icon, expanded, text, options, toggleSidebar, ...res
     !expanded && toggleSidebar();
   };
   return (
-    <div className="flex flex-row items-center relative group whitespace-nowrap z-20">
+    <div className="w-full flex flex-row items-center relative group whitespace-nowrap z-20">
       <div className="flex flex-col">
         <Link
           href={options ? '#' : href}
@@ -48,19 +48,21 @@ function ButtonMenu({ href, icon, expanded, text, options, toggleSidebar, ...res
           </span>
         </Link>
         {expanded && options && (
-          <div className={`overflow-hidden transition-all duration-200 ${isExpandMore ? 'max-h-80' : 'max-h-0'}`}>
-            {options.map((option) => (
-              <Link
-                key={option.href}
-                href={option.href}
-                className={`ml-6 rounded-lg h-12 flex items-center px-3  ${isPath ? 'bg-corPrincipal text-white' : 'hover:bg-corSecundaria'}`}
-              >
-                {option.icon}
-                <span className={`overflow-hidden transition-all ${expanded ? 'w-32 ml-5' : 'w-0'}`}>
-                  {option.text}
-                </span>
-              </Link>
-            ))}
+          <div className={`overflow-hidden ${isExpandMore ? 'max-w-full' : 'max-w-0'}`}>
+            <div className={`overflow-hidden transition-all duration-200 ${isExpandMore ? 'max-h-24' : 'max-h-0'}`}>
+              {options.map((option) => (
+                <Link
+                  key={option.href}
+                  href={option.href}
+                  className={`ml-6 rounded-lg h-12 flex items-center px-3 hover:bg-corSecundaria`}
+                >
+                  {option.icon}
+                  <span className={`overflow-hidden transition-all ${expanded ? 'w-32 ml-5' : 'w-0'}`}>
+                    {option.text}
+                  </span>
+                </Link>
+              ))}
+            </div>
           </div>
         )}
       </div>

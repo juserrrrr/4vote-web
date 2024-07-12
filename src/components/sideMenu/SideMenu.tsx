@@ -14,7 +14,7 @@ interface SideMenuProps {
 function SideMenu({ isOpen, toggleSidebar }: SideMenuProps) {
   return (
     <aside
-      className={`h-[calc(100vh-70px)] fixed left-0 top-[70px] py-7 px-[14px] flex flex-col bg-white text-corPrincipal z-10 ${isOpen ? 'w-64' : 'w-20'} transition-all `}
+      className={`h-[calc(100vh-70px)] fixed left-0 top-[70px] py-7 px-[6px] sm:px-[14px] flex flex-col bg-white text-corPrincipal z-10 ${isOpen ? 'w-64' : 'w-16 sm:w-20'} transition-all drop-shadow-xl`}
     >
       <div className="mb-14 px-[8px]">
         <button onClick={toggleSidebar}>
@@ -47,7 +47,7 @@ function SideMenu({ isOpen, toggleSidebar }: SideMenuProps) {
       <div className="flex flex-grow items-end align-middle overflow-hidden">
         <LogoNexusIcon />
         <span
-          className={`flex justify-center items-center h-12 text-2xl font-bold overflow-hidden transition-all ${isOpen ? 'w-44' : 'w-0'}`}
+          className={`flex justify-center items-center h-12 text-2xl font-bold overflow-hidden transition-all  ${isOpen ? 'w-44' : 'w-0'}`}
         >
           NexusTech
         </span>
