@@ -1,6 +1,5 @@
 import React from 'react';
 import CriarPesquisa from '../Pesquisa';
-import LoadingIcon from '../../../../components/loadingIcon/LoadingIcon';
 
 function PageEnquete() {
   return (

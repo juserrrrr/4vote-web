@@ -1,7 +1,4 @@
-'use client';
 import React from 'react';
-import * as yup from 'yup';
-import { PesquisaDto } from '../../../../lib/pesquisa';
 import CriarPesquisa from '../Pesquisa';
 
 function PageVotacao() {

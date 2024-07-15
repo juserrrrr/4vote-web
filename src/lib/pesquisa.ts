@@ -13,48 +13,52 @@ export interface PesquisaDto {
   perguntas: PerguntaDto[];
   tags?: TagDto[];
 }
-
-interface PesquisaData {
-  codigo?: string;
-  titulo?: string;
-  message?: string;
+export interface PesquisaWarning {
+  message: string;
+}
+export interface PesquisaResponse<T> {
+  data: T | PesquisaWarning;
+  statusCode: number;
 }
 
-export interface PesquisaResponse {
-  data: PesquisaData;
-  statusCode: number;
+export interface PesquisaData {
+  codigo?: string;
+  titulo?: string;
+}
+export interface findSurveyFilter {
+  codigo: string;
+  titulo: string;
+  descricao: string;
+  dataTermino: string;
+  URLimagem: string;
+  ehVotacao: boolean;
 }
 
 const headerAutorization = {
   headers: {
-    Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJub21lIjoiSm9hbyIsImlhdCI6MTcyMDU3Nzg3NywiZXhwIjoxNzIwNjY0Mjc3LCJpc3MiOiJBc3NpbmF0dXJhNFZvdGUiLCJzdWIiOiIxIn0.cvJbZ0BZgxgUCLqdwVthlh1DFd1xHSgGM-w4auTiqQU`,
+    Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJub21lIjoiSm9hbyIsImlhdCI6MTcyMTA1MTIyMiwiZXhwIjoxNzIxMTM3NjIyLCJpc3MiOiJBc3NpbmF0dXJhNFZvdGUiLCJzdWIiOiIxIn0.d7U2Yz1R1YgJN8ub0GyVGKWXSJEyBLk6FfucswuhPVo`,
   },
 };
 
-// function DateToISOString(pesquisa: PesquisaDto): { dataTermino: string } {
-//   return {
-//     dataTermino: pesquisa.dataTermino.toISOString(),
-//   };
-// }
-
-async function createPesquisa(pesquisaDto: PesquisaDto): Promise<PesquisaResponse> {
+async function createPesquisa(pesquisaDto: PesquisaDto): Promise<PesquisaData | Error> {
   try {
     const response = await api.post('/pesquisas', pesquisaDto, headerAutorization);
-    return { data: response.data, statusCode: response.status };
+    return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
+      console.log(error.response?.data);
       const codeError = error.response?.status;
       if (codeError === 401) {
-        return { data: { message: 'Usuário não autorizado' }, statusCode: 401 };
+        return new Error('Usuário não autorizado');
       }
       if (codeError === 500) {
-        return { data: { message: 'Erro interno no servidor' }, statusCode: 500 };
+        return new Error('Erro interno no servidor');
       }
       if (codeError === 400) {
-        return { data: { message: 'Requisição inválida' }, statusCode: 400 };
+        return new Error('Requisição inválida');
       }
     }
-    return { data: { message: 'Serviço fora do ar, tente novamente mais tarde' }, statusCode: 503 };
+    return new Error('Serviço fora do ar, tente novamente mais tarde');
   }
 }
 
@@ -71,21 +75,35 @@ function setArquivado(id: number) {
     });
 }
 
-function findAllPesquisas() {
-  api
-    .get('pesquisas')
-    .then((response: AxiosResponse) => {
-      console.log(response.data);
-      return true;
-    })
-    .catch((error: AxiosError) => {
-      console.log(error);
-      return false;
-    });
+async function findFilter(): Promise<findSurveyFilter[] | Error> {
+  const urlQuery = new URLSearchParams({
+    arquivada: 'false',
+    participo: 'false',
+    criador: 'false',
+    encerradas: 'false',
+  });
+  try {
+    const response = await api.get(`/pesquisas/filtrar?${urlQuery.toString()}`, headerAutorization);
+    return response.data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      const codeError = error.response?.status;
+      if (codeError === 401) {
+        return new Error('Usuário não autorizado');
+      }
+      if (codeError === 500) {
+        return new Error('Erro interno no servidor');
+      }
+      if (codeError === 400) {
+        return new Error('Requisição inválida');
+      }
+    }
+    return new Error('Serviço fora do ar, tente novamente mais tarde');
+  }
 }
 
 export const surveyService = {
   setArquivado,
-  findAllPesquisas,
+  findFilter,
   createPesquisa,
 };

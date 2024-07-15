@@ -1,3 +1,4 @@
+'use client';
 import { ComponentProps } from 'react';
 import { tv, VariantProps } from 'tailwind-variants';
 import LoadingIcon from '../loadingIcon/LoadingIcon';

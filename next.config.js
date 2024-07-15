@@ -11,6 +11,16 @@ module.exports = {
         hostname: 'picsum.photos',
         pathname: '**',
       },
+      {
+        protocol: 'https',
+        hostname: 'img.freepik.com',
+        pathname: '**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'png.pngtree.com',
+        pathname: '**',
+      },
     ],
   },
 };

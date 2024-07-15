@@ -89,7 +89,6 @@ function CriarPesquisa({ type }: CriarVotacaoProps) {
   const [isSuccess, setIsSuccess] = useState<boolean>(false);
 
   async function onSubmit(data: PesquisaDto) {
-    console.log(data);
     const formData = new FormData();
     formData.append('titulo', data.titulo);
     formData.append('descricao', data.descricao || '');
@@ -99,8 +98,11 @@ function CriarPesquisa({ type }: CriarVotacaoProps) {
     formData.append('perguntas', JSON.stringify(data.perguntas));
     if (data.tags?.length) formData.append('tags', JSON.stringify(data.tags));
     const response = await onSubimitAction(formData);
-    if (response.statusCode === 201) {
+    if (response.statusCode === 200) {
       setIsSuccess(true);
+      setTimeout(() => {
+        setIsSuccess(false);
+      }, 3000);
     }
   }
 
