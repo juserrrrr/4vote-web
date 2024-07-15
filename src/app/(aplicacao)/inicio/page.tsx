@@ -10,7 +10,10 @@ export default async function HomePage() {
   const data = await getSurveyFilter();
   return (
     <div>
-      <ShowSurveys isHome values={data} />
+      <ShowSurveys
+        isHome
+        values={data}
+      />
     </div>
   );
 }
