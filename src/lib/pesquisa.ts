@@ -58,6 +58,19 @@ async function createPesquisa(pesquisaDto: PesquisaDto): Promise<PesquisaRespons
   }
 }
 
+async function getByCode(code: number) {
+  try {
+    const { data } = await api.get(`pesquisas/${code}`);
+    if (data) return data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      return new Error(error.response?.data.message);
+    }
+    return new Error('Erro desconhecido');
+  }
+  return new Error('Erro ao tentar pegar a pesquisa');
+}
+
 function setArquivado(id: number) {
   api
     .patch(`pesquisas/arquivar/${id}`)
@@ -88,4 +101,5 @@ export const surveyService = {
   setArquivado,
   findAllPesquisas,
   createPesquisa,
+  getByCode,
 };
