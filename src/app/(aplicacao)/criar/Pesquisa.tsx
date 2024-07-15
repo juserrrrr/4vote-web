@@ -53,6 +53,7 @@ function ButtonSubmit({ isSuccess, type }: { isSuccess: boolean; type: 'votacao'
       type="submit"
       disabled={isSubmitting}
       className={`${isSuccess && 'bg-corSucesso'}`}
+      isLoading={isSubmitting}
       texto={isSubmitting ? 'CRIANDO...' : textButton}
       variant="default"
     />
