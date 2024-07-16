@@ -6,7 +6,7 @@ import { Card } from '../card/card';
 import { findSurveyFilter } from '../../lib/pesquisa';
 
 interface ShowSurveysProps {
-  values: findSurveyFilter[] | Error;
+  values: findSurveyFilter[];
   isHome?: boolean;
 }
 
@@ -52,22 +52,20 @@ function ShowSurveys({ values, isHome = false }: ShowSurveysProps) {
           </div>
         </div>
         <div className="w-full flex flex-row flex-wrap md:justify-start ">
-          {values instanceof Error
-            ? ''
-            : values.map((card, index) => (
-                <div
-                  key={index}
-                  className="flex-grow w-72 p-3 min-w-72 relative overflow-hidden"
-                >
-                  <Card
-                    title={card.titulo}
-                    description={card.descricao}
-                    variant={card.ehVotacao ? 'VOTAÇÃO' : 'ENQUETE'}
-                    hashtags={['#tag1', '#tag2', '#tag3']}
-                    imageUrl={card.URLimagem}
-                  />
-                </div>
-              ))}
+          {values.map((card, index) => (
+            <div
+              key={index}
+              className="flex-grow w-72 p-3 min-w-72 relative overflow-hidden"
+            >
+              <Card
+                title={card.titulo}
+                description={card.descricao}
+                variant={card.ehVotacao ? 'VOTAÇÃO' : 'ENQUETE'}
+                hashtags={['#tag1', '#tag2', '#tag3']}
+                imageUrl={card.URLimagem}
+              />
+            </div>
+          ))}
         </div>
       </div>
     </>

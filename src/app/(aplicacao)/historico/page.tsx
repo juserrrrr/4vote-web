@@ -1,5 +1,6 @@
-import ShowSurveys from "../../../components/showSurveys/ShowSurveys";
-import { surveyService } from "../../../lib/pesquisa";
+import ErrorSurvey from '../../../components/showSurveys/ErrorSurveys';
+import ShowSurveys from '../../../components/showSurveys/ShowSurveys';
+import { surveyService } from '../../../lib/pesquisa';
 
 async function getSurveyFilter() {
   const response = await surveyService.findFilter();
@@ -8,6 +9,10 @@ async function getSurveyFilter() {
 
 export default async function HomePage() {
   const data = await getSurveyFilter();
+  if (data instanceof Error) {
+    return ErrorSurvey({ message: data.message });
+  }
+
   return (
     <div>
       <ShowSurveys values={data} />

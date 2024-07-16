@@ -1,3 +1,4 @@
+'use client';
 import { Filter, Order } from './selectCheckbox';
 import Button from '../buttons/button';
 
