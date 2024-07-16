@@ -18,6 +18,7 @@ export async function onSubimitAction(data: FormData): Promise<formResponse> {
     perguntas: JSON.parse(values.perguntas as string),
     ...(values.tags && { tags: JSON.parse(values.tags as string) }),
   };
+
   const response = await surveyService.createPesquisa(formValues);
   if (response instanceof Error) {
     return { message: response.message, statusCode: 400 };

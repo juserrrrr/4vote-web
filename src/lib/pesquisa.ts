@@ -1,7 +1,7 @@
 import axios, { AxiosError, AxiosResponse } from 'axios';
 import { PerguntaDto } from './perguntas';
 import { TagDto } from './tag';
-import api from './api';
+import api, { headerAutorization } from './api';
 
 export interface PesquisaDto {
   titulo: string;
@@ -45,12 +45,6 @@ export interface findSurveyFilter {
   ehVotacao: boolean;
 }
 
-const headerAutorization = {
-  headers: {
-    Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJub21lIjoiSXRhY2hpIFVjaGloYSIsImlhdCI6MTcyMTE0MzY4OSwiZXhwIjoxNzIxMjMwMDg5LCJpc3MiOiJBc3NpbmF0dXJhNFZvdGUiLCJzdWIiOiI2MyJ9.3Z9MxfWX8x1mPGasR_Mapx7j6rPHRTjVMwvXPZykHgI`,
-  },
-};
-
 async function createPesquisa(pesquisaDto: PesquisaDto): Promise<PesquisaData | Error> {
   try {
     const response = await api.post('/pesquisas', pesquisaDto, headerAutorization);
@@ -69,7 +63,7 @@ async function createPesquisa(pesquisaDto: PesquisaDto): Promise<PesquisaData | 
         return new Error('Requisição inválida');
       }
     }
-    return new Error('Serviço fora do ar, tente novamente mais tarde');
+    return new Error('Serviço fora do ar');
   }
 }
 
@@ -134,7 +128,7 @@ async function findFilter(): Promise<findSurveyFilter[] | Error> {
         return new Error('Requisição inválida');
       }
     }
-    return new Error('Serviço fora do ar, tente novamente mais tarde');
+    return new Error('Serviço fora do ar');
   }
 }
 

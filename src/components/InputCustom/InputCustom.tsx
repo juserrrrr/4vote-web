@@ -40,7 +40,7 @@ const InputCustom = forwardRef<HTMLInputElement, InputCustomProps>(function Inpu
     >
       <label
         htmlFor={inputId}
-        className={`left-[0.85rem] top-3 absolute transition-all duration-200 pointer-events-none  z-10
+        className={`left-[0.85rem] top-3 absolute transition-all duration-200 pointer-events-none z-10
         ${haveToMove ? 'transform -translate-y-6 pointer-events-auto' : 'pointer-events-none '}`}
       >
         {label}

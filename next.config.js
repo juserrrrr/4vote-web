@@ -21,6 +21,11 @@ module.exports = {
         hostname: 'png.pngtree.com',
         pathname: '**',
       },
+      {
+        protocol: 'https',
+        hostname: 'i.imgur.com',
+        pathname: '**',
+      },
     ],
   },
 };
