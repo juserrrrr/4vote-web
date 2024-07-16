@@ -13,6 +13,17 @@ export interface PesquisaDto {
   perguntas: PerguntaDto[];
   tags?: TagDto[];
 }
+
+export interface PesquisaDtoTemp {
+  titulo: string;
+  descricao?: string;
+  dataTermino: string;
+  ehPublico: boolean;
+  URLimagem?: string;
+  ehVotacao: boolean;
+  perguntas: [{ texto: string; opcoes: string[] }];
+}
+
 export interface PesquisaWarning {
   message: string;
 }
@@ -36,7 +47,7 @@ export interface findSurveyFilter {
 
 const headerAutorization = {
   headers: {
-    Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJub21lIjoiSm9hbyIsImlhdCI6MTcyMTA1MTIyMiwiZXhwIjoxNzIxMTM3NjIyLCJpc3MiOiJBc3NpbmF0dXJhNFZvdGUiLCJzdWIiOiIxIn0.d7U2Yz1R1YgJN8ub0GyVGKWXSJEyBLk6FfucswuhPVo`,
+    Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJub21lIjoiSXRhY2hpIFVjaGloYSIsImlhdCI6MTcyMTE0MzY4OSwiZXhwIjoxNzIxMjMwMDg5LCJpc3MiOiJBc3NpbmF0dXJhNFZvdGUiLCJzdWIiOiI2MyJ9.3Z9MxfWX8x1mPGasR_Mapx7j6rPHRTjVMwvXPZykHgI`,
   },
 };
 
@@ -59,6 +70,31 @@ async function createPesquisa(pesquisaDto: PesquisaDto): Promise<PesquisaData | 
       }
     }
     return new Error('Serviço fora do ar, tente novamente mais tarde');
+  }
+}
+
+async function getByCode(code: string): Promise<PesquisaDtoTemp[] | Error> {
+  try {
+    const { data } = await api.get(`/pesquisas/${code}`, headerAutorization);
+    if (data) return data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      return new Error(error.response?.data.message);
+    }
+    return new Error('Erro desconhecido');
+  }
+  return new Error(`Erro ao tentar pegar a pesquisa de código ${code}`);
+}
+
+async function getAllCodes(): Promise<{ code: string }[] | Error> {
+  try {
+    const { data } = await api.get('/pesquisas/codigos', headerAutorization);
+    return data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      return new Error(error.response?.data.message || 'Erro de requisição Axios');
+    }
+    return new Error('Erro desconhecido: ' + ((error as Error).message || (error as Error).toString()));
   }
 }
 
@@ -106,4 +142,6 @@ export const surveyService = {
   setArquivado,
   findFilter,
   createPesquisa,
+  getByCode,
+  getAllCodes,
 };

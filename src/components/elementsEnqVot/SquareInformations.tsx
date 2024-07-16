@@ -4,20 +4,21 @@ import React from 'react';
 interface SquareInformationsProps {
   title?: 'VOTAÇÃO' | 'ENQUETE';
   subtitle: string;
-  date?: Date;
+  date: string;
   acess?: 'Privado' | 'Público';
-  description: string;
-  imageUrl: string;
+  description?: string;
+  imageUrl?: string;
 }
 
 const SquareInformations: React.FC<SquareInformationsProps> = ({
-  title = 'VOTAÇÃO',
-  subtitle = 'Eleição do Diretorio Academico de Ecomp',
-  date = new Date(),
-  acess = 'Privado',
-  description = 'Essa é uma eleição aprovada pelo conselho para leger os mais novos menbros do DA do curso de ECOMP.',
-  imageUrl = 'https://picsum.photos/300/104',
+  title,
+  subtitle,
+  date,
+  acess,
+  description,
+  imageUrl,
 }) => {
+  const formattedDate = new Date(date);
   const backgraund = 'w-[1260px] h-[305px]';
   const squareWhite = 'w-[1225px] h-[260px] inline-flex bg-white rounded-xl justify-center items-center';
 
@@ -37,7 +38,7 @@ const SquareInformations: React.FC<SquareInformationsProps> = ({
         <div className={container1}>
           <h1 className={title2}>{subtitle}</h1>
           <div className={containerClass}>
-            <h1 className={title3}>Data Limite: {date?.toLocaleDateString('pt-BR')}</h1>
+            <h1 className={title3}>Data Limite: {formattedDate?.toLocaleDateString('pt-BR')}</h1>
             <p className={`${title3} ml-20`}>Tipo de Acesso: {acess}</p>
           </div>
           <div className={containerClass2}>
