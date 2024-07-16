@@ -69,7 +69,7 @@ async function createPesquisa(pesquisaDto: PesquisaDto): Promise<PesquisaData | 
 
 async function getByCode(code: string): Promise<PesquisaDtoTemp[] | Error> {
   try {
-    const { data } = await api.get(`/pesquisas/${code}`, headerAutorization);
+    const { data } = await api.get(`/pesquisas/procurar/${code}`, headerAutorization);
     if (data) return data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
