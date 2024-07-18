@@ -33,7 +33,7 @@ const SquareInfos: React.FC<SquareInfosProps> = ({ title }) => {
   } = useFormContext<PesquisaDto>();
   return (
     <div className="w-full h-full flex flex-col justify-center items-center lg:justify-normal lg:items-start">
-      <h1 className="text-3xl lg:text-4xl text-corPrincipal font-bold mb-4 text-">{title}</h1>
+      <h1 className="text-3xl lg:text-4xl text-corPrincipal font-bold my-3 text-">{title}</h1>
       <div className="w-full h-full p-5 bg-white rounded-xl drop-shadow-xl">
         <div className="w-full h-full flex flex-col gap-3">
           <div className="w-full flex flex-col lg:flex-row gap-3">

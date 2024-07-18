@@ -15,6 +15,11 @@ const config: Config = {
           '50%': { opacity: '0.5', transform: 'scale(1.2)' },
           '100%': { opacity: '1', transform: 'scale(1)' },
         },
+        spin: {
+          to: {
+            transform: 'rotate(360deg)',
+          },
+        },
       },
       animation: {
         checkBoxAnimation: 'checkBoxAnimation 0.5s forwards',

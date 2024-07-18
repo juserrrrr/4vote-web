@@ -1,3 +1,4 @@
+'use client';
 import React from 'react';
 import { ArrowsUpDownIcon, FunnelIcon } from '@heroicons/react/24/outline';
 

@@ -1,183 +1,138 @@
 'use client';
-import { FormEvent, useEffect, useState } from 'react';
-import { PencilIcon, EyeSlashIcon } from '@heroicons/react/24/solid';
-import { getCurrentUserInfo, updateCurrentUser } from '@/lib/user';
-import clsx from 'clsx';
 
-export function ProfileConfig() {
-  const [nome, setNewNome] = useState('');
-  const [cpf, setNewCpf] = useState('');
-  const [email, setNewEmail] = useState('');
-  const [nomeDisabled, setNomeDisabled] = useState(true);
-  const [emailDisabled, setEmailDisabled] = useState(true);
-  const [nomeBorderColor, setnomeBorderColor] = useState('grey');
-  const [emailBorderColor, setEmailBorderColor] = useState('grey');
-  const [showAlerta, setNewShowAlerta] = useState(false);
-  const [warning, setWarning] = useState('');
+import { useForm } from 'react-hook-form';
+import Butao from '../buttons/button';
+import InputCustom from '../InputCustom/InputCustom';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+import { useMemo, useState } from 'react';
+import FileUploadCustom from '../InputCustom/FileUploadCustom';
+import { PencilIcon } from '@heroicons/react/24/solid';
+import Image from 'next/image';
+import { onSubimitActionProfile } from '../../app/(aplicacao)/perfil/actionProfile';
+interface UpdateProfile {
+  nome: string;
+  email: string;
+  cpf?: string;
+}
 
-  useEffect(() => {
-    getAndShowUserData();
-  }, []);
+interface ProfileConfigProps {
+  initialdefaultValues: UpdateProfile;
+}
 
-  async function getAndShowUserData() {
-    const userInfo = await getCurrentUserInfo();
-    console.log(userInfo);
-    if (userInfo) {
-      setNewNome(userInfo['nome']);
-      setNewEmail(userInfo['email']);
-      setNewCpf(userInfo['cpf']);
-    }
-  }
+function createSchemaProfile(defaultValues: UpdateProfile) {
+  return yup.object({
+    nome: yup
+      .string()
+      .required('Nome é obrigatório')
+      .test('modified email', 'Necessário pelo menos um campo diferente', function (_, { parent }) {
+        return parent.nome !== defaultValues.nome || parent.email !== defaultValues.email;
+      }),
+    email: yup
+      .string()
+      .email('Email inválido')
+      .required('Email é obrigatório')
+      .test('modified email', 'Necessário pelo menos um campo diferente', function (_, { parent }) {
+        return parent.nome !== defaultValues.nome || parent.email !== defaultValues.email;
+      }),
+  });
+}
 
-  function onTodoChangeNome(value: string) {
-    setNewNome(value);
-  }
+export function ProfileConfig({ initialdefaultValues }: ProfileConfigProps) {
+  const [defaultValues, setDefaultValues] = useState<UpdateProfile>(initialdefaultValues);
+  let schemaProfile = useMemo(() => createSchemaProfile(defaultValues), [defaultValues]);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+    reset,
+  } = useForm<UpdateProfile>({
+    defaultValues,
+    resolver: yupResolver(schemaProfile),
+  });
 
-  function onTodoChangeEmail(value: string) {
-    setNewEmail(value);
-  }
+  const [image, setImage] = useState<string | null>(null);
 
-  function toggleNomeInput() {
-    console.log('chamou');
-    setNomeDisabled(!nomeDisabled);
-    if (!nomeDisabled) {
-      setnomeBorderColor('grey');
-    } else {
-      setnomeBorderColor('green');
-    }
-  }
-
-  function toggleEmailInput() {
-    setEmailDisabled(!emailDisabled);
-    if (!emailDisabled) {
-      setEmailBorderColor('grey');
-    } else {
-      setEmailBorderColor('green');
-    }
-  }
-
-  const sendUpdateUser = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
-    if (nome != null && email != null) {
-      console.log('ok');
-      const isUpdated = await updateCurrentUser(nome, email);
-      console.log(isUpdated);
-
-      if (isUpdated == true) {
-        getAndShowUserData();
-        setEmailDisabled(true);
-        setEmailBorderColor('grey');
-        setNomeDisabled(true);
-        setnomeBorderColor('grey');
-
-        setWarning('Dados atualizados com sucesso!');
-        showWarning();
-
-        setTimeout(() => {
-          window.location.reload();
-        }, 3000);
-      } else {
-        setWarning('Não foi possível atualizar os dados');
-        showWarning();
-      }
+  const onChangeFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        setImage(reader.result as string);
+      };
+      reader.readAsDataURL(file);
     }
   };
 
-  const showWarning = async () => {
-    setNewShowAlerta(true);
-
-    setTimeout(() => {
-      setNewShowAlerta(false);
-    }, 3000);
-  };
-
+  async function submitForm(data: UpdateProfile) {
+    const formData = new FormData();
+    if (data.nome !== defaultValues.nome) {
+      formData.append('nome', data.nome);
+    }
+    if (data.email !== defaultValues.email) {
+      formData.append('email', data.email);
+    }
+    const response = await onSubimitActionProfile(formData);
+    if (response.codeStaus === 200) {
+      setDefaultValues(data);
+      reset(data);
+      alert(response.message);
+    } else {
+      alert(response.message);
+    }
+  }
   return (
-    <div className="max-w-md mx-auto px-4 py-10">
-      <form onSubmit={sendUpdateUser}>
-        <div className="mb-4 mt-10">
-          <label
-            className="block text-gray-700 text-sm mb-2"
-            htmlFor="nome"
-          >
-            Nome
-          </label>
-          <div className={'flex items-center border border-' + nomeBorderColor + '-300 rounded py-2 px-3'}>
-            <input
-              type="text"
-              id="nome"
-              name="nome"
-              className="appearance-none bg-transparent border-none w-full text-gray-700 leading-tight focus:outline-none text-sm"
-              value={nome}
-              onChange={(e) => onTodoChangeNome(e.target.value)}
-              disabled={nomeDisabled}
+    <>
+      <form
+        onSubmit={handleSubmit(submitForm)}
+        autoComplete="off"
+      >
+        <div className="h-52 mb-16 bg-corPrincipal relative flex flex-col justify-center items-center">
+          <div className="w-40 h-40 rounded-full absolute top-28 flex justify-center items-center">
+            <FileUploadCustom
+              className="absolute rounded-full top-28 left-28 z-10"
+              haveLabel={false}
+              onChange={onChangeFile}
+              icon={<PencilIcon className="text-corPrincipal w-6" />}
             />
-            <PencilIcon
-              className="text-corPrincipal w-4 absolute  right-96 cursor-pointer"
-              onClick={toggleNomeInput}
+            <Image
+              src={image || 'https://i.imgur.com/MtvqmTU.png'}
+              alt="Profile"
+              fill
+              className="object-cover rounded-full"
             />
           </div>
         </div>
-
-        <div className="mb-4">
-          <label
-            className="block text-gray-700 text-sm mb-2"
-            htmlFor="email"
-          >
-            Email
-          </label>
-          <div className={'flex items-center border border-' + emailBorderColor + '-300 rounded py-2 px-3'}>
-            <input
-              type="text"
-              id="email"
-              name="email"
-              className="appearance-none bg-transparent border-none w-full text-gray-700 leading-tight focus:outline-none text-sm"
-              value={email}
-              onChange={(e) => onTodoChangeEmail(e.target.value)}
-              disabled={emailDisabled}
+        <div className="flex flex-grow z-0 justify-center py-6 px-4">
+          <div className="w-80 flex flex-col gap-6">
+            <InputCustom
+              {...register('nome')}
+              label="Nome"
+              error={!!errors.nome}
+              helperText={errors.nome?.message}
             />
-            <PencilIcon
-              className="text-corPrincipal w-4 absolute right-96 cursor-pointer"
-              onClick={toggleEmailInput}
+            <InputCustom
+              {...register('email')}
+              label="Email"
+              error={!!errors.email}
+              helperText={errors.email?.message}
             />
-          </div>
-        </div>
-
-        <div className="mb-4">
-          <label
-            className="block text-gray-700 text-sm mb-2"
-            htmlFor="cpf"
-          >
-            CPF
-          </label>
-          <div className="flex items-center border border-grey-300 rounded py-2 px-3">
-            <input
-              type="text"
-              id="cpf"
-              name="cpf"
-              value={cpf}
-              className="appearance-none bg-transparent border-none w-full text-gray-700 leading-tight focus:outline-none text-sm"
-              disabled={true}
+            <InputCustom
+              value={defaultValues.cpf}
+              disabled
+              label="CPF"
+            />
+            <Butao
+              className="w-full h-12"
+              type="submit"
+              variant="default"
+              isLoading={isSubmitting}
+              disabled={isSubmitting}
+              texto="Salvar alterações"
             />
           </div>
         </div>
-        <div
-          className={clsx('bg-orange-100 border-orange-500 text-orange-700 my-5', {
-            hidden: !showAlerta,
-            block: showAlerta,
-          })}
-          role="alert"
-        >
-          <p className="font-bold">{warning}</p>
-        </div>
-
-        <button
-          className="w-full bg-corPrincipal text-white py-2 rounded hover:bg-corPrincipal-dark"
-          type="submit"
-        >
-          Salvar alterações
-        </button>
       </form>
-    </div>
+    </>
   );
 }
