@@ -1,5 +1,6 @@
 'use server';
 
+import { revalidatePath } from 'next/cache';
 import { userService } from '../../../lib/user';
 
 interface FormResponse {
@@ -17,5 +18,6 @@ export async function onSubimitActionProfile(data: FormData): Promise<FormRespon
   if (reponse instanceof Error) {
     return { message: reponse.message, codeStaus: 400 };
   }
+  revalidatePath('/(aplicacao)/perfil', 'page');
   return { message: 'Perfil atualizado com sucesso', codeStaus: 200 };
 }

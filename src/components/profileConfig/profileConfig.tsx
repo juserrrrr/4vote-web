@@ -10,6 +10,7 @@ import FileUploadCustom from '../InputCustom/FileUploadCustom';
 import { PencilIcon } from '@heroicons/react/24/solid';
 import Image from 'next/image';
 import { onSubimitActionProfile } from '../../app/(aplicacao)/perfil/actionProfile';
+import { revalidatePath } from 'next/cache';
 interface UpdateProfile {
   nome: string;
   email: string;
