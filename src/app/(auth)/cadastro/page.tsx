@@ -7,6 +7,9 @@ import clsx from 'clsx';
 import api from '@/lib/api';
 import { authService } from '@/lib/auth';
 import { triggerAsyncId } from 'async_hooks';
+import * as yup from 'yup';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
 
 // retirei o export daqui
 const metadata: Metadata = {
@@ -14,52 +17,35 @@ const metadata: Metadata = {
   description: 'Página de Cadastro',
 };
 
+interface RegisterValues {
+  name: string;
+  email: string;
+  cpf: string;
+  password: string;
+  confirmPassword: string;
+}
+
 export default function Cadastro() {
-  const [email, setNewEmail] = useState('');
-  const [senha, setNewSenha] = useState('');
-  const [nome, setNewNome] = useState('');
-  const [cpf, setNewCpf] = useState('');
-  const [confSenha, setNewConfSenha] = useState('');
-  const [alerta, setNewAlerta] = useState('Senhas não conferem');
-  const [showAlerta, setNewShowAlerta] = useState(false);
+  const schema = yup.object().shape({
+    name: yup.string().max(255, 'O nome deve ser menor').required('Campo Obrigatório'),
+    email: yup.string().email('Email inválido').required('Campo Obrigatório'),
+    cpf: yup.string().required('Campo Obrigatório').length(11, 'CPF inválido'),
+    password: yup.string().required('Campo Obrigatório'),
+    confirmPassword: yup
+      .string()
+      .oneOf([yup.ref('password')], 'Senhas não conferem')
+      .required('Campo Obrigatório'),
+  });
 
-  const sendSignUp = async (email: any, senha: any, confSenha: any, cpf: any, nome: any) => {
-    if (confSenha != senha) {
-      setNewAlerta('Senhas não conferem');
-      setNewShowAlerta(true);
-
-      setTimeout(() => {
-        setNewShowAlerta(false);
-      }, 3000);
-
-      return;
-    } else if (email == '' || senha == '' || cpf == '' || nome == '') {
-      setNewAlerta('Preencha todos os campos');
-      setNewShowAlerta(true);
-
-      setTimeout(() => {
-        setNewShowAlerta(false);
-      }, 3000);
-      return;
-    }
-
-    const data = await authService.cadastrar({ nome, email, senha, cpf });
-    if (data instanceof Error) {
-      setNewAlerta('Não foi possível realizar o cadastro');
-      setNewShowAlerta(true);
-
-      setTimeout(() => {
-        setNewShowAlerta(false);
-      }, 3000);
-      return;
-    }
-    setNewAlerta('Cadastro efetuado com sucesso!');
-    setNewShowAlerta(true);
-
-    setTimeout(() => {
-      setNewShowAlerta(false);
-    }, 3000);
-  };
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setError,
+    clearErrors,
+  } = useForm<RegisterValues>({
+    resolver: yupResolver(schema),
+  });
 
   return (
     <>
@@ -69,49 +55,39 @@ export default function Cadastro() {
           <div className="w-full flex flex-col justify-between gap-3">
             <InputCustom
               label="Nome"
-              helperText="Campo Obrigatório"
-              onChange={(e) => setNewNome(e.target.value)}
-              error={true}
+              helperText={errors.name ? errors.name.message : 'Campo Obrigatório'}
+              {...register('name')}
+              error={errors.name ? true : false}
             />
             <InputCustom
               label="Email"
-              onChange={(e) => setNewEmail(e.target.value)}
-              helperText="Campo Obrigatório"
-              error={true}
+              helperText={errors.email ? errors.email.message : 'Campo Obrigatório'}
+              {...register('email')}
+              error={errors.email ? true : false}
             />
             <InputCustom
               label="CPF"
-              onChange={(e) => setNewCpf(e.target.value)}
-              helperText="Campo Obrigatório"
-              error={true}
+              helperText={errors.cpf ? errors.cpf.message : 'Campo Obrigatório'}
+              {...register('cpf')}
+              error={errors.cpf ? true : false}
             />
             <InputCustom
               label="Senha"
-              onChange={(e) => setNewSenha(e.target.value)}
-              helperText="Campo Obrigatório"
+              helperText={errors.password ? errors.password.message : 'Campo Obrigatório'}
               type="password"
-              error={true}
+              {...register('password')}
+              error={errors.password ? true : false}
             />
             <InputCustom
               label="Confirmar Senha"
-              onChange={(e) => setNewConfSenha(e.target.value)}
-              helperText="Campo Obrigatório"
+              helperText={errors.confirmPassword ? errors.confirmPassword.message : 'Campo Obrigatório'}
               type="password"
-              error={true}
+              {...register('confirmPassword')}
+              error={errors.confirmPassword ? true : false}
             />
-            <div
-              className={clsx('bg-orange-100 border-orange-500 text-orange-700', {
-                hidden: !showAlerta,
-                block: showAlerta,
-              })}
-              role="alert"
-            >
-              <p className="font-bold">{alerta}</p>
-            </div>
           </div>
           <div className="w-full py-5">
             <Butao
-              onClick={() => sendSignUp(email, senha, confSenha, cpf, nome)}
               texto="Confirmar Cadastro"
               variant="rounded"
               className="w-full"

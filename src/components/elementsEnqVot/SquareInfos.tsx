@@ -1,54 +1,74 @@
 'use client';
 import React from 'react';
-import { useState } from 'react';
-import { renderToPipeableStream } from 'react-dom/server';
 import InputCustom from '@/components/InputCustom/InputCustom';
-import SingleSelect from '../selectBox';
+import SelectCustom from '../selectBox';
+import { useFormContext } from 'react-hook-form';
+import { PesquisaDto } from '../../lib/pesquisa';
+import FileUploadCustom from '../InputCustom/FileUploadCustom';
 
 interface SquareInfosProps {
   title?: 'CRIAR VOTAÇÃO' | 'CRIAR ENQUETE';
 }
 
 const options = [
-  { label: 'Privada', value: 'Privada' },
-  { label: 'Pública', value: 'Pública' },
+  { label: 'Pública', value: true },
+  { label: 'Privada', value: false },
 ];
 
+//Função para transformar as tags entre espaços em um array de strings
+function transformTags(tags: string): { nome: string }[] | undefined {
+  if (typeof tags !== 'string') return undefined;
+  //Transforma a string em um array de strings
+  const splitArray = tags.split(' ');
+  //Mapeia o array de strings e transforma em um objeto com a propriedade nome
+  const mappedArray = splitArray.map((tag) => ({ nome: tag.trim() }));
+  //Filtra o array para remover as strings vazias
+  const filteredArray = mappedArray.filter((tag) => tag.nome !== '');
+  return filteredArray;
+}
 const SquareInfos: React.FC<SquareInfosProps> = ({ title }) => {
-  const backgraund = 'w-[1260px] h-[316px]';
-  const squareWhite = 'w-[1225px] h-[250px] p-5 inline-flex bg-white rounded-xl ';
-
-  const title1 = 'text-4xl text-corPrincipal font-bold mb-4';
-  const [selectedValue, setSelectedValue] = useState<string>('');
-
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext<PesquisaDto>();
   return (
-    <div className={backgraund}>
-      <h1 className={title1}>{title}</h1>
-      <div className={squareWhite}>
-        <div className="w-[394px] flex flex-col">
-          <div className="w-[1188px] h-[80px] inline-flex">
-            <InputCustom label="Nome" />
+    <div className="w-full h-full flex flex-col justify-center items-center lg:justify-normal lg:items-start">
+      <h1 className="text-3xl lg:text-4xl text-corPrincipal font-bold my-3 text-">{title}</h1>
+      <div className="w-full h-full p-5 bg-white rounded-xl drop-shadow-xl">
+        <div className="w-full h-full flex flex-col gap-3">
+          <div className="w-full flex flex-col lg:flex-row gap-3">
             <InputCustom
+              {...register('titulo')}
+              label="Título"
+              error={!!errors?.titulo}
+              helperText={errors?.titulo?.message}
+            />
+            <InputCustom
+              {...register('dataTermino')}
               label="Data Limite"
-              larguraInput="40px"
+              type="datetime-local"
+              error={!!errors?.dataTermino}
+              helperText={errors?.dataTermino?.message}
             />
             <InputCustom
+              {...register('tags', { setValueAs: (value: string) => transformTags(value) })}
               label="Tags"
-              larguraInput="40px"
+              error={!!errors?.tags}
+              helperText={errors?.tags?.message}
             />
-            <div className="mt-2 p-1">
-              <SingleSelect
-                options={options}
-                selectedValue={selectedValue}
-                onChange={setSelectedValue}
-              />
-            </div>
+            <SelectCustom
+              {...register('ehPublico')}
+              options={options}
+            />
           </div>
-          <div className="w-[1188px] h-[100px]">
+          <div className="w-full flex flex-row justify-center items-center gap-3">
             <InputCustom
+              {...register('descricao')}
               label="Descrição..."
-              alturaInput="[100px]"
+              error={!!errors?.descricao}
+              helperText={errors?.descricao?.message}
             />
+            <FileUploadCustom {...register('imagemPesquisa')} />
           </div>
         </div>
       </div>

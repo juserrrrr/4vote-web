@@ -1,48 +1,60 @@
-import { AxiosError, AxiosResponse } from 'axios';
-import api from './api';
-import { getCookie, getCurrentUserId } from './utils';
+import axios, { AxiosError, AxiosResponse } from 'axios';
+import api, { headerAutorization } from './api';
+import { getCookie } from './utils';
 
-export async function updateCurrentUser(name: string, email: string) {
-  const token = getCookie('accessToken');
-  let found = false;
-
-  await api
-    .patch(
-      `/usuarios/me`,
-      { email: email, nome: name },
-      {
-        headers: { Authorization: `Bearer ${token}` },
-      },
-    )
-    .then((response: AxiosResponse) => {
-      found = true;
-    })
-    .catch((error: AxiosError) => {
-      found = false;
-    });
-
-  return found;
+interface UserMe {
+  nome: string;
+  email: string;
+  cpf: string;
 }
 
-export async function getCurrentUserInfo() {
-  const token = getCookie('accessToken');
-  console.log(token);
-  var data = null;
+export type UpdateProfile = Partial<Omit<UserMe, 'cpf'>>;
 
-  await api
-    .get('/usuarios/me', {
-      headers: { Authorization: `Bearer ${token}` },
-    })
-    .then((response: AxiosResponse) => {
-      data = { nome: response.data[0]['nome'], email: response.data[0]['email'], cpf: response.data[0]['cpf'] };
-    })
-    .catch((error: AxiosError) => {
-      return null;
-    });
-
-  if (data != null) {
-    return data;
-  } else {
-    return null;
+async function updateCurrentUser(data: UpdateProfile): Promise<any | Error> {
+  try {
+    const response = await api.patch('/usuarios/me', data, headerAutorization);
+    if (response.status === 200) {
+      return response.data;
+    }
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      const codeError = error.response?.status;
+      if (codeError === 401) {
+        return new Error('Usuário não autorizado');
+      }
+      if (codeError === 500) {
+        return new Error('Erro interno no servidor');
+      }
+      if (codeError === 400) {
+        return new Error('Requisição inválida');
+      }
+    }
+    return new Error('Serviço fora do ar');
   }
 }
+
+async function findMe(): Promise<UserMe | Error> {
+  try {
+    const response = await api.get('/usuarios/me', headerAutorization);
+    return response.data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      const codeError = error.response?.status;
+      if (codeError === 401) {
+        return new Error('Usuário não autorizado');
+      }
+      if (codeError === 500) {
+        return new Error('Erro interno no servidor');
+      }
+      if (codeError === 400) {
+        return new Error('Requisição inválida');
+      }
+    }
+    return new Error('Serviço fora do ar');
+  }
+}
+
+export const userService = {
+  findMe,
+  updateCurrentUser,
+};

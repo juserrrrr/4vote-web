@@ -1,5 +1,5 @@
+'use client';
 import React from 'react';
-import styles from './Filters.module.css';
 import { ArrowsUpDownIcon, FunnelIcon } from '@heroicons/react/24/outline';
 
 interface filterButtonProps {
@@ -24,11 +24,11 @@ const FilterButton: React.FC<filterButtonProps> = ({ variante, onClick }) => {
 
   return (
     <button
-      className={styles.button}
+      className="flex items-center bg-[#fff] border-[1px] border-[solid] border-[#fff] rounded-[7px] px-[46px] py-[4px] cursor-pointer"
       onClick={onClick}
     >
-      <span className={styles.icon}>{icon}</span>
-      <span className={styles.text}>{text}</span>
+      <span>{icon}</span>
+      <span className="w-36 text-[#052a76] text-[16px] font-bold">{text}</span>
     </button>
   );
 };
