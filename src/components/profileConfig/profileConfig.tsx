@@ -5,16 +5,18 @@ import Butao from '../buttons/button';
 import InputCustom from '../InputCustom/InputCustom';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { useMemo, useState } from 'react';
+import { useContext, useMemo, useState } from 'react';
 import FileUploadCustom from '../InputCustom/FileUploadCustom';
 import { PencilIcon } from '@heroicons/react/24/solid';
 import Image from 'next/image';
 import { onSubimitActionProfile } from '../../app/(aplicacao)/perfil/actionProfile';
 import { revalidatePath } from 'next/cache';
+import { ProfileContext } from '../../contexts/profileContext';
 interface UpdateProfile {
   nome: string;
   email: string;
   cpf?: string;
+  URLPerfil?: string | null;
 }
 
 interface ProfileConfigProps {
@@ -40,15 +42,15 @@ function createSchemaProfile(defaultValues: UpdateProfile) {
 }
 
 export function ProfileConfig({ initialdefaultValues }: ProfileConfigProps) {
-  const [defaultValues, setDefaultValues] = useState<UpdateProfile>(initialdefaultValues);
-  let schemaProfile = useMemo(() => createSchemaProfile(defaultValues), [defaultValues]);
+  const { profile, updateProfile } = useContext(ProfileContext);
+  let schemaProfile = useMemo(() => createSchemaProfile(profile), [profile]);
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
     reset,
   } = useForm<UpdateProfile>({
-    defaultValues,
+    defaultValues: profile,
     resolver: yupResolver(schemaProfile),
   });
 
@@ -67,16 +69,19 @@ export function ProfileConfig({ initialdefaultValues }: ProfileConfigProps) {
 
   async function submitForm(data: UpdateProfile) {
     const formData = new FormData();
-    if (data.nome !== defaultValues.nome) {
+    if (data.nome !== profile.nome) {
       formData.append('nome', data.nome);
     }
-    if (data.email !== defaultValues.email) {
+    if (data.email !== profile.email) {
       formData.append('email', data.email);
     }
     const response = await onSubimitActionProfile(formData);
     if (response.codeStaus === 200) {
-      setDefaultValues(data);
-      reset(data);
+      updateProfile({
+        ...profile,
+        nome: data.nome,
+        email: data.email,
+      });
       alert(response.message);
     } else {
       alert(response.message);
@@ -119,7 +124,7 @@ export function ProfileConfig({ initialdefaultValues }: ProfileConfigProps) {
               helperText={errors.email?.message}
             />
             <InputCustom
-              value={defaultValues.cpf}
+              value={profile.cpf}
               disabled
               label="CPF"
             />
