@@ -5,11 +5,11 @@ import Butao from '../buttons/button';
 import InputCustom from '../InputCustom/InputCustom';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { onSubimitActionProfile } from '../../app/(aplicacao)/perfil/page';
 import { useMemo, useState } from 'react';
 import FileUploadCustom from '../InputCustom/FileUploadCustom';
 import { PencilIcon } from '@heroicons/react/24/solid';
 import Image from 'next/image';
+import { onSubimitActionProfile } from '../../app/(aplicacao)/perfil/actionProfile';
 interface UpdateProfile {
   nome: string;
   email: string;
