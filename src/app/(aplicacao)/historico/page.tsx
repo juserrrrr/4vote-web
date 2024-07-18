@@ -1,14 +1,13 @@
-import { cache } from 'react';
 import ErrorSurvey from '../../../components/showSurveys/ErrorSurveys';
 import ShowSurveys from '../../../components/showSurveys/ShowSurveys';
 import { surveyService } from '../../../lib/pesquisa';
 
-export const revalidate = 0;
+const dynamic = 'force-dynamic';
 
-const getSurveyFilter = cache(async () => {
+const getSurveyFilter = async () => {
   const response = await surveyService.findFilter();
   return response;
-});
+};
 export default async function HomePage() {
   const data = await getSurveyFilter();
   if (data instanceof Error) {
