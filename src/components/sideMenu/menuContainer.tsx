@@ -22,7 +22,7 @@ function MenuContainer({
       <main
         className={`w-screen h-screen transition-all pt-[70px] pl-16 ${isOpen ? 'pointer-events-none md:pl-64 md:pointer-events-auto md:opacity-100 opacity-50' : 'sm:pl-20 opacity-100'}`}
       >
-        <div className="w-full h-full overflow-auto">{children}</div>
+        <div className="w-full h-full overflow-auto scrollbar-thin">{children}</div>
       </main>
     </>
   );

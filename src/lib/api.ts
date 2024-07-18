@@ -2,7 +2,7 @@ const axios = require('axios');
 
 export const headerAutorization = {
   headers: {
-    Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJub21lIjoiSm9hbyIsImlhdCI6MTcyMTE0ODEzMiwiZXhwIjoxNzIxMjM0NTMyLCJpc3MiOiJBc3NpbmF0dXJhNFZvdGUiLCJzdWIiOiIxIn0.WS0wUA3hy0iEjXOAayBq4UYCsWHjQ21isNgioqFEclQ`,
+    Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJub21lIjoiR2FicmllbCBBbG1laWRhICIsImlhdCI6MTcyMTI0MjY2NiwiZXhwIjoxNzIxMzI5MDY2LCJpc3MiOiJBc3NpbmF0dXJhNFZvdGUiLCJzdWIiOiIxIn0.RqGVBwSt-V14U0CLtW0UINUz5o71B-diX8R5ddGetFs`,
   },
 };
 

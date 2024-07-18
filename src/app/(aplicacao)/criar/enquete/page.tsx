@@ -3,7 +3,7 @@ import CriarPesquisa from '../Pesquisa';
 
 function PageEnquete() {
   return (
-    <div className="w-full h-auto mt-5">
+    <div className="w-full h-auto">
       <CriarPesquisa
         key={'Enquete'}
         type="enquete"

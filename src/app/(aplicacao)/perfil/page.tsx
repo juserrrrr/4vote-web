@@ -2,8 +2,9 @@
 import { PencilIcon } from '@heroicons/react/24/solid';
 import Image from 'next/image';
 import { ProfileConfig } from '@/components/profileConfig/profileConfig';
-import { userService } from '../../../lib/user';
-import ErrorSurvey from '../../../components/showSurveys/ErrorSurveys';
+import { userService } from '@/lib/user';
+import ErrorSurvey from '@/components/showSurveys/ErrorSurveys';
+import FileUploadCustom from '@/components/InputCustom/FileUploadCustom';
 
 async function getProfile() {
   const response = await userService.findMe();
@@ -38,18 +39,20 @@ export default async function Home() {
     <div className="w-full h-full flex flex-col">
       <div className="h-52 mb-16 bg-corPrincipal relative flex flex-col justify-center items-center">
         <div className="w-40 h-40 rounded-full bg-black absolute top-28 flex justify-center items-center">
+          <FileUploadCustom
+            className="absolute rounded-full top-28 left-28 z-10"
+            haveLabel={false}
+            icon={<PencilIcon className="text-corPrincipal w-6" />}
+          />
           <Image
             src="https://i.imgur.com/MtvqmTU.png"
             alt="Profile"
             fill
             className="object-cover rounded-full"
           />
-          <button className="w-10 h-10 absolute bg-white rounded-full top-28 left-28 flex justify-center items-center ">
-            <PencilIcon className="text-corPrincipal w-6" />
-          </button>
         </div>
       </div>
-      <div className="flex flex-grow justify-center py-6 px-4">
+      <div className="flex flex-grow z-0 justify-center py-6 px-4">
         <ProfileConfig initialdefaultValues={data} />
       </div>
     </div>

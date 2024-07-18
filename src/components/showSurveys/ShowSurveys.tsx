@@ -61,7 +61,7 @@ function ShowSurveys({ values, isHome = false }: ShowSurveysProps) {
                 title={card.titulo}
                 description={card.descricao}
                 variant={card.ehVotacao ? 'VOTAÇÃO' : 'ENQUETE'}
-                hashtags={['#tag1', '#tag2', '#tag3']}
+                hashtags={card.tags}
                 imageUrl={card.URLimagem}
               />
             </div>
