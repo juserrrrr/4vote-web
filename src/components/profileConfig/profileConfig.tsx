@@ -7,6 +7,9 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { onSubimitActionProfile } from '../../app/(aplicacao)/perfil/page';
 import { useMemo, useState } from 'react';
+import FileUploadCustom from '../InputCustom/FileUploadCustom';
+import { PencilIcon } from '@heroicons/react/24/solid';
+import Image from 'next/image';
 interface UpdateProfile {
   nome: string;
   email: string;
@@ -48,6 +51,19 @@ export function ProfileConfig({ initialdefaultValues }: ProfileConfigProps) {
     resolver: yupResolver(schemaProfile),
   });
 
+  const [image, setImage] = useState<string | null>(null);
+
+  const onChangeFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        setImage(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   async function submitForm(data: UpdateProfile) {
     const formData = new FormData();
     if (data.nome !== defaultValues.nome) {
@@ -66,38 +82,57 @@ export function ProfileConfig({ initialdefaultValues }: ProfileConfigProps) {
     }
   }
   return (
-    <div className="w-80">
+    <>
       <form
-        className="flex flex-col gap-6"
         onSubmit={handleSubmit(submitForm)}
         autoComplete="off"
       >
-        <InputCustom
-          {...register('nome')}
-          label="Nome"
-          error={!!errors.nome}
-          helperText={errors.nome?.message}
-        />
-        <InputCustom
-          {...register('email')}
-          label="Email"
-          error={!!errors.email}
-          helperText={errors.email?.message}
-        />
-        <InputCustom
-          value={defaultValues.cpf}
-          disabled
-          label="CPF"
-        />
-        <Butao
-          className="w-full h-12"
-          type="submit"
-          variant="default"
-          isLoading={isSubmitting}
-          disabled={isSubmitting}
-          texto="Salvar alterações"
-        />
+        <div className="h-52 mb-16 bg-corPrincipal relative flex flex-col justify-center items-center">
+          <div className="w-40 h-40 rounded-full bg-black absolute top-28 flex justify-center items-center">
+            <FileUploadCustom
+              className="absolute rounded-full top-28 left-28 z-10"
+              haveLabel={false}
+              onChange={onChangeFile}
+              icon={<PencilIcon className="text-corPrincipal w-6" />}
+            />
+            <Image
+              src={image || '/images/profile.png'}
+              alt="Profile"
+              fill
+              className="object-cover rounded-full"
+            />
+          </div>
+        </div>
+        <div className="flex flex-grow z-0 justify-center py-6 px-4">
+          <div className="w-80 flex flex-col gap-6">
+            <InputCustom
+              {...register('nome')}
+              label="Nome"
+              error={!!errors.nome}
+              helperText={errors.nome?.message}
+            />
+            <InputCustom
+              {...register('email')}
+              label="Email"
+              error={!!errors.email}
+              helperText={errors.email?.message}
+            />
+            <InputCustom
+              value={defaultValues.cpf}
+              disabled
+              label="CPF"
+            />
+            <Butao
+              className="w-full h-12"
+              type="submit"
+              variant="default"
+              isLoading={isSubmitting}
+              disabled={isSubmitting}
+              texto="Salvar alterações"
+            />
+          </div>
+        </div>
       </form>
-    </div>
+    </>
   );
 }

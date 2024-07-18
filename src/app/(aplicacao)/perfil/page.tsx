@@ -37,24 +37,7 @@ export default async function Home() {
 
   return (
     <div className="w-full h-full flex flex-col">
-      <div className="h-52 mb-16 bg-corPrincipal relative flex flex-col justify-center items-center">
-        <div className="w-40 h-40 rounded-full bg-black absolute top-28 flex justify-center items-center">
-          <FileUploadCustom
-            className="absolute rounded-full top-28 left-28 z-10"
-            haveLabel={false}
-            icon={<PencilIcon className="text-corPrincipal w-6" />}
-          />
-          <Image
-            src="https://i.imgur.com/MtvqmTU.png"
-            alt="Profile"
-            fill
-            className="object-cover rounded-full"
-          />
-        </div>
-      </div>
-      <div className="flex flex-grow z-0 justify-center py-6 px-4">
-        <ProfileConfig initialdefaultValues={data} />
-      </div>
+      <ProfileConfig initialdefaultValues={data} />
     </div>
   );
 }
