@@ -1,5 +1,6 @@
 'use server';
 
+import { revalidatePath } from 'next/cache';
 import { userService } from '../../../lib/user';
 
 interface FormResponse {

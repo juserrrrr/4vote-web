@@ -6,6 +6,7 @@ interface UserMe {
   nome: string;
   email: string;
   cpf: string;
+  URLPerfil: string | null;
 }
 
 export type UpdateProfile = Partial<Omit<UserMe, 'cpf'>>;
@@ -35,7 +36,6 @@ async function updateCurrentUser(data: UpdateProfile): Promise<any | Error> {
 
 async function findMe(): Promise<UserMe | Error> {
   try {
-    console.log(headerAutorization);
     const response = await api.get('/usuarios/me', headerAutorization);
     return response.data;
   } catch (error) {
