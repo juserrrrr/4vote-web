@@ -5,7 +5,7 @@ import { userService } from '../../lib/user';
 import { cache } from 'react';
 import ErrorSurvey from '../../components/showSurveys/ErrorSurveys';
 
-const dynamic = 'force-dynamic';
+export const dynamic = 'force-dynamic';
 
 const getProfile = cache(async () => {
   const response = await userService.findMe();
