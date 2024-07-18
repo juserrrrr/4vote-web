@@ -1,11 +1,14 @@
 import { surveyService } from '../../../lib/pesquisa';
 import ShowSurveys from '../../../components/showSurveys/ShowSurveys';
 import ErrorSurvey from '../../../components/showSurveys/ErrorSurveys';
+import { cache } from 'react';
 
-async function getSurveyFilter() {
+export const revalidate = false;
+
+export const getSurveyFilter = cache(async () => {
   const response = await surveyService.findFilter();
   return response;
-}
+});
 
 export default async function HomePage() {
   const data = await getSurveyFilter();

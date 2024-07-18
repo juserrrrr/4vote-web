@@ -4,11 +4,14 @@ import Image from 'next/image';
 import { ProfileConfig } from '@/components/profileConfig/profileConfig';
 import { userService } from '@/lib/user';
 import ErrorSurvey from '@/components/showSurveys/ErrorSurveys';
+import { cache } from 'react';
 
-async function getProfile() {
+export const revalidate = false;
+
+export const getProfile = cache(async () => {
   const response = await userService.findMe();
   return response;
-}
+});
 
 export default async function Home() {
   const data = await getProfile();
