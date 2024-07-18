@@ -14,6 +14,7 @@ export default async function HomePage() {
   if (data instanceof Error) {
     return ErrorSurvey({ message: data.message });
   }
+  console.log('AQUIS');
   return (
     <div>
       <ShowSurveys
