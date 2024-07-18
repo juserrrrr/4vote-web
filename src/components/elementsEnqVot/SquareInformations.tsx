@@ -38,7 +38,14 @@ const SquareInformations: React.FC<SquareInformationsProps> = ({
         <div className={container1}>
           <h1 className={title2}>{subtitle}</h1>
           <div className={containerClass}>
-            <h1 className={title3}>Data Limite: {formattedDate?.toLocaleDateString('pt-BR')}</h1>
+            <h1 className={title3}>
+              Aberto até o dia {formattedDate?.toLocaleDateString('pt-BR')} às{' '}
+              {formattedDate.toLocaleTimeString('pt-br', {
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12: false, // Formato de 24 horas
+              })}
+            </h1>
             <p className={`${title3} ml-20`}>Tipo de Acesso: {acess}</p>
           </div>
           <div className={containerClass2}>

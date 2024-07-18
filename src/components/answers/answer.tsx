@@ -6,7 +6,7 @@ interface ProgressBarProps {
 }
 
 interface AnswerProps {
-  imageUrl: string;
+  imageUrl?: string;
   label: string;
   count: number;
   progress: number;

@@ -11,7 +11,7 @@ const allAnswers = [
     imageUrl: '/imagens/4vote-principal.png',
     label: 'Opção certa',
     count: 50,
-    progress: 45,
+    progress: 70,
     isMostVoted: false,
   },
   {
