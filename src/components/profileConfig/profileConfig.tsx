@@ -88,7 +88,7 @@ export function ProfileConfig({ initialdefaultValues }: ProfileConfigProps) {
         autoComplete="off"
       >
         <div className="h-52 mb-16 bg-corPrincipal relative flex flex-col justify-center items-center">
-          <div className="w-40 h-40 rounded-full bg-black absolute top-28 flex justify-center items-center">
+          <div className="w-40 h-40 rounded-full absolute top-28 flex justify-center items-center">
             <FileUploadCustom
               className="absolute rounded-full top-28 left-28 z-10"
               haveLabel={false}
@@ -96,7 +96,7 @@ export function ProfileConfig({ initialdefaultValues }: ProfileConfigProps) {
               icon={<PencilIcon className="text-corPrincipal w-6" />}
             />
             <Image
-              src={image || '/images/profile.png'}
+              src={image || 'https://i.imgur.com/MtvqmTU.png'}
               alt="Profile"
               fill
               className="object-cover rounded-full"
