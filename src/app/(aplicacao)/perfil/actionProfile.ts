@@ -14,6 +14,7 @@ export async function onSubimitActionProfile(data: FormData): Promise<FormRespon
     ...(values.email && { email: String(values.email) }),
   };
   const reponse = await userService.updateCurrentUser(formatedData);
+  console.log(reponse);
   if (reponse instanceof Error) {
     return { message: reponse.message, codeStaus: 400 };
   }

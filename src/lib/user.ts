@@ -13,6 +13,7 @@ export type UpdateProfile = Partial<Omit<UserMe, 'cpf'>>;
 async function updateCurrentUser(data: UpdateProfile): Promise<any | Error> {
   try {
     const response = await api.patch('/usuarios/me', data, headerAutorization);
+    console.log('AXIOS:', response.data);
     if (response.status === 200) {
       return response.data;
     }
