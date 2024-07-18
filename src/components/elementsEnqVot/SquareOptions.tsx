@@ -156,8 +156,8 @@ function RenderQuestions({ type = 'votacao' }: SquareOptionsProps) {
 
 function SquareOptions({ type = 'votacao' }: SquareOptionsProps) {
   return (
-    <div className="w-full mt-2 flex flex-col justify-center items-center md:justify-start md:items-start">
-      <h1 className="text-4xl text-corPrincipal font-bold mb-4">PERGUNTAS</h1>
+    <div className="w-full flex flex-col justify-center items-center md:justify-start md:items-start">
+      <h1 className="text-4xl text-corPrincipal font-bold my-3">PERGUNTAS</h1>
       <RenderQuestions type={type} />
     </div>
   );

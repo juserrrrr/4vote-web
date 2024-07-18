@@ -50,7 +50,9 @@ export const Card: React.FC<CardProps> = ({ title, description, variant, hashtag
           texto="ARQUIVAR"
           className="w-full h-7 bg-corErro"
         />
-        <p className="text-xs h-6 bg-corPrincipal text-white py-1 rounded-b-lg text-center"> {hashtags} </p>
+        <p className="text-xs h-6 bg-corPrincipal text-white py-1 rounded-b-lg text-center lowercase whitespace-nowrap truncate">
+          {hashtags.length > 0 ? hashtags.map((hashtag) => `#${hashtag} `) : 'Sem Tags'}
+        </p>
       </div>
     </div>
   );

@@ -43,6 +43,7 @@ export interface findSurveyFilter {
   dataTermino: string;
   URLimagem: string;
   ehVotacao: boolean;
+  tags: string[];
 }
 
 async function createPesquisa(pesquisaDto: PesquisaDto): Promise<PesquisaData | Error> {
