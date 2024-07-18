@@ -1,12 +1,9 @@
-'use server';
-import { PencilIcon } from '@heroicons/react/24/solid';
-import Image from 'next/image';
 import { ProfileConfig } from '@/components/profileConfig/profileConfig';
 import { userService } from '@/lib/user';
 import ErrorSurvey from '@/components/showSurveys/ErrorSurveys';
 import { cache } from 'react';
 
-export const revalidate = false;
+export const revalidate = 0;
 
 export const getProfile = cache(async () => {
   const response = await userService.findMe();

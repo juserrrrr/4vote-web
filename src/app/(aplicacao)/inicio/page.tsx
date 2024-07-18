@@ -3,7 +3,7 @@ import ShowSurveys from '../../../components/showSurveys/ShowSurveys';
 import ErrorSurvey from '../../../components/showSurveys/ErrorSurveys';
 import { cache } from 'react';
 
-export const revalidate = false;
+export const revalidate = 0;
 
 export const getSurveyFilter = cache(async () => {
   const response = await surveyService.findFilter();
