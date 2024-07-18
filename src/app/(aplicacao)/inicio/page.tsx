@@ -5,7 +5,7 @@ import { cache } from 'react';
 
 export const revalidate = 0;
 
-export const getSurveyFilter = cache(async () => {
+const getSurveyFilter = cache(async () => {
   const response = await surveyService.findFilter();
   return response;
 });

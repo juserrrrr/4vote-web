@@ -5,7 +5,7 @@ import { cache } from 'react';
 
 export const revalidate = 0;
 
-export const getProfile = cache(async () => {
+const getProfile = cache(async () => {
   const response = await userService.findMe();
   return response;
 });
