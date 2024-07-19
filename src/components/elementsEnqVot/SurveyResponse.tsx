@@ -43,45 +43,57 @@ function SurveyResponse({
     }
   }, [currentPage, ehVotacao, perguntas]);
 
-  const formMethods = useForm({
+  const formMethods = useForm<{ option_index: (number | undefined)[] }>({
     resolver: yupResolver(optionVoteSchema),
   });
 
+  const { handleSubmit } = formMethods;
+
+  const onSubmit = (data: { option_index: (number | undefined)[] }) => {
+    // Handle form submission here
+    console.log(data);
+  };
+
   return (
     <div className={'flex flex-col justify-center items-center min-h-screen p-4'}>
-      <div className={background}>
-        <div className={container1}>
-          <SquareInformations
-            title={title}
-            subtitle={subtitle}
-            date={date}
-            acess={acess}
-            description={description}
-            imageUrl={imageUrl}
-          />
-        </div>
-        <div className={container2}>
-          <SquareQuestion
-            texto={currentData.texto}
-            opcoes={currentData.opcoes}
-          />
-          {!ehVotacao && (
-            <div className="flex justify-center mt-4">
-              <Pagination
-                totalPages={perguntas.length}
-                currentPage={currentPage}
-                setCurrentPage={setCurrentPage}
+      <FormProvider {...formMethods}>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div className={background}>
+            <div className={container1}>
+              <SquareInformations
+                title={title}
+                subtitle={subtitle}
+                date={date}
+                acess={acess}
+                description={description}
+                imageUrl={imageUrl}
               />
             </div>
-          )}
-        </div>
-        <div className={container3}>
-          <Butao
-            texto="VOTAR"
-            variant="rounded"
-          />
-        </div>
-      </div>
+            <div className={container2}>
+              <SquareQuestion
+                texto={currentData.texto}
+                opcoes={currentData.opcoes}
+              />
+              {!ehVotacao && (
+                <div className="flex justify-center mt-4">
+                  <Pagination
+                    totalPages={perguntas.length}
+                    currentPage={currentPage}
+                    setCurrentPage={setCurrentPage}
+                  />
+                </div>
+              )}
+            </div>
+            <div className={container3}>
+              <Butao
+                texto="VOTAR"
+                variant="rounded"
+                type="submit"
+              />
+            </div>
+          </div>
+        </form>
+      </FormProvider>
     </div>
   );
 }
