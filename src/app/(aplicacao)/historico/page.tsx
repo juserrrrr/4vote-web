@@ -2,7 +2,7 @@ import ErrorSurvey from '../../../components/showSurveys/ErrorSurveys';
 import ShowSurveys from '../../../components/showSurveys/ShowSurveys';
 import { surveyService } from '../../../lib/pesquisa';
 
-const dynamic = 'force-dynamic';
+export const dynamic = 'force-dynamic';
 
 const getSurveyFilter = async () => {
   const response = await surveyService.findFilter();
