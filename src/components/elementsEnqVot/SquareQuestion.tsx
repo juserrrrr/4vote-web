@@ -1,11 +1,16 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { act, useState } from 'react';
 import Button from '../option/Option';
+import { useFieldArray, useFormContext } from 'react-hook-form';
 
 interface SquareQuestionProps {
   texto: string;
   opcoes: string[];
+}
+
+interface OptionVotes {
+  option_index: number[];
 }
 
 const SquareQuestion = ({ texto, opcoes }: SquareQuestionProps) => {
@@ -19,6 +24,17 @@ const SquareQuestion = ({ texto, opcoes }: SquareQuestionProps) => {
   const ButtonGroup = () => {
     const [activeButton, setActiveButton] = useState<string>('');
 
+    const {
+      control,
+      register,
+      formState: { errors },
+    } = useFormContext<OptionVotes>();
+    const {
+      fields: optionsFields,
+      append: optionsAppend,
+      remove: optionsRemove,
+    } = useFieldArray({ control: control, name: 'option_index' as never });
+
     return (
       <div className="flex flex-col space-y-2">
         {opcoes.map((opcao, index) => (
@@ -26,7 +42,14 @@ const SquareQuestion = ({ texto, opcoes }: SquareQuestionProps) => {
             key={index}
             label={opcao}
             isActive={activeButton === opcao}
-            onClick={() => setActiveButton(opcao)}
+            onClick={() => {
+              setActiveButton(opcao);
+              if (activeButton === opcao) {
+                optionsAppend({ option_index: index });
+              } else {
+                optionsRemove(index);
+              }
+            }}
           />
         ))}
       </div>
