@@ -6,6 +6,17 @@ import SquareQuestion from './SquareQuestion';
 import SquareInformations from './SquareInformations';
 import Butao from '../buttons/button';
 import { PesquisaDtoTemp } from '@/lib/pesquisa';
+import * as yup from 'yup';
+import { useFieldArray, useForm, useFormContext } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+
+interface OptionVote {
+  option_index: number[];
+}
+
+const optionVoteSchema = yup.object({
+  option_index: yup.array().of(yup.number()).required('Selecionar uma opção é obrigatório'),
+});
 
 function SurveyResponse({
   titulo,
@@ -35,6 +46,21 @@ function SurveyResponse({
       setCurrentData(perguntas[currentPage - 1]);
     }
   }, [currentPage, ehVotacao, perguntas]);
+
+  const {
+    control,
+    register,
+    formState: { errors },
+    handleSubmit,
+  } = useFormContext<OptionVote>();
+  const {
+    fields: optionFields,
+    append: optionAppend,
+    remove: optionRemove,
+  } = useFieldArray({
+    control: control,
+    name: 'option_index',
+  });
 
   return (
     <div className={'flex flex-col justify-center items-center min-h-screen p-4'}>
