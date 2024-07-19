@@ -10,12 +10,8 @@ import * as yup from 'yup';
 import { useFieldArray, useForm, useFormContext } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
-interface OptionVote {
-  option_index: number[];
-}
-
 const optionVoteSchema = yup.object({
-  option_index: yup.array().of(yup.number()).required('Selecionar uma opção é obrigatório'),
+  option_index: yup.array().of(yup.number()).required('Selecionar uma opção é obrigatório').min(1, 'Mínimo de 1 voto'),
 });
 
 function SurveyResponse({
@@ -47,19 +43,8 @@ function SurveyResponse({
     }
   }, [currentPage, ehVotacao, perguntas]);
 
-  const {
-    control,
-    register,
-    formState: { errors },
-    handleSubmit,
-  } = useFormContext<OptionVote>();
-  const {
-    fields: optionFields,
-    append: optionAppend,
-    remove: optionRemove,
-  } = useFieldArray({
-    control: control,
-    name: 'option_index',
+  const formMethods = useForm({
+    resolver: yupResolver(optionVoteSchema),
   });
 
   return (
