@@ -7,8 +7,10 @@ import SquareInformations from './SquareInformations';
 import Butao from '../buttons/button';
 import { PesquisaDtoTemp } from '@/lib/pesquisa';
 import * as yup from 'yup';
-import { useFieldArray, useForm, useFormContext } from 'react-hook-form';
+import { FormProvider, useFieldArray, useForm, useFormContext } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import api, { headerAutorization } from '@/lib/api';
+import axios from 'axios';
 
 const optionVoteSchema = yup.object({
   option_index: yup.array().of(yup.number()).required('Selecionar uma opção é obrigatório').min(1, 'Mínimo de 1 voto'),
@@ -49,9 +51,28 @@ function SurveyResponse({
 
   const { handleSubmit } = formMethods;
 
-  const onSubmit = (data: { option_index: (number | undefined)[] }) => {
+  const onSubmit = async (data: { option_index: (number | undefined)[] }) => {
     // Handle form submission here
     console.log(data);
+    try {
+      const response = await api.post('/opcaovotada', data, headerAutorization);
+      return response.data;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        console.log(error.response?.data);
+        const codeError = error.response?.status;
+        if (codeError === 401) {
+          return new Error('Usuário não autorizado');
+        }
+        if (codeError === 500) {
+          return new Error('Erro interno no servidor');
+        }
+        if (codeError === 400) {
+          return new Error('Requisição inválida');
+        }
+      }
+      return new Error('Serviço fora do ar');
+    }
   };
 
   return (
