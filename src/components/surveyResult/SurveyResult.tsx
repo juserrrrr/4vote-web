@@ -5,11 +5,18 @@ import Answer from '@/components/answers/answer';
 import InfoAns from '@/components/infoVoteAns/infoAns';
 import VoteCounter from '@/components/voteCounter/VoteCounter';
 import Pagination from '@/components/pagination/Pagination';
-import { PesquisaDtoTemp } from '@/lib/pesquisa';
+import { PesquisaDtoResultado } from '@/lib/pesquisa';
 
-function SurveyResult({ titulo, descricao, dataTermino, ehPublico, ehVotacao, URLimagem, perguntas }: PesquisaDtoTemp) {
+function SurveyResult({
+  titulo,
+  descricao,
+  dataTermino,
+  ehPublico,
+  ehVotacao,
+  URLimagem,
+  perguntas,
+}: PesquisaDtoResultado) {
   const formattedDate = new Date(dataTermino);
-  const totalVotos = 80;
 
   const [currentPage, setCurrentPage] = useState(1);
   const [currentData, setCurrentData] = useState(perguntas[0]);
@@ -41,15 +48,16 @@ function SurveyResult({ titulo, descricao, dataTermino, ehPublico, ehVotacao, UR
           {currentData.opcoes.map((opcao, index) => (
             <Answer
               key={index}
-              label={opcao}
-              count={12}
-              progress={30}
-              isMostVoted={true}
+              label={opcao.textoOpcao}
+              imageUrl={opcao.URLimagem ?? ''}
+              count={opcao.quantVotos}
+              progress={opcao.porcentagem}
+              isMostVoted={opcao.opcaoMaisVotada}
             />
           ))}
         </div>
         <div className="mt-6 flex flex-col items-center">
-          <VoteCounter votes={totalVotos} />
+          <VoteCounter votes={currentData.total} />
           {!ehVotacao && (
             <div className="mt-4">
               <Pagination

@@ -1,6 +1,8 @@
 import SurveyResult from '@/components/surveyResult/SurveyResult';
+import { PerguntaDtoResultado } from '@/lib/perguntas';
 import { PesquisaDtoTemp, surveyService } from '@/lib/pesquisa';
 
+// Método para pegar todos os códigos de pesquisa do banco
 export async function generateStaticParams() {
   try {
     const codes = await surveyService.getAllCodes();
@@ -18,6 +20,7 @@ export async function generateStaticParams() {
   }
 }
 
+// Pega a pesquisa com aquele código
 export async function getSurvey(code: string): Promise<PesquisaDtoTemp> {
   try {
     const surveys = await surveyService.getByCode(code);
@@ -37,9 +40,26 @@ export async function getSurvey(code: string): Promise<PesquisaDtoTemp> {
   }
 }
 
+export async function getVotes(code: string): Promise<PerguntaDtoResultado[]> {
+  try {
+    const questions = await surveyService.getVotes(code);
+    console.log(questions);
+
+    if (questions instanceof Error) {
+      throw new Error(questions.message);
+    }
+
+    return questions;
+  } catch (error) {
+    console.error('Erro ao obter os votos:', error);
+    throw new Error(`Falha ao obter votos para a pesquisa de código: ${code}`);
+  }
+}
+
 async function Resultado({ params }: { params: { codigo: string } }) {
   const { codigo } = params;
-  const { titulo, descricao, dataTermino, ehPublico, ehVotacao, URLimagem, perguntas } = await getSurvey(codigo);
+  const { titulo, descricao, dataTermino, ehPublico, ehVotacao, URLimagem, ...rest } = await getSurvey(codigo);
+  const perguntas = await getVotes(codigo);
 
   return (
     <>

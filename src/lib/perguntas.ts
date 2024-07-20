@@ -1,10 +1,16 @@
 import axios from 'axios';
 import api from './api';
-import { OpcaoDto } from './opcao';
+import { OpcaoDto, OpcaoDtoResultado } from './opcao';
 
 export interface PerguntaDto {
   texto: string;
   opcoes: OpcaoDto[];
+}
+
+export interface PerguntaDtoResultado {
+  texto: string;
+  opcoes: OpcaoDtoResultado[];
+  total: number;
 }
 
 async function getById(pesquisa_id: number): Promise<Error> {

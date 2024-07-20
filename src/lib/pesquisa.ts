@@ -1,5 +1,5 @@
 import axios, { AxiosError, AxiosResponse } from 'axios';
-import { PerguntaDto } from './perguntas';
+import { PerguntaDto, PerguntaDtoResultado } from './perguntas';
 import { TagDto } from './tag';
 import api, { headerAutorization } from './api';
 
@@ -22,6 +22,16 @@ export interface PesquisaDtoTemp {
   URLimagem?: string;
   ehVotacao: boolean;
   perguntas: [{ texto: string; opcoes: string[] }];
+}
+
+export interface PesquisaDtoResultado {
+  titulo: string;
+  descricao?: string;
+  dataTermino: string;
+  ehPublico: boolean;
+  URLimagem?: string;
+  ehVotacao: boolean;
+  perguntas: PerguntaDtoResultado[];
 }
 
 export interface PesquisaWarning {
@@ -66,6 +76,19 @@ async function createPesquisa(pesquisaDto: PesquisaDto): Promise<PesquisaData | 
     }
     return new Error('Serviço fora do ar');
   }
+}
+
+async function getVotes(code: string): Promise<PerguntaDtoResultado[] | Error> {
+  try {
+    const { data } = await api.get(`/pesquisas/resultados/${code}`, headerAutorization);
+    if (data) return data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      return new Error(error.response?.data.message);
+    }
+    return new Error('Erro desconhecido');
+  }
+  return new Error(`Erro ao tentar pegar a pesquisa de código ${code}`);
 }
 
 async function getByCode(code: string): Promise<PesquisaDtoTemp[] | Error> {
@@ -139,4 +162,5 @@ export const surveyService = {
   createPesquisa,
   getByCode,
   getAllCodes,
+  getVotes,
 };
