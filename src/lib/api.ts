@@ -1,8 +1,10 @@
+import { sessionService } from './sessions';
+
 const axios = require('axios');
 
 export const headerAutorization = {
   headers: {
-    Authorization: `Bearer ${process.env.TOKEN}`,
+    Authorization: `Bearer ${sessionService.getSessionToken('token')}`,
   },
 };
 

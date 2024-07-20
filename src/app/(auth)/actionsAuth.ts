@@ -1,5 +1,6 @@
 'use server';
 import { authService, ILoginDto } from '@/lib/auth';
+import { sessionService } from '@/lib/sessions';
 import { cookies } from 'next/headers';
 
 interface formResponse {
@@ -19,11 +20,6 @@ export async function onSubmitLogin(data: FormData): Promise<formResponse> {
   if (response instanceof Error) {
     return { error: { message: response.message } };
   }
-  cookies().set('token', response.accessToken, {
-    httpOnly: true,
-    secure: true,
-    maxAge: 60 * 60 * 24 * 1,
-    path: '/',
-  });
+  sessionService.createSessionToken(response.accessToken);
   return { token: response.accessToken };
 }
