@@ -65,8 +65,7 @@ function SurveyResponse({
     // Handle form submission here
     console.log(data);
     try {
-      const votedOptionsArray = data.votes;
-      const payload = { voto: { opcoesVotadas: votedOptionsArray } };
+      const payload = { voto: { opcoesVotadas: data.votes } };
       const response = await api.post('/opcaovotada', payload, headerAutorization);
       return response.data;
     } catch (error) {
