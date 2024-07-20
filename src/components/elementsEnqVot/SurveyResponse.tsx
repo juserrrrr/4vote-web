@@ -13,8 +13,18 @@ import api, { headerAutorization } from '@/lib/api';
 import axios from 'axios';
 
 const optionVoteSchema = yup.object({
-  option_index: yup.array().of(yup.number()).required('Selecionar uma opção é obrigatório').min(1, 'Mínimo de 1 voto'),
+  votes: yup.array().of(
+    yup
+      .object({
+        idOption: yup.number().required('Opção é obrigatória'),
+      })
+      .required('Opção é obrigatória'),
+  ),
 });
+
+interface OptionVotes {
+  votes: [{ idOption: number }];
+}
 
 function SurveyResponse({
   titulo,
@@ -45,17 +55,18 @@ function SurveyResponse({
     }
   }, [currentPage, ehVotacao, perguntas]);
 
-  const formMethods = useForm<{ option_index: (number | undefined)[] }>({
-    resolver: yupResolver(optionVoteSchema),
+  const formMethods = useForm<OptionVotes>({
+    resolver: yupResolver(optionVoteSchema) as any,
   });
 
   const { handleSubmit } = formMethods;
 
-  const onSubmit = async (data: { option_index: (number | undefined)[] }) => {
+  const onSubmit = async (data: OptionVotes) => {
     // Handle form submission here
     console.log(data);
     try {
-      const payload = { voto: { opcoesVotadas: [{ data }] } };
+      const votedOptionsArray = data.votes;
+      const payload = { voto: { opcoesVotadas: votedOptionsArray } };
       const response = await api.post('/opcaovotada', payload, headerAutorization);
       return response.data;
     } catch (error) {
