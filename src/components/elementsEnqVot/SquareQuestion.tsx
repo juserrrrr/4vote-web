@@ -6,11 +6,11 @@ import { useFieldArray, useFormContext } from 'react-hook-form';
 
 interface SquareQuestionProps {
   texto: string;
-  opcoes: string[];
+  opcoes: { idOpcao: number; opcao: string }[];
 }
 
 interface OptionVotes {
-  option_index: number[];
+  idOption: number[];
 }
 
 const SquareQuestion = ({ texto, opcoes }: SquareQuestionProps) => {
@@ -22,7 +22,7 @@ const SquareQuestion = ({ texto, opcoes }: SquareQuestionProps) => {
   const line = 'w-[1150px] h-[1px] inline-flex bg-corPrincipal';
 
   const ButtonGroup = () => {
-    const [activeButton, setActiveButton] = useState<string>('');
+    const [activeButton, setActiveButton] = useState<number>();
 
     const {
       control,
@@ -33,21 +33,21 @@ const SquareQuestion = ({ texto, opcoes }: SquareQuestionProps) => {
       fields: optionsFields,
       append: optionsAppend,
       remove: optionsRemove,
-    } = useFieldArray({ control: control, name: 'option_index' as never });
+    } = useFieldArray<OptionVotes>({ control: control, name: 'idOption' as never });
 
     return (
       <div className="flex flex-col space-y-2">
         {opcoes.map((opcao, index) => (
           <Button
-            key={index}
-            label={opcao}
-            isActive={activeButton === opcao}
+            key={opcao.idOpcao}
+            label={opcao.opcao}
+            isActive={activeButton === opcao.idOpcao}
             onClick={() => {
-              setActiveButton(opcao);
-              if (activeButton === opcao) {
-                optionsAppend({ option_index: index });
+              setActiveButton(opcao.idOpcao);
+              if (activeButton === opcao.idOpcao) {
+                optionsAppend({ idOption: opcao.idOpcao });
               } else {
-                optionsRemove(index);
+                optionsRemove([opcao.idOpcao]);
               }
             }}
           />
