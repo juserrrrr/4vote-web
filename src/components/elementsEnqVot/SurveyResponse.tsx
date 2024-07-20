@@ -55,7 +55,8 @@ function SurveyResponse({
     // Handle form submission here
     console.log(data);
     try {
-      const response = await api.post('/opcaovotada', data, headerAutorization);
+      const payload = { voto: { opcoesVotadas: [{ data }] } };
+      const response = await api.post('/opcaovotada', payload, headerAutorization);
       return response.data;
     } catch (error) {
       if (axios.isAxiosError(error)) {
