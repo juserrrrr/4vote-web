@@ -21,7 +21,7 @@ export interface PesquisaDtoTemp {
   ehPublico: boolean;
   URLimagem?: string;
   ehVotacao: boolean;
-  perguntas: [{ texto: string; opcoes: string[] }];
+  perguntas: [{ texto: string; opcoes: [{ idOpcao: number; opcao: string }] }];
 }
 
 export interface PesquisaWarning {
