@@ -19,6 +19,7 @@ const SquareInformations: React.FC<SquareInformationsProps> = ({
   acess,
   description,
   imageUrl,
+  buttonShareText,
 }) => {
   const formattedDate = new Date(date);
   const [copySuccess, setCopySuccess] = useState<string>(''); // Estado para controlar mensagem de sucesso
