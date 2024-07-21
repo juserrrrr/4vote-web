@@ -18,38 +18,29 @@ export async function generateStaticParams() {
   }
 }
 
-// async function getSurvey(code: string): Promise<PesquisaDtoTemp> {
-//   try {
-//     const surveys = await surveyService.getByCode(code);
+async function getSurvey(code: string): Promise<PesquisaDtoTemp> {
+  try {
+    const surveys = await surveyService.getByCode(code);
 
-//     if (surveys instanceof Error) {
-//       throw new Error(surveys.message);
-//     }
+    if (surveys instanceof Error) {
+      throw new Error(surveys.message);
+    }
 
-//     if (!surveys.length) {
-//       throw new Error(`Nenhuma pesquisa encontrada para o código: ${code}`);
-//     }
+    if (!surveys.length) {
+      throw new Error(`Nenhuma pesquisa encontrada para o código: ${code}`);
+    }
 
-//     return surveys[0];
-//   } catch (error) {
-//     console.error('Erro ao obter a pesquisa:', error);
-//     throw new Error(`Falha ao obter a pesquisa para o código: ${code}`);
-//   }
-// }
+    return surveys[0];
+  } catch (error) {
+    console.error('Erro ao obter a pesquisa:', error);
+    throw new Error(`Falha ao obter a pesquisa para o código: ${code}`);
+  }
+}
 
 async function Resposta({ params }: { params: { codigo: string } }) {
   const { codigo } = params;
 
-  const surveys = await surveyService.getByCode(codigo);
-
-  if (surveys instanceof Error) {
-    throw new Error(surveys.message);
-  }
-  if (!surveys.length) {
-    throw new Error(`Nenhuma pesquisa encontrada para o código: ${codigo}`);
-  }
-
-  const { titulo, descricao, dataTermino, ehPublico, ehVotacao, URLimagem, perguntas } = surveys[0];
+  const { titulo, descricao, dataTermino, ehPublico, ehVotacao, URLimagem, perguntas } = await getSurvey(codigo);
 
   return (
     <>
