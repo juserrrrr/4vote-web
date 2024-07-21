@@ -18,12 +18,12 @@ export function FooterLP() {
         width={521}
         className="mt-6 mb-4"
       />
-      
+
       {/* Footer Text */}
       <p className="text-white font-medium mb-4 text-center text-lg sm:text-xl lg:text-2xl">
         “Construindo pontes digitais para o futuro: Nexustech, a engenharia de software que conecta ideias à inovação!”
       </p>
-      
+
       {/* Contact Information */}
       <ul className="flex flex-col sm:flex-row items-center justify-center gap-4 text-center sm:text-left">
         <li className="flex items-center p-2">
