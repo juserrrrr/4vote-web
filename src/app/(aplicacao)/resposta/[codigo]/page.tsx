@@ -18,7 +18,7 @@ export async function generateStaticParams() {
   }
 }
 
-export async function getSurvey(code: string): Promise<PesquisaDtoTemp> {
+async function getSurvey(code: string): Promise<PesquisaDtoTemp> {
   try {
     const surveys = await surveyService.getByCode(code);
 

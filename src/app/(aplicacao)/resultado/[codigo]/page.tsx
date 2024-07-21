@@ -21,7 +21,7 @@ export async function generateStaticParams() {
 }
 
 // Pega a pesquisa com aquele código
-export async function getSurvey(code: string): Promise<PesquisaDtoTemp> {
+async function getSurvey(code: string): Promise<PesquisaDtoTemp> {
   try {
     const surveys = await surveyService.getByCode(code);
 
@@ -40,7 +40,7 @@ export async function getSurvey(code: string): Promise<PesquisaDtoTemp> {
   }
 }
 
-export async function getVotes(code: string): Promise<PerguntaDtoResultado[]> {
+async function getVotes(code: string): Promise<PerguntaDtoResultado[]> {
   try {
     const questions = await surveyService.getVotes(code);
     console.log(questions);
