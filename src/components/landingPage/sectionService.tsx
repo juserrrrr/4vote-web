@@ -3,7 +3,10 @@ import Image from 'next/image';
 
 export function SectionService() {
   return (
-    <section className="relative bg-background-blue bg-no-repeat bg-center bg-cover min-h-[500px] py-4 md:py-8 lg:py-12">
+    <section
+      id="/sobre"
+      className="relative bg-background-blue bg-no-repeat bg-center bg-cover min-h-[500px] py-4 md:py-8 lg:py-12"
+    >
       <div className="container mx-auto px-4 flex flex-col items-center justify-center relative lg:flex-row lg:justify-center">
         <p className="font-bold text-left text-white text-2xl md:text-3xl lg:text-4xl lg:absolute lg:top-8 lg:left-4 lg:max-w-xs">
           Crie enquetes e votações de forma
