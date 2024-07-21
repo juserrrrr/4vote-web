@@ -42,9 +42,18 @@ async function recoverPassword(email: string): Promise<void | Error> {
     return checkErrors({ error });
   }
 }
+async function validateUser(codeVal: string): Promise<void | Error> {
+  try {
+    const response = await api.post(`/auth/validar-usuario/${codeVal}`);
+    return response.data;
+  } catch (error) {
+    return checkErrors({ error });
+  }
+}
 
 export const authService = {
   entrar,
   cadastrar,
   recoverPassword,
+  validateUser,
 };
