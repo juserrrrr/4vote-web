@@ -21,45 +21,58 @@ export async function generateStaticParams() {
 }
 
 // Pega a pesquisa com aquele código
-async function getSurvey(code: string): Promise<PesquisaDtoTemp> {
-  try {
-    const surveys = await surveyService.getByCode(code);
+// async function getSurvey(code: string): Promise<PesquisaDtoTemp> {
+//   try {
+//     const surveys = await surveyService.getByCode(code);
 
-    if (surveys instanceof Error) {
-      throw new Error(surveys.message);
-    }
+//     if (surveys instanceof Error) {
+//       throw new Error(surveys.message);
+//     }
 
-    if (!surveys.length) {
-      throw new Error(`Nenhuma pesquisa encontrada para o código: ${code}`);
-    }
+//     if (!surveys.length) {
+//       throw new Error(`Nenhuma pesquisa encontrada para o código: ${code}`);
+//     }
 
-    return surveys[0];
-  } catch (error) {
-    console.error('Erro ao obter a pesquisa:', error);
-    throw new Error(`Falha ao obter a pesquisa para o código: ${code}`);
-  }
-}
+//     return surveys[0];
+//   } catch (error) {
+//     console.error('Erro ao obter a pesquisa:', error);
+//     throw new Error(`Falha ao obter a pesquisa para o código: ${code}`);
+//   }
+// }
 
-async function getVotes(code: string): Promise<PerguntaDtoResultado[]> {
-  try {
-    const questions = await surveyService.getVotes(code);
-    console.log(questions);
+// async function getVotes(code: string): Promise<PerguntaDtoResultado[]> {
+//   try {
+//     const questions = await surveyService.getVotes(code);
 
-    if (questions instanceof Error) {
-      throw new Error(questions.message);
-    }
+//     if (questions instanceof Error) {
+//       throw new Error(questions.message);
+//     }
 
-    return questions;
-  } catch (error) {
-    console.error('Erro ao obter os votos:', error);
-    throw new Error(`Falha ao obter votos para a pesquisa de código: ${code}`);
-  }
-}
+//     return questions;
+//   } catch (error) {
+//     console.error('Erro ao obter os votos:', error);
+//     throw new Error(`Falha ao obter votos para a pesquisa de código: ${code}`);
+//   }
+// }
 
 async function Resultado({ params }: { params: { codigo: string } }) {
   const { codigo } = params;
-  const { titulo, descricao, dataTermino, ehPublico, ehVotacao, URLimagem, ...rest } = await getSurvey(codigo);
-  const perguntas = await getVotes(codigo);
+  const surveys = await surveyService.getByCode(codigo);
+
+  if (surveys instanceof Error) {
+    throw new Error(surveys.message);
+  }
+  if (!surveys.length) {
+    throw new Error(`Nenhuma pesquisa encontrada para o código: ${codigo}`);
+  }
+
+  const { titulo, descricao, dataTermino, ehPublico, ehVotacao, URLimagem, ...rest } = surveys[0]; // Pega os dados da pesquisa
+
+  const questions = await surveyService.getVotes(codigo);
+
+  if (questions instanceof Error) {
+    throw new Error(questions.message);
+  }
 
   return (
     <>
@@ -70,7 +83,7 @@ async function Resultado({ params }: { params: { codigo: string } }) {
         ehPublico={ehPublico}
         ehVotacao={ehVotacao}
         URLimagem={URLimagem}
-        perguntas={perguntas}
+        perguntas={questions}
       />
     </>
   );
