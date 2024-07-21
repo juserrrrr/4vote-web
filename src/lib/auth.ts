@@ -1,5 +1,4 @@
-import axios from 'axios';
-import api, { checkError } from './api';
+import api, { checkErrors } from './api';
 
 interface IToken {
   accessToken: string;
@@ -22,22 +21,7 @@ async function entrar(loginDto: ILoginDto): Promise<IToken | Error> {
     const response = await api.post('/auth/entrar', loginDto);
     return response.data;
   } catch (error) {
-    if (axios.isAxiosError(error)) {
-      const codeError = error.response?.status;
-      switch (codeError) {
-        case 401:
-          return new Error('Usuário não autorizado, ative sua conta');
-        case 500:
-          return new Error('Erro interno no servidor');
-        case 400:
-          return new Error('Usuário ou senha inválidos');
-        case 404:
-          return new Error('Usuário não encontrado');
-        default:
-          return new Error(error.response?.data.message);
-      }
-    }
-    return new Error('Serviço fora do ar');
+    return checkErrors({ error, message400: 'Email ou senha inválidos' });
   }
 }
 
@@ -46,22 +30,7 @@ async function cadastrar(dto: ICadastroDto): Promise<IToken | Error> {
     const response = await api.post('/auth/cadastro', dto);
     return response.data;
   } catch (error) {
-    if (axios.isAxiosError(error)) {
-      const codeError = error.response?.status;
-      switch (codeError) {
-        case 401:
-          return new Error('Usuário não autorizado, ative sua conta');
-        case 500:
-          return new Error('Erro interno no servidor');
-        case 400:
-          return new Error('Usuário ou senha inválidos');
-        case 404:
-          return new Error('Usuário não encontrado');
-        default:
-          return new Error(error.response?.data.message);
-      }
-    }
-    return new Error('Serviço fora do ar');
+    return checkErrors({ error });
   }
 }
 
@@ -70,22 +39,7 @@ async function recoverPassword(email: string): Promise<void | Error> {
     const response = await api.post('/auth/recuperar-senha', { email: email });
     return response.data;
   } catch (error) {
-    if (axios.isAxiosError(error)) {
-      const codeError = error.response?.status;
-      switch (codeError) {
-        case 401:
-          return new Error('Usuário não autorizado, ative sua conta');
-        case 500:
-          return new Error('Erro interno no servidor');
-        case 400:
-          return new Error('Usuário ou senha inválidos');
-        case 404:
-          return new Error('Usuário não encontrado');
-        default:
-          return new Error(error.response?.data.message);
-      }
-    }
-    return new Error('Serviço fora do ar');
+    return checkErrors({ error });
   }
 }
 
