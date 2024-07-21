@@ -3,7 +3,8 @@ import { ProfileProvider } from '../../contexts/profileContext';
 import HeaderContainer from '../../components/header/HeaderContainer';
 import { userService } from '../../lib/user';
 import { cache } from 'react';
-import ErrorSurvey from '../../components/showSurveys/ErrorSurveys';
+import { sessionService } from '@/lib/sessions';
+import { redirect } from 'next/dist/server/api-utils';
 
 export const dynamic = 'force-dynamic';
 
@@ -20,13 +21,16 @@ export default async function LayoutAuthenticated({
   modal: React.ReactNode;
 }>) {
   const data = await getProfile();
-  if (data instanceof Error) {
-    return ErrorSurvey({ message: data.message });
-  }
+
+  const logoutAction = async () => {
+    'use server';
+    sessionService.deleteSessionToken();
+  };
+
   return (
     <div className="relative flex flex-col h-full w-full bg-corNeutro">
-      <ProfileProvider initialValues={data}>
-        <HeaderContainer />
+      <ProfileProvider initialValues={data instanceof Error ? undefined : data}>
+        <HeaderContainer onLogout={logoutAction} />
         <MenuContainer>{children}</MenuContainer>
         {modal}
       </ProfileProvider>

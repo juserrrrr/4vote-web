@@ -34,7 +34,6 @@ const Resposta: React.FC = () => {
   const container1 = 'w-[1260px] p-5';
   const container2 = 'w-[1260px] p-5';
   const container3 = 'w-[320px] h-[5px] absolute right-0';
-
   const [currentPage, setCurrentPage] = useState(1);
   const [currentData, setCurrentData] = useState(questionsWithOptions[0]);
 
@@ -53,6 +52,7 @@ const Resposta: React.FC = () => {
             acess={acess}
             description={description}
             imageUrl={imageUrl}
+            buttonShareText="Compartilhar Enquete"
           />
         </div>
         <div className={container2}>

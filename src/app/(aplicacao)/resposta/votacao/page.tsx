@@ -1,7 +1,7 @@
-import React from 'react';
+import Butao from '@/components/buttons/button';
 import SquareInformations from '@/components/elementsEnqVot/SquareInformations';
 import SquareQuestion from '@/components/elementsEnqVot/SquareQuestion';
-import Butao from '@/components/buttons/button';
+import React from 'react';
 
 const Resposta: React.FC = () => {
   const title = 'VOTAÇÃO';
@@ -27,6 +27,7 @@ const Resposta: React.FC = () => {
             acess={acess}
             description={description}
             imageUrl={imageUrl}
+            buttonShareText="Compartilhar Votação"
           />
         </div>
         <div className={container2}>
