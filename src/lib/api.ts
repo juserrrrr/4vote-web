@@ -4,7 +4,7 @@ const axios = require('axios');
 
 export const headerAutorization = {
   headers: {
-    Authorization: `Bearer ${sessionService.getSessionToken('token')}`,
+    Authorization: `Bearer ${sessionService.getSessionToken()}`,
   },
 };
 
