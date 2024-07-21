@@ -43,12 +43,14 @@ function ShowSurveys({ values, isHome = false }: ShowSurveysProps) {
                 setIsOpenOrdenar(true);
               }}
             />
-            <FilterButton
-              onClick={() => {
-                setIsOpenFiltrar(true);
-              }}
-              variante="filtrar"
-            />
+            {!isHome && (
+              <FilterButton
+                onClick={() => {
+                  setIsOpenFiltrar(true);
+                }}
+                variante="filtrar"
+              />
+            )}
           </div>
         </div>
         <div className="w-full flex flex-row flex-wrap md:justify-start ">

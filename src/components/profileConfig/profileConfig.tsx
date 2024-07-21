@@ -19,10 +19,6 @@ interface UpdateProfile {
   URLPerfil?: string | null;
 }
 
-interface ProfileConfigProps {
-  initialdefaultValues: UpdateProfile;
-}
-
 function createSchemaProfile(defaultValues: UpdateProfile) {
   return yup.object({
     nome: yup
@@ -41,7 +37,7 @@ function createSchemaProfile(defaultValues: UpdateProfile) {
   });
 }
 
-export function ProfileConfig({ initialdefaultValues }: ProfileConfigProps) {
+export function ProfileConfig() {
   const { profile, updateProfile } = useContext(ProfileContext);
   let schemaProfile = useMemo(() => createSchemaProfile(profile), [profile]);
   const {
