@@ -6,6 +6,7 @@ interface UserMe {
   nome: string;
   email: string;
   cpf: string;
+  URLPerfil: string | null;
 }
 
 export type UpdateProfile = Partial<Omit<UserMe, 'cpf'>>;
