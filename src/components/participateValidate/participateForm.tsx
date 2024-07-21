@@ -4,15 +4,14 @@ import InputCustom from '@/components/InputCustom/InputCustom';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
-import { onSubmitParticipate, onSubmitValidate } from './participateValidateActions';
+
 import { useRouter } from 'next/navigation';
-import { ValidationResult } from '../validation/validationResult';
 
 interface ParticipateFormProps {
-  type: 'participate' | 'validate';
+  onSubmitAction: (values: FormValues) => void;
 }
 
-interface FormValues {
+export interface FormValues {
   code: string;
 }
 
@@ -20,7 +19,7 @@ const defaultSchema = yup.object().shape({
   code: yup.string().required('Campo obrigatório'),
 });
 
-function ParticipateForm({ type }: ParticipateFormProps) {
+function ParticipateForm({ onSubmitAction }: ParticipateFormProps) {
   const {
     register,
     handleSubmit,
@@ -32,30 +31,11 @@ function ParticipateForm({ type }: ParticipateFormProps) {
     resolver: yupResolver(defaultSchema),
   });
 
-  const router = useRouter();
-
-  const onSubimitAction = async (data: FormValues) => {
-    const formData = new FormData();
-    formData.append('code', data.code);
-
-    if (type === 'validate') {
-      // const response = await onSubmitValidate(formData);
-      if (true) {
-        return <ValidationResult isCorrect />;
-      }
-      return <ValidationResult isCorrect={false} />;
-    } else {
-      // const response = await onSubmitParticipate(formData);
-      // if (!response.error) {
-      //   return router.push(`/responder/${data.code}`);
-      // }
-    }
-  };
   return (
     <>
       <form
         className="w-full sm:w-96 space-y-3"
-        onSubmit={handleSubmit(onSubimitAction)}
+        onSubmit={handleSubmit(onSubmitAction)}
       >
         <InputCustom
           label="Código"
