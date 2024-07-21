@@ -2,10 +2,12 @@ import { sessionService } from './sessions';
 
 const axios = require('axios');
 
-export const headerAutorization = {
-  headers: {
-    Authorization: `Bearer ${sessionService.getSessionToken()}`,
-  },
+export const headerAutorization = () => {
+  return {
+    headers: {
+      Authorization: `Bearer ${sessionService.getSessionToken()}`,
+    },
+  };
 };
 
 interface IError {

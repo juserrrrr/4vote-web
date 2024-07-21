@@ -47,7 +47,7 @@ export interface findSurveyFilter {
 
 async function createPesquisa(pesquisaDto: PesquisaDto): Promise<PesquisaData | Error> {
   try {
-    const response = await api.post('/pesquisas', pesquisaDto, headerAutorization);
+    const response = await api.post('/pesquisas', pesquisaDto, headerAutorization());
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
@@ -69,7 +69,7 @@ async function createPesquisa(pesquisaDto: PesquisaDto): Promise<PesquisaData | 
 
 async function getByCode(code: string): Promise<PesquisaDtoTemp[] | Error> {
   try {
-    const { data } = await api.get(`/pesquisas/procurar/${code}`, headerAutorization);
+    const { data } = await api.get(`/pesquisas/procurar/${code}`, headerAutorization());
     if (data) return data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
@@ -101,7 +101,7 @@ async function findFilter(): Promise<findSurveyFilter[] | Error> {
     encerradas: 'false',
   });
   try {
-    const response = await api.get(`/pesquisas/filtrar?${urlQuery.toString()}`, headerAutorization);
+    const response = await api.get(`/pesquisas/filtrar?${urlQuery.toString()}`, headerAutorization());
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
