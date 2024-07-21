@@ -3,7 +3,11 @@ import { useContext } from 'react';
 import { Header } from './header';
 import { ProfileContext } from '../../contexts/profileContext';
 
-function HeaderContainer() {
+interface HeaderContainerProps {
+  onLogout: () => void;
+}
+
+function HeaderContainer({ onLogout }: HeaderContainerProps) {
   const { profile } = useContext(ProfileContext);
   return (
     <>
@@ -11,6 +15,7 @@ function HeaderContainer() {
         usuarioLogado={!!profile.nome}
         nomeUsuario={profile.nome}
         urlPerfil={profile.URLPerfil}
+        onLogout={onLogout}
       />
     </>
   );

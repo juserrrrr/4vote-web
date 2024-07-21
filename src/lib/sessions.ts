@@ -9,11 +9,11 @@ function createSessionToken(value: string) {
   });
 }
 
-function deleteSessionToken(name: string) {
+function deleteSessionToken() {
   cookies().delete('token');
 }
 
-function getSessionToken(name: string) {
+function getSessionToken() {
   return cookies().get('token')?.value;
 }
 
