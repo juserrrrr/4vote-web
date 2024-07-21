@@ -7,11 +7,10 @@ export function SectionBenefits() {
   return (
     <section
       id="/beneficios"
-      className="min-w-full h-auto bg-gradient-to-r from-[#f0f0f0] to-[#ffffff] flex justify-center items-center py-8"
+      className="min-w-full h-auto bg-gradient-to-r from-[#f0f0f0] to-[#ffffff] flex justify-center items-center"
     >
-      <div className="w-full max-w-[1650px] px-4 md:px-8 lg:px-12 mx-auto flex flex-col lg:flex-row justify-center lg:justify-between items-center">
-        {/* Responsive Image Container */}
-        <div className="flex-1 flex justify-center lg:justify-start mb-8 lg:mb-0">
+      <div className="w-full max-w-[1650px] px-4 md:px-8 lg:px-12 mx-auto flex flex-col-reverse lg:flex-row justify-between items-end">
+        <div className="flex-1 flex justify-center lg:justify-start mt-8 lg:mt-0">
           <div className="w-full h-auto max-w-[600px] max-h-[600px] lg:max-w-[700px] lg:max-h-[700px]">
             <Image
               src={woman}
@@ -24,8 +23,7 @@ export function SectionBenefits() {
           </div>
         </div>
 
-        {/* Responsive Benefits Section */}
-        <div className="flex-1 flex flex-col items-center lg:items-start text-center lg:text-left">
+        <div className="flex-1 flex flex-col items-center lg:items-start text-center lg:text-left mb-0">
           <ItemBenefits
             texto={
               <>
@@ -62,7 +60,7 @@ export function SectionBenefits() {
               </>
             }
           />
-          <div className="flex flex-col lg:flex-row items-center gap-4 lg:gap-6 mt-8">
+          <div className="flex flex-col lg:flex-row items-center gap-4 lg:gap-6 mt-8 pb-8">
             <Link href="inicio">
               <div className="text-white bg-corContraste hover:opacity-90 font-bold text-lg lg:text-xl rounded-full h-12 lg:h-16 w-44 lg:w-60 flex items-center justify-center cursor-pointer">
                 entrar como convidado
