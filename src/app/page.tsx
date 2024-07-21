@@ -1,3 +1,6 @@
+'use client';
+
+import { CardLP } from '@/components/landingPage/cardLP';
 import { FooterLP } from '@/components/landingPage/footerLP';
 import { HeaderLP } from '@/components/landingPage/headerLP';
 import { SectionBenefits } from '@/components/landingPage/sectionBenefits';
