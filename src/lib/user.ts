@@ -1,18 +1,23 @@
 import axios, { AxiosError, AxiosResponse } from 'axios';
-import api, { headerAutorization } from './api';
+import api, { checkErrors, headerAutorization, headerAutorizationFile } from './api';
 
 interface UserMe {
   nome: string;
   email: string;
   cpf: string;
-  URLPerfil: string | null;
+  URLimagem: string | null;
 }
 
-export type UpdateProfile = Partial<Omit<UserMe, 'cpf'>>;
+export type UpdateProfile = {
+  nome: string;
+  email: string;
+  cpf?: string;
+  image?: File;
+};
 
-async function updateCurrentUser(data: UpdateProfile): Promise<any | Error> {
+async function updateCurrentUser(data: FormData): Promise<any | Error> {
   try {
-    const response = await api.patch('/usuarios/me', data, headerAutorization());
+    const response = await api.patch('/usuarios/me', data, headerAutorizationFile());
     if (response.status === 200) {
       return response.data;
     }
@@ -54,7 +59,23 @@ async function findMe(): Promise<UserMe | Error> {
   }
 }
 
+interface FileUpload {
+  file: File;
+}
+
+async function uploadImage(data: FileUpload): Promise<AxiosResponse | Error> {
+  const formData = new FormData();
+  formData.append('file', data.file);
+  try {
+    const response = await api.post('/upload', formData, headerAutorizationFile());
+    return response;
+  } catch (error) {
+    return checkErrors({ error });
+  }
+}
+
 export const userService = {
   findMe,
   updateCurrentUser,
+  uploadImage,
 };

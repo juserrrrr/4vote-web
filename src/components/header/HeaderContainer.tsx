@@ -14,7 +14,7 @@ function HeaderContainer({ onLogout }: HeaderContainerProps) {
       <Header
         usuarioLogado={!!profile.nome}
         nomeUsuario={profile.nome}
-        urlPerfil={profile.URLPerfil}
+        urlPerfil={profile.URLimagem}
         onLogout={onLogout}
       />
     </>

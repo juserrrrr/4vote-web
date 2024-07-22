@@ -14,16 +14,6 @@ export interface PesquisaDto {
   tags?: TagDto[];
 }
 
-export interface PesquisaDtoTemp {
-  titulo: string;
-  descricao?: string;
-  dataTermino: string;
-  ehPublico: boolean;
-  URLimagem?: string;
-  ehVotacao: boolean;
-  perguntas: [{ texto: string; opcoes: string[] }];
-}
-
 export interface PesquisaDtoResultado {
   titulo: string;
   descricao?: string;
@@ -43,13 +33,25 @@ export interface PesquisaResponse<T> {
 }
 
 export interface PesquisaDtoTemp {
+  id: number;
   titulo: string;
   descricao?: string;
   dataTermino: string;
   ehPublico: boolean;
   URLimagem?: string;
   ehVotacao: boolean;
-  perguntas: [{ texto: string; opcoes: string[] }];
+  perguntas: [
+    {
+      id: number;
+      texto: string;
+      opcoes: [
+        {
+          id: number;
+          texto: string;
+        },
+      ];
+    },
+  ];
 }
 
 export interface PesquisaData {
@@ -59,6 +61,7 @@ export interface PesquisaData {
 export interface findSurveyFilter {
   codigo: string;
   titulo: string;
+  criador: string;
   descricao: string;
   dataTermino: string;
   URLimagem: string;
@@ -72,7 +75,6 @@ async function createPesquisa(pesquisaDto: PesquisaDto): Promise<PesquisaData | 
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
-      console.log(error.response?.data);
       const codeError = error.response?.status;
       if (codeError === 401) {
         return new Error('Usuário não autorizado');
@@ -90,7 +92,7 @@ async function createPesquisa(pesquisaDto: PesquisaDto): Promise<PesquisaData | 
 
 async function getVotes(code: string): Promise<PerguntaDtoResultado[] | Error> {
   try {
-    const { data } = await api.get(`/pesquisas/resultados/${code}`, headerAutorization);
+    const { data } = await api.get(`/pesquisas/resultados/${code}`, headerAutorization());
     if (data) return data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
@@ -103,7 +105,7 @@ async function getVotes(code: string): Promise<PerguntaDtoResultado[] | Error> {
 
 async function getByCode(code: string): Promise<PesquisaDtoTemp[] | Error> {
   try {
-    const { data } = await api.get(`/pesquisas/procurar/${code}`, headerAutorization);
+    const { data } = await api.get(`/pesquisas/procurar/${code}`, headerAutorization());
     if (data) return data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
@@ -116,7 +118,7 @@ async function getByCode(code: string): Promise<PesquisaDtoTemp[] | Error> {
 
 async function getAllCodes(): Promise<{ code: string }[] | Error> {
   try {
-    const { data } = await api.get('/pesquisas/codigos', headerAutorization);
+    const { data } = await api.get('/pesquisas/codigos', headerAutorization());
     return data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
@@ -130,11 +132,9 @@ function setArquivado(id: number) {
   api
     .patch(`pesquisas/arquivar/${id}`)
     .then((response: AxiosResponse) => {
-      console.log(response.data);
       return true;
     })
     .catch((error: AxiosError) => {
-      console.log(error);
       return false;
     });
 }

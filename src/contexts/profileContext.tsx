@@ -5,7 +5,7 @@ interface ProfileContextData {
   nome: string;
   email: string;
   cpf: string;
-  URLPerfil: string | null;
+  URLimagem: string | null;
 }
 
 interface ProfileContextProps {
@@ -17,7 +17,7 @@ const defaultValues: ProfileContextData = {
   nome: '',
   email: '',
   cpf: '',
-  URLPerfil: '',
+  URLimagem: '',
 };
 
 export const ProfileContext = createContext<ProfileContextProps>({

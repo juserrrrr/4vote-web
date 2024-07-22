@@ -1,22 +1,24 @@
 import axios from 'axios';
-import api from './api';
+import api, { checkErrors, headerAutorization } from './api';
 import { VotoDto } from './voto';
 
 interface ParticipacoesDto {
   voto: VotoDto;
 }
 
-async function createParticipacao(participacao: ParticipacoesDto): Promise<Error> {
+export interface IParticipateDto {
+  voto: {
+    opcoesVotadas: { idOption: string }[];
+  };
+}
+
+async function createParticipation(surveyId: string, body: IParticipateDto): Promise<any | Error> {
   try {
-    const { data } = await api.post('participacoes', participacao);
-    if (data) return data;
+    const response = await api.post(`/participacoes/${surveyId}`, body, headerAutorization());
+    return response.data;
   } catch (error) {
-    if (axios.isAxiosError(error)) {
-      return new Error(error.response?.data.message);
-    }
-    return new Error('Erro desconhecido');
+    return checkErrors({ error });
   }
-  return new Error('Erro ao tentar criar participação');
 }
 
 async function findOne(participacao: ParticipacoesDto): Promise<Error> {
@@ -33,6 +35,6 @@ async function findOne(participacao: ParticipacoesDto): Promise<Error> {
 }
 
 export const participationService = {
-  createParticipacao,
+  createParticipation,
   findOne,
 };

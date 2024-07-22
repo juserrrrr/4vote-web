@@ -24,7 +24,6 @@ export async function onSubmitParticipate(data: FormData): Promise<formResponse>
     code: values.code as string,
   };
   const response = await surveyService.getByCode(formValues.code);
-  console.log(response);
   if (response instanceof Error || response.length === 0) {
     return { error: { message: 'Não foi possivel encotnrar' } };
   }

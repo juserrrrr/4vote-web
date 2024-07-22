@@ -16,7 +16,7 @@ interface UpdateProfile {
   nome: string;
   email: string;
   cpf?: string;
-  URLPerfil?: string | null;
+  image?: FileList;
 }
 
 function createSchemaProfile(defaultValues: UpdateProfile) {
@@ -25,15 +25,11 @@ function createSchemaProfile(defaultValues: UpdateProfile) {
       .string()
       .required('Nome é obrigatório')
       .test('modified email', 'Necessário pelo menos um campo diferente', function (_, { parent }) {
-        return parent.nome !== defaultValues.nome || parent.email !== defaultValues.email;
+        return parent.nome !== defaultValues.nome || parent.email !== defaultValues.email || parent.image.length > 0;
       }),
-    email: yup
-      .string()
-      .email('Email inválido')
-      .required('Email é obrigatório')
-      .test('modified email', 'Necessário pelo menos um campo diferente', function (_, { parent }) {
-        return parent.nome !== defaultValues.nome || parent.email !== defaultValues.email;
-      }),
+    email: yup.string().email('Email inválido').required('Email é obrigatório'),
+
+    image: yup.mixed(),
   });
 }
 
@@ -44,13 +40,12 @@ export function ProfileConfig() {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-    reset,
   } = useForm<UpdateProfile>({
     defaultValues: profile,
     resolver: yupResolver(schemaProfile),
   });
 
-  const [image, setImage] = useState<string | null>(null);
+  const [image, setImage] = useState<string | null>(profile.URLimagem);
 
   const onChangeFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -71,6 +66,10 @@ export function ProfileConfig() {
     if (data.email !== profile.email) {
       formData.append('email', data.email);
     }
+    if (data.image && data.image.length > 0) {
+      formData.append('file', data.image[0]);
+    }
+
     const response = await onSubimitActionProfile(formData);
     if (response.codeStaus === 200) {
       updateProfile({
@@ -94,11 +93,12 @@ export function ProfileConfig() {
             <FileUploadCustom
               className="absolute rounded-full top-28 left-28 z-10"
               haveLabel={false}
-              onChange={onChangeFile}
+              onChangeImage={onChangeFile}
               icon={<PencilIcon className="text-corPrincipal w-6" />}
+              {...register('image')}
             />
             <Image
-              src={image || 'https://i.imgur.com/MtvqmTU.png'}
+              src={image ? image : 'https://i.imgur.com/MtvqmTU.png'}
               alt="Profile"
               fill
               className="object-cover rounded-full"
