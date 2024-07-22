@@ -1,5 +1,4 @@
 import SurveyResponse from '@/components/elementsEnqVot/SurveyResponse';
-import ErrorSurvey from '@/components/showSurveys/ErrorSurveys';
 import { ValidationResult } from '@/components/validation/validationResult';
 import { PesquisaDtoTemp, surveyService } from '@/lib/pesquisa';
 
@@ -11,7 +10,6 @@ async function getSurvey(code: string): Promise<PesquisaDtoTemp | string> {
   }
 
   if (!surveys.length) {
-    console.log('Teste');
     return `Nenhuma pesquisa encontrada para o código: ${code}`;
   }
 
@@ -23,7 +21,7 @@ async function Resposta({ params }: { params: { codigo: string } }) {
   const result = await getSurvey(codigo);
   if (typeof result == 'string') {
     return (
-      <div className="w-screen h-screen p-2 flex justify-center items-center">
+      <div className="w-full h-full p-2 flex justify-center items-center">
         <ValidationResult
           titleInvalid={result}
           isCorrect={false}

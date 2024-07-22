@@ -16,18 +16,6 @@ function SurveyResponse({
   URLimagem,
   perguntas,
 }: PesquisaDtoTemp) {
-  const title = ehVotacao ? 'VOTAÇÃO' : 'ENQUETE';
-  const subtitle = titulo;
-  const date = dataTermino;
-  const acess = ehPublico ? 'Público' : 'Privado';
-  const description = descricao;
-  const imageUrl = 'https://picsum.photos/300/104';
-
-  const background = 'flex flex-col w-full justify-center items-center';
-  const container1 = 'w-[90%] p-5';
-  const container2 = 'w-[90%] p-5';
-  const container3 = 'w-full flex justify-end mt-4';
-
   const [currentPage, setCurrentPage] = useState(1);
   const [currentData, setCurrentData] = useState(perguntas[0]);
   useEffect(() => {
@@ -38,19 +26,19 @@ function SurveyResponse({
 
   return (
     <div className={'flex flex-col justify-center items-center min-h-screen p-4'}>
-      <div className={background}>
-        <div className={container1}>
+      <div className={'flex flex-col w-full justify-center items-center'}>
+        <div className={'w-[90%] p-5'}>
           <SquareInformations
-            title={title}
-            subtitle={subtitle}
-            date={date}
-            acess={acess}
-            description={description}
-            imageUrl={imageUrl}
+            title={ehVotacao ? 'VOTAÇÃO' : 'ENQUETE'}
+            subtitle={titulo}
+            date={dataTermino}
+            acess={ehPublico ? 'Público' : 'Privado'}
+            description={descricao}
+            imageUrl={URLimagem ? URLimagem : 'https://picsum.photos/300/104'}
             buttonShareText="Compartilhar Pesquisa"
           />
         </div>
-        <div className={container2}>
+        <div className={'w-[90%] p-5'}>
           <SquareQuestion
             texto={currentData.texto}
             opcoes={currentData.opcoes}
@@ -65,7 +53,7 @@ function SurveyResponse({
             </div>
           )}
         </div>
-        <div className={container3}>
+        <div className={'w-full flex justify-end mt-4'}>
           <Butao
             texto="VOTAR"
             variant="rounded"
