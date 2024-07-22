@@ -33,15 +33,6 @@ export interface PesquisaDtoResultado {
   ehVotacao: boolean;
   perguntas: PerguntaDtoResultado[];
 }
-
-export interface PesquisaWarning {
-  message: string;
-}
-export interface PesquisaResponse<T> {
-  data: T | PesquisaWarning;
-  statusCode: number;
-}
-
 export interface PesquisaDtoTemp {
   titulo: string;
   descricao?: string;
@@ -49,7 +40,15 @@ export interface PesquisaDtoTemp {
   ehPublico: boolean;
   URLimagem?: string;
   ehVotacao: boolean;
-  perguntas: [{ texto: string; opcoes: string[] }];
+  perguntas: { texto: string; opcoes: string[] }[];
+}
+
+export interface PesquisaWarning {
+  message: string;
+}
+export interface PesquisaResponse<T> {
+  data: T | PesquisaWarning;
+  statusCode: number;
 }
 
 export interface PesquisaData {
@@ -90,7 +89,7 @@ async function createPesquisa(pesquisaDto: PesquisaDto): Promise<PesquisaData | 
 
 async function getVotes(code: string): Promise<PerguntaDtoResultado[] | Error> {
   try {
-    const { data } = await api.get(`/pesquisas/resultados/${code}`, headerAutorization);
+    const { data } = await api.get(`/pesquisas/resultados/${code}`, headerAutorization());
     if (data) return data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
@@ -103,7 +102,7 @@ async function getVotes(code: string): Promise<PerguntaDtoResultado[] | Error> {
 
 async function getByCode(code: string): Promise<PesquisaDtoTemp[] | Error> {
   try {
-    const { data } = await api.get(`/pesquisas/procurar/${code}`, headerAutorization);
+    const { data } = await api.get(`/pesquisas/procurar/${code}`, headerAutorization());
     if (data) return data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
@@ -116,7 +115,7 @@ async function getByCode(code: string): Promise<PesquisaDtoTemp[] | Error> {
 
 async function getAllCodes(): Promise<{ code: string }[] | Error> {
   try {
-    const { data } = await api.get('/pesquisas/codigos', headerAutorization);
+    const { data } = await api.get('/pesquisas/codigos', headerAutorization());
     return data;
   } catch (error) {
     if (axios.isAxiosError(error)) {

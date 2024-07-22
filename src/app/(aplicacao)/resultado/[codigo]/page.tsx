@@ -12,7 +12,6 @@ async function getSurvey(code: string): Promise<PesquisaDtoTemp | string> {
   }
 
   if (!surveys.length) {
-    console.log('Teste');
     return `Nenhuma pesquisa encontrada para o código: ${code}`;
   }
 
