@@ -29,11 +29,12 @@ async function Resposta({ params }: { params: { codigo: string } }) {
       </div>
     );
   }
-  const { titulo, descricao, dataTermino, ehPublico, ehVotacao, URLimagem, perguntas } = result;
+  const { id, titulo, descricao, dataTermino, ehPublico, ehVotacao, URLimagem, perguntas } = result;
 
   return (
     <>
       <SurveyResponse
+        id={id}
         titulo={titulo}
         descricao={descricao}
         dataTermino={dataTermino}

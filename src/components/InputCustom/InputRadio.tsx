@@ -35,14 +35,16 @@ const InputRadio = forwardRef<HTMLInputElement, InputRadioProps>(function InputR
       >
         {isCheck}
       </button>
-      <div className="w-full h-full px-3 flex flex-row items-center border-solid border-2 rounded-lg border-corPrincipal">
+      <div
+        className={`w-full h-full px-3 flex flex-row items-center border-solid border-2 rounded-lg border-corPrincipal text-corPrincipal ${isChecked && 'bg-corPrincipal text-white'}`}
+      >
         <input
           type="radio"
           className="hidden"
           {...restProps}
           ref={internalRef}
         />
-        <label className="text-corPrincipal font-bold">{label}</label>
+        <label className=" font-bold">{label}</label>
       </div>
     </div>
   );

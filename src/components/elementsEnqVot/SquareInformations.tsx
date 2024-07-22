@@ -39,9 +39,9 @@ const SquareInformations: React.FC<SquareInformationsProps> = ({
 
   return (
     <>
-      <h1 className={'text-4xl text-corPrincipal font-bold truncate'}>{title}</h1>
+      <h1 className={'text-4xl text-corPrincipal font-bold truncate pb-3'}>{title}</h1>
       <div className={'w-full h-auto md:h-72'}>
-        <div className={'w-full h-full bg-white rounded-xl flex flex-col md:flex-row p-4'}>
+        <div className={'w-full h-full bg-white rounded-xl flex flex-col md:flex-row p-4 shadow-lg'}>
           <div
             id="texts"
             className="flex-grow flex flex-col md:w-[20rem] gap-1"

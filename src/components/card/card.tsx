@@ -63,12 +63,7 @@ export const Card: React.FC<CardProps> = ({
           />
           <p className="text-base text-center font-bold py-1">{variant}</p>
         </div>
-        {codeUser === String(criador) && (
-          <Butao
-            texto="ARQUIVAR"
-            className="w-full h-7 bg-corErro"
-          />
-        )}
+
         <p className="text-xs h-6 bg-corPrincipal text-white py-1 rounded-b-lg text-center lowercase whitespace-nowrap truncate">
           {hashtags.length > 0 ? hashtags.map((hashtag) => `#${hashtag} `) : 'Sem Tags'}
         </p>

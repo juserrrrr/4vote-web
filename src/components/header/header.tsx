@@ -15,7 +15,7 @@ interface HeaderProps {
 export function Header({ usuarioLogado, nomeUsuario, urlPerfil, onLogout }: HeaderProps) {
   const router = useRouter();
   return (
-    <header className="flex items-center w-full h-[70px] fixed z-20 bg-white shadow y-">
+    <header className="flex items-center w-full h-[70px] fixed z-30 bg-white shadow y-">
       <div className="w-full max-w-auto px-[15px] flex items-center justify-between">
         <Logo4vote />
         <div className="flex items-center">

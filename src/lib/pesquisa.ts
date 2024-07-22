@@ -14,16 +14,6 @@ export interface PesquisaDto {
   tags?: TagDto[];
 }
 
-export interface PesquisaDtoTemp {
-  titulo: string;
-  descricao?: string;
-  dataTermino: string;
-  ehPublico: boolean;
-  URLimagem?: string;
-  ehVotacao: boolean;
-  perguntas: [{ texto: string; opcoes: string[] }];
-}
-
 export interface PesquisaDtoResultado {
   titulo: string;
   descricao?: string;
@@ -43,13 +33,25 @@ export interface PesquisaResponse<T> {
 }
 
 export interface PesquisaDtoTemp {
+  id: number;
   titulo: string;
   descricao?: string;
   dataTermino: string;
   ehPublico: boolean;
   URLimagem?: string;
   ehVotacao: boolean;
-  perguntas: [{ texto: string; opcoes: string[] }];
+  perguntas: [
+    {
+      id: number;
+      texto: string;
+      opcoes: [
+        {
+          id: number;
+          texto: string;
+        },
+      ];
+    },
+  ];
 }
 
 export interface PesquisaData {

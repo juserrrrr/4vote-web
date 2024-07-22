@@ -21,7 +21,11 @@ async function entrar(loginDto: ILoginDto): Promise<IToken | Error> {
     const response = await api.post('/auth/entrar', loginDto);
     return response.data;
   } catch (error) {
-    return checkErrors({ error, message400: 'Email ou senha inválidos' });
+    return checkErrors({
+      error,
+      message400: 'Email ou senha inválidos',
+      message401: 'Conta ainda não foi ativada, cheque seu email',
+    });
   }
 }
 
