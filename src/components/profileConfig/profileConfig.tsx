@@ -10,8 +10,9 @@ import FileUploadCustom from '../InputCustom/FileUploadCustom';
 import { PencilIcon } from '@heroicons/react/24/solid';
 import Image from 'next/image';
 import { onSubimitActionProfile } from '../../app/(aplicacao)/perfil/actionProfile';
-import { revalidatePath } from 'next/cache';
 import { ProfileContext } from '../../contexts/profileContext';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 interface UpdateProfile {
   nome: string;
   email: string;
@@ -78,13 +79,17 @@ export function ProfileConfig() {
         email: data.email,
         URLimagem: response.URLimage ?? null,
       });
-      alert(response.message);
+      return toast.success(response.message);
     } else {
-      alert(response.message);
+      return toast.error(response.message);
     }
   }
   return (
     <>
+      <ToastContainer
+        position="bottom-left"
+        autoClose={5000}
+      />
       <form
         onSubmit={handleSubmit(submitForm)}
         autoComplete="off"

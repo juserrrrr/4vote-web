@@ -16,7 +16,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 type Selecoes = {
-  [key: number]: string; // Use [key: string]: string; if the keys are strings
+  [key: number]: number; // Use [key: string]: string; if the keys are strings
 };
 
 type DataFormVote = {
@@ -60,7 +60,7 @@ function SurveyResponse({
     resolver: yupResolver(schemaVote),
   });
   const [selecoes, setSelecoes] = useState<Selecoes>({});
-  const handleSelectionChange = (perguntaId: number, opcaoSelecionada: string) => {
+  const handleSelectionChange = (perguntaId: number, opcaoSelecionada: number) => {
     setSelecoes({
       ...selecoes,
       [perguntaId]: opcaoSelecionada,
@@ -115,8 +115,8 @@ function SurveyResponse({
                       key={indexOption}
                       {...register(`opcoesVotadas.${indexQuestion}.idOption`)}
                       label={opcao.texto}
-                      isChecked={selecoes[pergunta.id] === opcao.texto}
-                      onClickBtn={() => handleSelectionChange(pergunta.id, opcao.texto)}
+                      isChecked={selecoes[pergunta.id] === opcao.id}
+                      onClickBtn={() => handleSelectionChange(pergunta.id, opcao.id)}
                       value={opcao.id}
                     />
                   ))}
