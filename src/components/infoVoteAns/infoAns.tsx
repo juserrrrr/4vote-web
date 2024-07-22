@@ -3,7 +3,7 @@ import React from 'react';
 
 interface InfoAnsProps {
   title: string;
-  description: string;
+  description?: string;
   date: string;
   hours: string;
   imageUrl: string;

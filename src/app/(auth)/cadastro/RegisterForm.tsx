@@ -67,10 +67,10 @@ function RegisterForm() {
       <div className="h-full w-full flex flex-col justify-center items-center">
         <h2 className="text-corPrincipal text-center font-bold text-5xl">CADASTRO</h2>
         <form
-          className="w-full"
+          className="w-full py-2"
           onSubmit={handleSubmit(onSubmit)}
         >
-          <div className="w-full flex flex-col justify-between items-center flex-shrink-0 px-10 gap-1">
+          <div className="w-full flex flex-col justify-between items-center px-10 gap-3">
             <div className="w-full flex flex-col justify-between gap-3">
               <InputCustom
                 label="Nome"
@@ -105,7 +105,7 @@ function RegisterForm() {
                 helperText={errors.confirmPassword?.message}
               />
             </div>
-            <div className="w-full py-5">
+            <div className="w-full">
               <Butao
                 texto="Confirmar Cadastro"
                 variant="rounded"

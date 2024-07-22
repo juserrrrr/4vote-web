@@ -15,7 +15,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="flex h-screen justify-center items-center bg-corNeutro">
+    <div className="w-screen h-screen flex justify-center items-center bg-corNeutro px-5">
       <ContainerLogin>{children}</ContainerLogin>
     </div>
   );
