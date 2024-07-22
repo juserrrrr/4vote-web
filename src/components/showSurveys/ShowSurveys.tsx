@@ -60,6 +60,7 @@ function ShowSurveys({ values, isHome = false }: ShowSurveysProps) {
               className="flex-grow w-72 p-3 min-w-72 relative overflow-hidden"
             >
               <Card
+                code={card.codigo}
                 title={card.titulo}
                 description={card.descricao}
                 variant={card.ehVotacao ? 'VOTAÇÃO' : 'ENQUETE'}

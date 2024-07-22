@@ -3,10 +3,12 @@ import icon1 from './icon/VectorBlue.png';
 import icon2 from './icon/VectorRed.png';
 import Image from 'next/image';
 import Butao from '../buttons/button';
+import { useRouter } from 'next/navigation';
 
 type Variant = 'VOTAÇÃO' | 'ENQUETE';
 
 interface CardProps {
+  code: string;
   title: string;
   description: string;
   variant: Variant;
@@ -14,9 +16,13 @@ interface CardProps {
   imageUrl: string | null;
 }
 
-export const Card: React.FC<CardProps> = ({ title, description, variant, hashtags, imageUrl }) => {
+export const Card: React.FC<CardProps> = ({ code, title, description, variant, hashtags, imageUrl }) => {
+  const router = useRouter();
   return (
-    <div className="h-96 bg-white rounded-lg shadow-md flex flex-col">
+    <div
+      className="h-96 bg-white rounded-lg shadow-md flex flex-col cursor-pointer"
+      onClick={() => router.push(`/resposta/${code}`)}
+    >
       {/* Barra com cor do topo */}
       <div className={`rounded-t-lg h-3 ${variant === 'ENQUETE' ? 'bg-blue-700' : 'bg-red-600'}`} />
       <div className="relative h-36 w-full bg-corPrincipal">
