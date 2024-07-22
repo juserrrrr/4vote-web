@@ -1,5 +1,5 @@
 import axios, { AxiosError, AxiosResponse } from 'axios';
-import { PerguntaDto } from './perguntas';
+import { PerguntaDto, PerguntaDtoResultado } from './perguntas';
 import { TagDto } from './tag';
 import api, { headerAutorization } from './api';
 
@@ -13,6 +13,27 @@ export interface PesquisaDto {
   perguntas: PerguntaDto[];
   tags?: TagDto[];
 }
+
+export interface PesquisaDtoTemp {
+  titulo: string;
+  descricao?: string;
+  dataTermino: string;
+  ehPublico: boolean;
+  URLimagem?: string;
+  ehVotacao: boolean;
+  perguntas: [{ texto: string; opcoes: string[] }];
+}
+
+export interface PesquisaDtoResultado {
+  titulo: string;
+  descricao?: string;
+  dataTermino: string;
+  ehPublico: boolean;
+  URLimagem?: string;
+  ehVotacao: boolean;
+  perguntas: PerguntaDtoResultado[];
+}
+
 export interface PesquisaWarning {
   message: string;
 }
@@ -67,9 +88,9 @@ async function createPesquisa(pesquisaDto: PesquisaDto): Promise<PesquisaData | 
   }
 }
 
-async function getByCode(code: string): Promise<PesquisaDtoTemp[] | Error> {
+async function getVotes(code: string): Promise<PerguntaDtoResultado[] | Error> {
   try {
-    const { data } = await api.get(`/pesquisas/procurar/${code}`, headerAutorization());
+    const { data } = await api.get(`/pesquisas/resultados/${code}`, headerAutorization);
     if (data) return data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
@@ -78,6 +99,31 @@ async function getByCode(code: string): Promise<PesquisaDtoTemp[] | Error> {
     return new Error('Erro desconhecido');
   }
   return new Error(`Erro ao tentar pegar a pesquisa de código ${code}`);
+}
+
+async function getByCode(code: string): Promise<PesquisaDtoTemp[] | Error> {
+  try {
+    const { data } = await api.get(`/pesquisas/procurar/${code}`, headerAutorization);
+    if (data) return data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      return new Error(error.response?.data.message);
+    }
+    return new Error('Erro desconhecido');
+  }
+  return new Error(`Erro ao tentar pegar a pesquisa de código ${code}`);
+}
+
+async function getAllCodes(): Promise<{ code: string }[] | Error> {
+  try {
+    const { data } = await api.get('/pesquisas/codigos', headerAutorization);
+    return data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      return new Error(error.response?.data.message || 'Erro de requisição Axios');
+    }
+    return new Error('Erro desconhecido: ' + ((error as Error).message || (error as Error).toString()));
+  }
 }
 
 function setArquivado(id: number) {
@@ -125,4 +171,6 @@ export const surveyService = {
   findFilter,
   createPesquisa,
   getByCode,
+  getAllCodes,
+  getVotes,
 };
