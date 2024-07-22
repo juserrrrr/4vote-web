@@ -8,9 +8,10 @@ import { findSurveyFilter } from '../../lib/pesquisa';
 interface ShowSurveysProps {
   values: findSurveyFilter[];
   isHome?: boolean;
+  codeUser?: string;
 }
 
-function ShowSurveys({ values, isHome = false }: ShowSurveysProps) {
+function ShowSurveys({ values, isHome = false, codeUser }: ShowSurveysProps) {
   const [isOpenOrdenar, setIsOpenOrdenar] = useState<boolean>(false);
   const [isOpenFiltrar, setIsOpenFiltrar] = useState<boolean>(false);
   return (
@@ -61,6 +62,8 @@ function ShowSurveys({ values, isHome = false }: ShowSurveysProps) {
             >
               <Card
                 code={card.codigo}
+                codeUser={codeUser}
+                criador={card.criador}
                 title={card.titulo}
                 description={card.descricao}
                 variant={card.ehVotacao ? 'VOTAÇÃO' : 'ENQUETE'}

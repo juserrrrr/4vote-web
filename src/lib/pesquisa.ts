@@ -59,6 +59,7 @@ export interface PesquisaData {
 export interface findSurveyFilter {
   codigo: string;
   titulo: string;
+  criador: string;
   descricao: string;
   dataTermino: string;
   URLimagem: string;
@@ -72,7 +73,6 @@ async function createPesquisa(pesquisaDto: PesquisaDto): Promise<PesquisaData | 
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
-      console.log(error.response?.data);
       const codeError = error.response?.status;
       if (codeError === 401) {
         return new Error('Usuário não autorizado');
@@ -130,11 +130,9 @@ function setArquivado(id: number) {
   api
     .patch(`pesquisas/arquivar/${id}`)
     .then((response: AxiosResponse) => {
-      console.log(response.data);
       return true;
     })
     .catch((error: AxiosError) => {
-      console.log(error);
       return false;
     });
 }

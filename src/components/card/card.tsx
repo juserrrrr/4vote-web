@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { use } from 'react';
 import icon1 from './icon/VectorBlue.png';
 import icon2 from './icon/VectorRed.png';
 import Image from 'next/image';
@@ -14,9 +14,20 @@ interface CardProps {
   variant: Variant;
   hashtags: string[];
   imageUrl: string | null;
+  codeUser?: string;
+  criador?: string;
 }
 
-export const Card: React.FC<CardProps> = ({ code, title, description, variant, hashtags, imageUrl }) => {
+export const Card: React.FC<CardProps> = ({
+  code,
+  title,
+  description,
+  variant,
+  hashtags,
+  imageUrl,
+  codeUser,
+  criador,
+}) => {
   const router = useRouter();
   return (
     <div
@@ -52,10 +63,12 @@ export const Card: React.FC<CardProps> = ({ code, title, description, variant, h
           />
           <p className="text-base text-center font-bold py-1">{variant}</p>
         </div>
-        <Butao
-          texto="ARQUIVAR"
-          className="w-full h-7 bg-corErro"
-        />
+        {codeUser === String(criador) && (
+          <Butao
+            texto="ARQUIVAR"
+            className="w-full h-7 bg-corErro"
+          />
+        )}
         <p className="text-xs h-6 bg-corPrincipal text-white py-1 rounded-b-lg text-center lowercase whitespace-nowrap truncate">
           {hashtags.length > 0 ? hashtags.map((hashtag) => `#${hashtag} `) : 'Sem Tags'}
         </p>
