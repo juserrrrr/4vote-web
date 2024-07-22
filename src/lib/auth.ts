@@ -1,44 +1,59 @@
-import axios from 'axios';
-import api from './api';
+import api, { checkErrors } from './api';
 
 interface IToken {
   accessToken: string;
 }
 
-interface ICadastroDto {
+export interface ICadastroDto {
   nome: string;
   email: string;
   senha: string;
   cpf: string;
 }
 
-async function entrar(email: string, senha: string): Promise<IToken | Error> {
+export interface ILoginDto {
+  email: string;
+  senha: string;
+}
+
+async function entrar(loginDto: ILoginDto): Promise<IToken | Error> {
   try {
-    const { data } = await api.post('/auth/entrar', { email, senha });
-    if (data) return data;
+    const response = await api.post('/auth/entrar', loginDto);
+    return response.data;
   } catch (error) {
-    if (axios.isAxiosError(error)) {
-      return new Error(error.response?.data.message);
-    }
-    return new Error('Erro desconhecido');
+    return checkErrors({ error, message400: 'Email ou senha inválidos' });
   }
-  return new Error('Erro ao tentar efetuar o login');
 }
 
 async function cadastrar(dto: ICadastroDto): Promise<IToken | Error> {
   try {
-    const { data } = await api.post('/auth/cadastro', dto);
-    if (data) return data;
+    const response = await api.post('/auth/cadastro', dto);
+    return response.data;
   } catch (error) {
-    if (axios.isAxiosError(error)) {
-      return new Error(error.response?.data.message);
-    }
-    return new Error('Erro desconhecido');
+    return checkErrors({ error });
   }
-  return new Error('Erro ao tentar efetuar o cadastro');
+}
+
+async function recoverPassword(email: string): Promise<void | Error> {
+  try {
+    const response = await api.post('/auth/recuperar-senha', { email: email });
+    return response.data;
+  } catch (error) {
+    return checkErrors({ error });
+  }
+}
+async function validateUser(codeVal: string): Promise<void | Error> {
+  try {
+    const response = await api.post(`/auth/validar-usuario/${codeVal}`);
+    return response.data;
+  } catch (error) {
+    return checkErrors({ error });
+  }
 }
 
 export const authService = {
   entrar,
   cadastrar,
+  recoverPassword,
+  validateUser,
 };

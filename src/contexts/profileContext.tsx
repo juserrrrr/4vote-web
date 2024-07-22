@@ -27,11 +27,11 @@ export const ProfileContext = createContext<ProfileContextProps>({
 
 interface ProfileProviderProps {
   children: React.ReactNode;
-  initialValues: ProfileContextData;
+  initialValues?: ProfileContextData;
 }
 
 export function ProfileProvider({ children, initialValues }: ProfileProviderProps) {
-  const [profile, setProfile] = useState<ProfileContextData>(initialValues);
+  const [profile, setProfile] = useState<ProfileContextData>(initialValues || defaultValues);
 
   function updateProfile(data: ProfileContextData) {
     setProfile(data);

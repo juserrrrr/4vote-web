@@ -42,6 +42,16 @@ export interface PesquisaResponse<T> {
   statusCode: number;
 }
 
+export interface PesquisaDtoTemp {
+  titulo: string;
+  descricao?: string;
+  dataTermino: string;
+  ehPublico: boolean;
+  URLimagem?: string;
+  ehVotacao: boolean;
+  perguntas: [{ texto: string; opcoes: string[] }];
+}
+
 export interface PesquisaData {
   codigo?: string;
   titulo?: string;
@@ -58,7 +68,7 @@ export interface findSurveyFilter {
 
 async function createPesquisa(pesquisaDto: PesquisaDto): Promise<PesquisaData | Error> {
   try {
-    const response = await api.post('/pesquisas', pesquisaDto, headerAutorization);
+    const response = await api.post('/pesquisas', pesquisaDto, headerAutorization());
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
@@ -137,7 +147,7 @@ async function findFilter(): Promise<findSurveyFilter[] | Error> {
     encerradas: 'false',
   });
   try {
-    const response = await api.get(`/pesquisas/filtrar?${urlQuery.toString()}`, headerAutorization);
+    const response = await api.get(`/pesquisas/filtrar?${urlQuery.toString()}`, headerAutorization());
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {

@@ -1,6 +1,5 @@
 import axios, { AxiosError, AxiosResponse } from 'axios';
 import api, { headerAutorization } from './api';
-import { getCookie } from './utils';
 
 interface UserMe {
   nome: string;
@@ -13,7 +12,7 @@ export type UpdateProfile = Partial<Omit<UserMe, 'cpf'>>;
 
 async function updateCurrentUser(data: UpdateProfile): Promise<any | Error> {
   try {
-    const response = await api.patch('/usuarios/me', data, headerAutorization);
+    const response = await api.patch('/usuarios/me', data, headerAutorization());
     if (response.status === 200) {
       return response.data;
     }
@@ -36,7 +35,7 @@ async function updateCurrentUser(data: UpdateProfile): Promise<any | Error> {
 
 async function findMe(): Promise<UserMe | Error> {
   try {
-    const response = await api.get('/usuarios/me', headerAutorization);
+    const response = await api.get('/usuarios/me', headerAutorization());
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
