@@ -6,6 +6,14 @@ export interface OpcaoDto {
   imagemOpcao?: FileList;
 }
 
+export interface OpcaoDtoResultado {
+  textoOpcao: string;
+  quantVotos: number;
+  porcentagem: number;
+  opcaoMaisVotada: boolean;
+  URLimagem?: string;
+}
+
 async function getById(id: number): Promise<Error> {
   try {
     const { data } = await api.get('/opcoes/id', id);

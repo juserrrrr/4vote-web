@@ -1,45 +1,37 @@
 import SurveyResponse from '@/components/elementsEnqVot/SurveyResponse';
+import ErrorSurvey from '@/components/showSurveys/ErrorSurveys';
+import { ValidationResult } from '@/components/validation/validationResult';
 import { PesquisaDtoTemp, surveyService } from '@/lib/pesquisa';
 
-export async function generateStaticParams() {
-  try {
-    const codes = await surveyService.getAllCodes();
+async function getSurvey(code: string): Promise<PesquisaDtoTemp | string> {
+  const surveys = await surveyService.getByCode(code);
 
-    if (codes instanceof Error) {
-      throw new Error(codes.message);
-    }
-
-    return codes.map((code: { code: string }) => ({
-      codigo: code.code,
-    }));
-  } catch (error) {
-    console.error('Erro ao gerar parâmetros estáticos:', error);
-    throw new Error('Falha ao gerar parâmetros estáticos');
+  if (surveys instanceof Error) {
+    return surveys.message;
   }
-}
 
-export async function getSurvey(code: string): Promise<PesquisaDtoTemp> {
-  try {
-    const surveys = await surveyService.getByCode(code);
-
-    if (surveys instanceof Error) {
-      throw new Error(surveys.message);
-    }
-
-    if (!surveys.length) {
-      throw new Error(`Nenhuma pesquisa encontrada para o código: ${code}`);
-    }
-
-    return surveys[0];
-  } catch (error) {
-    console.error('Erro ao obter a pesquisa:', error);
-    throw new Error(`Falha ao obter a pesquisa para o código: ${code}`);
+  if (!surveys.length) {
+    console.log('Teste');
+    return `Nenhuma pesquisa encontrada para o código: ${code}`;
   }
+
+  return surveys[0];
 }
 
 async function Resposta({ params }: { params: { codigo: string } }) {
   const { codigo } = params;
-  const { titulo, descricao, dataTermino, ehPublico, ehVotacao, URLimagem, perguntas } = await getSurvey(codigo);
+  const result = await getSurvey(codigo);
+  if (typeof result == 'string') {
+    return (
+      <div className="w-screen h-screen p-2 flex justify-center items-center">
+        <ValidationResult
+          titleInvalid={result}
+          isCorrect={false}
+        />
+      </div>
+    );
+  }
+  const { titulo, descricao, dataTermino, ehPublico, ehVotacao, URLimagem, perguntas } = result;
 
   return (
     <>

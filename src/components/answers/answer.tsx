@@ -1,12 +1,13 @@
 import React from 'react';
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
+import Image from 'next/image';
 
 interface ProgressBarProps {
   progress: number;
 }
 
 interface AnswerProps {
-  imageUrl?: string;
+  imageUrl: string;
   label: string;
   count: number;
   progress: number;
@@ -29,9 +30,11 @@ const ProgressBar: React.FC<ProgressBarProps> = ({ progress }) => {
 const Answer: React.FC<AnswerProps> = ({ imageUrl, label, count, progress, isMostVoted }) => {
   return (
     <div className={`flex items-center space-x-4 ${isMostVoted ? 'border-4 border-corPrincipal p-2 rounded-lg' : ''}`}>
-      <img
+      <Image
         src={imageUrl}
         alt={label}
+        width={24}
+        height={24}
         className="w-24 h-24 rounded-full object-cover"
       />
       <div className="flex-1">

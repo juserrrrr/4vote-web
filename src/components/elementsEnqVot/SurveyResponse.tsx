@@ -99,6 +99,7 @@ function SurveyResponse({
                 acess={acess}
                 description={description}
                 imageUrl={imageUrl}
+                buttonShareText="Compartilhar Pesquisa"
               />
             </div>
             <div className={container2}>

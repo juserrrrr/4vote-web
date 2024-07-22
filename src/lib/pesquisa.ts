@@ -1,5 +1,5 @@
 import axios, { AxiosError, AxiosResponse } from 'axios';
-import { PerguntaDto } from './perguntas';
+import { PerguntaDto, PerguntaDtoResultado } from './perguntas';
 import { TagDto } from './tag';
 import api, { headerAutorization } from './api';
 
@@ -24,12 +24,32 @@ export interface PesquisaDtoTemp {
   perguntas: [{ texto: string; opcoes: [{ idOpcao: number; opcao: string }] }];
 }
 
+export interface PesquisaDtoResultado {
+  titulo: string;
+  descricao?: string;
+  dataTermino: string;
+  ehPublico: boolean;
+  URLimagem?: string;
+  ehVotacao: boolean;
+  perguntas: PerguntaDtoResultado[];
+}
+
 export interface PesquisaWarning {
   message: string;
 }
 export interface PesquisaResponse<T> {
   data: T | PesquisaWarning;
   statusCode: number;
+}
+
+export interface PesquisaDtoTemp {
+  titulo: string;
+  descricao?: string;
+  dataTermino: string;
+  ehPublico: boolean;
+  URLimagem?: string;
+  ehVotacao: boolean;
+  perguntas: [{ texto: string; opcoes: string[] }];
 }
 
 export interface PesquisaData {
@@ -48,7 +68,7 @@ export interface findSurveyFilter {
 
 async function createPesquisa(pesquisaDto: PesquisaDto): Promise<PesquisaData | Error> {
   try {
-    const response = await api.post('/pesquisas', pesquisaDto, headerAutorization);
+    const response = await api.post('/pesquisas', pesquisaDto, headerAutorization());
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
@@ -66,6 +86,19 @@ async function createPesquisa(pesquisaDto: PesquisaDto): Promise<PesquisaData | 
     }
     return new Error('Serviço fora do ar');
   }
+}
+
+async function getVotes(code: string): Promise<PerguntaDtoResultado[] | Error> {
+  try {
+    const { data } = await api.get(`/pesquisas/resultados/${code}`, headerAutorization);
+    if (data) return data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      return new Error(error.response?.data.message);
+    }
+    return new Error('Erro desconhecido');
+  }
+  return new Error(`Erro ao tentar pegar a pesquisa de código ${code}`);
 }
 
 async function getByCode(code: string): Promise<PesquisaDtoTemp[] | Error> {
@@ -114,7 +147,7 @@ async function findFilter(): Promise<findSurveyFilter[] | Error> {
     encerradas: 'false',
   });
   try {
-    const response = await api.get(`/pesquisas/filtrar?${urlQuery.toString()}`, headerAutorization);
+    const response = await api.get(`/pesquisas/filtrar?${urlQuery.toString()}`, headerAutorization());
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
@@ -139,4 +172,5 @@ export const surveyService = {
   createPesquisa,
   getByCode,
   getAllCodes,
+  getVotes,
 };
