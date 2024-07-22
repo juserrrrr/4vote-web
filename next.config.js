@@ -26,6 +26,11 @@ module.exports = {
         hostname: 'i.imgur.com',
         pathname: '**',
       },
+      {
+        protocol: 'https',
+        hostname: 'nydqbchcfgkevfdmbifx.supabase.co',
+        pathname: '**',
+      },
     ],
   },
 };

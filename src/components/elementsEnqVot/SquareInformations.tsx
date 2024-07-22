@@ -1,6 +1,7 @@
-/* eslint-disable @next/next/no-img-element */
 'use client';
 import React, { useState } from 'react';
+import Butao from '../buttons/button';
+import Image from 'next/image';
 
 interface SquareInformationsProps {
   title?: 'VOTAÇÃO' | 'ENQUETE';
@@ -23,18 +24,6 @@ const SquareInformations: React.FC<SquareInformationsProps> = ({
 }) => {
   const formattedDate = new Date(date);
   const [copySuccess, setCopySuccess] = useState<string>(''); // Estado para controlar mensagem de sucesso
-  const backgraund = 'w-[1260px] h-[305px]';
-  const squareWhite = 'w-[1225px] h-[260px] inline-flex bg-white rounded-xl justify-center items-center';
-
-  const title1 = 'text-4xl text-corPrincipal font-bold mb-2';
-  const container1 = 'w-[700x] h-[240px] mt-10';
-  const title2 = 'text-3xl text-corPrincipal font-bold mb-2';
-  const title3 = 'text-2xl text-corPrincipal font-bold mb-5';
-  const title4 = 'text-2xl text-corPrincipal font-bold';
-  const title5 = 'text-1xl text-corPrincipal font-sans-pro';
-  const containerClass = 'w-[800px] h-[100] inline-flex';
-  const containerClass2 = 'w-[800px] h-[218px]';
-  const buttonShare = 'bg-corPrincipal hover:opacity-80 text-white font-bold py-2 px-4 rounded-lg mt-1';
   const handleCopyLink = () => {
     navigator.clipboard
       .writeText(window.location.href)
@@ -42,47 +31,67 @@ const SquareInformations: React.FC<SquareInformationsProps> = ({
         setCopySuccess('Copiado com sucesso!');
         setTimeout(() => setCopySuccess(''), 3000); // Limpa a mensagem após 3 segundos
       })
-      .catch((err) => {
+      .catch((_) => {
         setCopySuccess('Falha ao copiar!');
         setTimeout(() => setCopySuccess(''), 3000);
       });
   };
 
   return (
-    <div className={backgraund}>
-      <h1 className={title1}>{title}</h1>
-      <div className={squareWhite}>
-        <div className={container1}>
-          <h1 className={title2}>{subtitle}</h1>
-          <div className={containerClass}>
-            <h1 className={title3}>
-              Aberto até o dia {formattedDate?.toLocaleDateString('pt-BR')} às{' '}
-              {formattedDate.toLocaleTimeString('pt-br', {
-                hour: '2-digit',
-                minute: '2-digit',
-                hour12: false, // Formato de 24 horas
-              })}
-            </h1>
-            <p className={`${title3} ml-20`}>Tipo de Acesso: {acess}</p>
+    <>
+      <h1 className={'text-4xl text-corPrincipal font-bold truncate'}>{title}</h1>
+      <div className={'w-full h-auto md:h-72'}>
+        <div className={'w-full h-full bg-white rounded-xl flex flex-col md:flex-row p-4'}>
+          <div
+            id="texts"
+            className="flex-grow flex flex-col md:w-[20rem] gap-1"
+          >
+            <div>
+              <h1 className={'text-3xl text-corPrincipal font-bold text truncate uppercase'}>{subtitle}</h1>
+            </div>
+
+            <div className="w-full flex-grow text-1xl text-corPrincipal font-sans-pro overflow-auto scrollbar-thin">
+              <p className="w-full h-full break-words">{description ? description : 'Não possui descrição.'}</p>
+            </div>
+
+            <div className={`${description ? 'h-10' : 'flex-grow'} flex items-end justify-center md:justify-normal`}>
+              <Butao
+                texto={copySuccess ? copySuccess : buttonShareText}
+                onClick={handleCopyLink}
+                variant="outlined"
+                className="text-md p-2 h-10"
+              />
+            </div>
           </div>
-          <div className={containerClass2}>
-            <p className={title4}>Descrição:</p>
-            <p className={title5}>{description}</p>
-            <button
-              className={buttonShare}
-              onClick={handleCopyLink}
-            >
-              {copySuccess ? copySuccess : buttonShareText}
-            </button>
+          <div
+            id="image"
+            className="md:w-80 flex flex-col justify-center items-center md:items-end"
+          >
+            <div className="text-center flex flex-col justify-center items-center">
+              <h1 className={'text-lg text-corPrincipal'}>
+                Encerra: {formattedDate?.toLocaleDateString('pt-BR')} às{' '}
+                {formattedDate.toLocaleTimeString('pt-br', {
+                  hour: '2-digit',
+                  minute: '2-digit',
+                  hour12: false, // Formato de 24 horas
+                })}
+              </h1>
+              <h1 className={'text-lg text-corPrincipal font-bold'}>
+                Tipo de Acesso: <span className="font-normal">{acess}</span>
+              </h1>
+              <div className="w-64 h-44 md:w-72 md:h-48 relative">
+                <Image
+                  src={imageUrl ? imageUrl : 'https://picsum.photos/300/104'}
+                  alt="Imagem da pesquisa"
+                  fill
+                  className="object-cover rounded-lg"
+                />
+              </div>
+            </div>
           </div>
         </div>
-        <img
-          src={imageUrl}
-          alt="Icon"
-          className="w-[310px] h-[192px] object-center rounded-xl"
-        />
       </div>
-    </div>
+    </>
   );
 };
 

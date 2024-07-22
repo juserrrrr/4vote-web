@@ -7,10 +7,11 @@ interface FileUploadCustomProps extends InputHTMLAttributes<HTMLInputElement> {
   icon?: JSX.Element;
   haveLabel?: boolean;
   className?: string;
+  onChangeImage?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const FileUploadCustom = forwardRef<HTMLInputElement, FileUploadCustomProps>(function FileUploadCustom(
-  { icon = <ArrowUpTrayIcon className="h-6" />, haveLabel = true, className, ...restProps },
+  { icon = <ArrowUpTrayIcon className="h-6" />, haveLabel = true, className, onChangeImage, ...restProps },
   ref,
 ) {
   const inputFileRef = useRef<HTMLInputElement>(null);
@@ -18,6 +19,15 @@ const FileUploadCustom = forwardRef<HTMLInputElement, FileUploadCustomProps>(fun
   function handleClickFileInput() {
     inputFileRef.current?.click();
   }
+
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (restProps.onChange) {
+      restProps.onChange(e);
+    }
+    if (onChangeImage) {
+      onChangeImage(e);
+    }
+  };
 
   return (
     <div className={`flex flex-row gap-2 ${className}`}>
@@ -29,6 +39,7 @@ const FileUploadCustom = forwardRef<HTMLInputElement, FileUploadCustomProps>(fun
           ref={inputFileRef}
           className="hidden"
           {...restProps}
+          onChange={onChange}
         />
         <button
           onClick={handleClickFileInput}

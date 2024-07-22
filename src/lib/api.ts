@@ -10,6 +10,15 @@ export const headerAutorization = () => {
   };
 };
 
+export const headerAutorizationFile = () => {
+  return {
+    headers: {
+      Authorization: `Bearer ${sessionService.getSessionToken()}`,
+      'Content-Type': 'multipart/form-data',
+    },
+  };
+};
+
 interface IError {
   error: any;
   message401?: string;
