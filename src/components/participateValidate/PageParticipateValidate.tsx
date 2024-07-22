@@ -30,7 +30,7 @@ export default function PageParticipateValidate({ title, description, type }: Pa
     } else {
       const response = await onSubmitParticipate(formData);
       if (!response.error) {
-        return router.push(`/responder/${data.code}`);
+        return router.push(`/resposta/${data.code}`);
       }
       setValidatoinPage(
         <ValidationResult
