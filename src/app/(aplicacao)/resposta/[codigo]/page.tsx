@@ -1,15 +1,18 @@
 import SurveyResponse from '@/components/elementsEnqVot/SurveyResponse';
+import ErrorSurvey from '@/components/showSurveys/ErrorSurveys';
+import { ValidationResult } from '@/components/validation/validationResult';
 import { PesquisaDtoTemp, surveyService } from '@/lib/pesquisa';
 
-async function getSurvey(code: string): Promise<PesquisaDtoTemp> {
+async function getSurvey(code: string): Promise<PesquisaDtoTemp | string> {
   const surveys = await surveyService.getByCode(code);
 
   if (surveys instanceof Error) {
-    throw new Error(surveys.message);
+    return surveys.message;
   }
 
   if (!surveys.length) {
-    throw new Error(`Nenhuma pesquisa encontrada para o código: ${code}`);
+    console.log('Teste');
+    return `Nenhuma pesquisa encontrada para o código: ${code}`;
   }
 
   return surveys[0];
@@ -17,7 +20,18 @@ async function getSurvey(code: string): Promise<PesquisaDtoTemp> {
 
 async function Resposta({ params }: { params: { codigo: string } }) {
   const { codigo } = params;
-  const { titulo, descricao, dataTermino, ehPublico, ehVotacao, URLimagem, perguntas } = await getSurvey(codigo);
+  const result = await getSurvey(codigo);
+  if (typeof result == 'string') {
+    return (
+      <div className="w-screen h-screen p-2 flex justify-center items-center">
+        <ValidationResult
+          titleInvalid={result}
+          isCorrect={false}
+        />
+      </div>
+    );
+  }
+  const { titulo, descricao, dataTermino, ehPublico, ehVotacao, URLimagem, perguntas } = result;
 
   return (
     <>
