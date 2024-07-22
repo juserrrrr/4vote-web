@@ -8,6 +8,9 @@ import { useForm, FormProvider, useFormContext } from 'react-hook-form';
 import * as yup from 'yup';
 import { onSubimitAction } from './formSubmit';
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const opcaoSchema = yup.object({
   texto: yup.string().required('Opção é obrigatória'),
@@ -44,7 +47,7 @@ const enqueteSchema = yup.object({
   tags: yup.array().of(tagSchema),
 });
 
-function ButtonSubmit({ isSuccess, type }: { isSuccess: boolean; type: 'votacao' | 'enquete' }) {
+function ButtonSubmit({ type }: { type: 'votacao' | 'enquete' }) {
   const { formState } = useFormContext();
   const { isSubmitting } = formState;
   const textButton = type === 'votacao' ? 'CRIAR VOTAÇÃO' : 'CRIAR ENQUETE';
@@ -52,7 +55,6 @@ function ButtonSubmit({ isSuccess, type }: { isSuccess: boolean; type: 'votacao'
     <Butao
       type="submit"
       disabled={isSubmitting}
-      className={`${isSuccess && 'bg-corSucesso'}`}
       isLoading={isSubmitting}
       texto={isSubmitting ? 'CRIANDO...' : textButton}
       variant="default"
@@ -86,7 +88,7 @@ function CriarPesquisa({ type }: CriarVotacaoProps) {
 
   const { handleSubmit } = methods;
 
-  const [isSuccess, setIsSuccess] = useState<boolean>(false);
+  const router = useRouter();
 
   async function onSubmit(data: PesquisaDto) {
     const formData = new FormData();
@@ -99,15 +101,21 @@ function CriarPesquisa({ type }: CriarVotacaoProps) {
     if (data.tags?.length) formData.append('tags', JSON.stringify(data.tags));
     const response = await onSubimitAction(formData);
     if (response.statusCode === 200) {
-      setIsSuccess(true);
-      setTimeout(() => {
-        setIsSuccess(false);
-      }, 3000);
+      toast.success('Pesquisa criada com sucesso, redirecionando...');
+      return setTimeout(() => {
+        router.push(`/resposta/${response.code}`);
+      }, 2000);
+    } else {
+      toast.error(`Erro ao criar pesquisa. ${response.message}`);
     }
   }
 
   return (
     <div className="px-3 md:mx-20 pb-4">
+      <ToastContainer
+        position="bottom-left"
+        autoClose={5000}
+      />
       <FormProvider {...methods}>
         <form
           onSubmit={handleSubmit(onSubmit)}
@@ -116,10 +124,7 @@ function CriarPesquisa({ type }: CriarVotacaoProps) {
           <SquareInfos title={type === 'votacao' ? 'CRIAR VOTAÇÃO' : 'CRIAR ENQUETE'} />
           <SquareOptions type={type} />
           <div className="w-full flex justify-center md:justify-end items-center mt-6">
-            <ButtonSubmit
-              isSuccess={isSuccess}
-              type={type}
-            />
+            <ButtonSubmit type={type} />
           </div>
         </form>
       </FormProvider>
