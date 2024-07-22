@@ -76,6 +76,7 @@ export function ProfileConfig() {
         ...profile,
         nome: data.nome,
         email: data.email,
+        URLimagem: response.URLimage ?? null,
       });
       alert(response.message);
     } else {

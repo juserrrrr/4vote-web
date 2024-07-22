@@ -5,6 +5,7 @@ import { userService } from '../../../lib/user';
 
 interface FormResponse {
   message: string;
+  URLimage?: string | null;
   codeStaus: number;
 }
 
@@ -14,5 +15,5 @@ export async function onSubimitActionProfile(data: FormData): Promise<FormRespon
   if (response instanceof Error) {
     return { message: response.message, codeStaus: 400 };
   }
-  return { message: 'Perfil atualizado com sucesso', codeStaus: 200 };
+  return { message: 'Perfil atualizado com sucesso', codeStaus: 200, URLimage: response.URLimagem };
 }

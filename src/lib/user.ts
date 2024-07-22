@@ -15,12 +15,16 @@ export type UpdateProfile = {
   image?: File;
 };
 
-async function updateCurrentUser(data: FormData): Promise<any | Error> {
+interface UpdateResponse {
+  nome?: string;
+  email?: string;
+  URLimagem?: string | null;
+}
+
+async function updateCurrentUser(data: FormData): Promise<UpdateResponse | Error> {
   try {
     const response = await api.patch('/usuarios/me', data, headerAutorizationFile());
-    if (response.status === 200) {
-      return response.data;
-    }
+    return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
       const codeError = error.response?.status;
