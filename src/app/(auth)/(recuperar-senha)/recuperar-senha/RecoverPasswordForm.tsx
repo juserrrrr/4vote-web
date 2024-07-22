@@ -47,8 +47,8 @@ function RecoverPasswordForm() {
         autoClose={5000}
         position="bottom-right"
       />
-      <div className="h-full w-full flex flex-col justify-center items-center gap-10">
-        <div className="flex flex-col text-corPrincipal text-center px-10 gap-10">
+      <div className="h-full w-full flex flex-col justify-center items-center gap-5">
+        <div className="flex flex-col text-corPrincipal text-center px-2 gap-5">
           <h2 className="font-bold text-3xl">Esqueci minha senha</h2>
           <p className="text-xl">Informe seu e-mail cadastrado para enviarmos as instruções de redefinição de senha.</p>
         </div>
@@ -56,7 +56,7 @@ function RecoverPasswordForm() {
           className="w-full"
           onSubmit={handleSubmit(onSubmit)}
         >
-          <div className="w-full flex flex-col justify-between items-center flex-shrink-0 px-10 gap-10 ">
+          <div className="w-full flex flex-col justify-between items-center flex-shrink-0 px-5 gap-5 ">
             <div className="w-full flex flex-col justify-between gap-5">
               <InputCustom
                 label="Email"

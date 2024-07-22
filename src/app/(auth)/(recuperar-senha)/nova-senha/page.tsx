@@ -10,9 +10,9 @@ export const metadata: Metadata = {
 export default function NovaSenha() {
   return (
     <>
-      <div className="h-full w-full flex flex-col justify-center items-center gap-10">
+      <div className="h-full w-full flex flex-col justify-center items-center gap-5">
         <h2 className="text-corPrincipal text-center font-bold text-5xl">NOVA SENHA</h2>
-        <div className="w-full flex flex-col justify-between items-center flex-shrink-0 px-10 gap-10">
+        <div className="w-full flex flex-col justify-between items-center flex-shrink-0 px-5 gap-5">
           <div className="w-full flex flex-col justify-between gap-5">
             <InputCustom
               label="Email"

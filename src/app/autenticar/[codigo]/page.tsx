@@ -21,7 +21,7 @@ async function Resposta({ params }: { params: { codigo: string } }) {
   }
   return (
     <>
-      <div className="w-full h-full flex justify-center items-center">
+      <div className="w-screen h-screen p-2 flex justify-center items-center">
         <ValidationResult
           titleValid="Conta ativada com sucesso"
           isCorrect={true}
