@@ -48,6 +48,7 @@ async function Resultado({ params }: { params: { codigo: string } }) {
     <>
       <SurveyResult
         titulo={titulo}
+        codigo={codigo}
         descricao={descricao}
         dataTermino={dataTermino}
         ehPublico={ehPublico}

@@ -30,15 +30,21 @@ export async function onSubmitParticipate(data: FormData): Promise<formResponse>
   return { titulo: response[0].titulo };
 }
 
-// export async function onSubmitValidate(data: FormData): Promise<formResponse> {
-//   const values = Object.fromEntries(data.entries());
-//   const formValues: IValidateDto = {
-//     code: values.code as string,
-//   };
-//   const response = await participationService.(formValues);
-//   if (response instanceof Error) {
-//     return { error: { message: response.message } };
-//   }
+interface formResponseValidate {
+  message?: string;
+  error?: {
+    message: string;
+  };
+}
 
-//   return { token: response.accessToken };
-// }
+export async function onSubmitValidate(data: FormData): Promise<formResponseValidate> {
+  const values = Object.fromEntries(data.entries());
+  const hash = values.code as string;
+  const response = await participationService.validateHash(hash);
+  console.log(response);
+  if (response instanceof Error) {
+    return { error: { message: response.message } };
+  }
+
+  return { message: response.message };
+}

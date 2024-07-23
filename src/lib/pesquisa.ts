@@ -1,7 +1,7 @@
 import axios, { AxiosError, AxiosResponse } from 'axios';
 import { PerguntaDto, PerguntaDtoResultado } from './perguntas';
 import { TagDto } from './tag';
-import api, { headerAutorization } from './api';
+import api, { checkErrors, headerAutorization } from './api';
 
 export interface PesquisaDto {
   titulo: string;
@@ -16,6 +16,7 @@ export interface PesquisaDto {
 
 export interface PesquisaDtoResultado {
   titulo: string;
+  codigo: string;
   descricao?: string;
   dataTermino: string;
   ehPublico: boolean;
@@ -87,6 +88,14 @@ async function createPesquisa(pesquisaDto: PesquisaDto): Promise<PesquisaData | 
       }
     }
     return new Error('Serviço fora do ar');
+  }
+}
+async function auditSurvey(code: string): Promise<{ message: 'Pesquisa sem fraudes' | 'Pesquisa Fraudada!' } | Error> {
+  try {
+    const response = await api.get(`pesquisas/auditar/${code}`, headerAutorization());
+    return response.data;
+  } catch (error) {
+    return checkErrors({ error });
   }
 }
 
@@ -173,4 +182,5 @@ export const surveyService = {
   getByCode,
   getAllCodes,
   getVotes,
+  auditSurvey,
 };

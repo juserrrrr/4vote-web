@@ -1,6 +1,7 @@
 import SurveyResponse from '@/components/elementsEnqVot/SurveyResponse';
 import { ValidationResult } from '@/components/validation/validationResult';
 import { PesquisaDtoTemp, surveyService } from '@/lib/pesquisa';
+import { redirect } from 'next/navigation';
 
 async function getSurvey(code: string): Promise<PesquisaDtoTemp | string> {
   const surveys = await surveyService.getByCode(code);
@@ -11,6 +12,9 @@ async function getSurvey(code: string): Promise<PesquisaDtoTemp | string> {
 
   if (!surveys.length) {
     return `Nenhuma pesquisa encontrada para o código: ${code}`;
+  }
+  if (surveys[0].dataTermino < new Date().toISOString()) {
+    redirect(`/resultado/${code}`);
   }
 
   return surveys[0];

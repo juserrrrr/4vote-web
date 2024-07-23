@@ -25,7 +25,7 @@ export function Header({ usuarioLogado, nomeUsuario, urlPerfil, onLogout }: Head
                 nomeUsuario={nomeUsuario}
                 urlPerfil={
                   urlPerfil ||
-                  'https://img.freepik.com/fotos-gratis/o-sol-nubla-se-o-ceu-durante-o-fundo-da-manha-ceu-azul-branco-e-pastel-lente-de-foco-suave-luz-solar-alargada-gradiente-ciano-borrado-abstrato-de-natureza-pacifica-abrir-vista-para-janelas-lindo-verao-primavera_1253-1092.jpg?t=st=1721057615~exp=1721061215~hmac=be8f5e1395f7425ffe92639e948e293e7db78e0c351088d38e8eee994797636e&w=1060'
+                  'https://nydqbchcfgkevfdmbifx.supabase.co/storage/v1/object/public/Files4vote/Screenshot%202024-07-22%20212810.png'
                 }
               />
               <button

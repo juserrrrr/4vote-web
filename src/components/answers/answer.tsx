@@ -29,13 +29,18 @@ const ProgressBar: React.FC<ProgressBarProps> = ({ progress }) => {
 
 const Answer: React.FC<AnswerProps> = ({ imageUrl, label, count, progress, isMostVoted }) => {
   return (
-    <div className={`flex items-center space-x-4 ${isMostVoted ? 'border-4 border-corPrincipal p-2 rounded-lg' : ''}`}>
+    <div
+      className={`flex gap-5 items-center space-x-4 ${isMostVoted ? 'border-4 border-corPrincipal p-2 rounded-lg' : ''}`}
+    >
       <Image
-        src={imageUrl}
+        src={
+          imageUrl ||
+          'https://nydqbchcfgkevfdmbifx.supabase.co/storage/v1/object/public/Files4vote/Screenshot%202024-07-22%20211835.png'
+        }
         alt={label}
-        width={24}
-        height={24}
-        className="w-24 h-24 rounded-full object-cover"
+        width={10}
+        height={10}
+        className="w-10 h-10 md:w-20 md:h-20 rounded-full"
       />
       <div className="flex-1">
         <div className="flex justify-between items-center">

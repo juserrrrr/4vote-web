@@ -3,7 +3,7 @@ import { useRouter } from 'next/navigation';
 import ParticipateForm, { FormValues } from './participateForm';
 import { ValidationResult } from '../validation/validationResult';
 import { useState } from 'react';
-import { onSubmitParticipate } from './participateValidateActions';
+import { onSubmitParticipate, onSubmitValidate } from './participateValidateActions';
 
 interface PageParticipateValidateProps {
   title: string;
@@ -21,8 +21,8 @@ export default function PageParticipateValidate({ title, description, type }: Pa
     formData.append('code', data.code);
 
     if (type === 'validate') {
-      // const response = await onSubmitValidate(formData);
-      if (false) {
+      const response = await onSubmitValidate(formData);
+      if (!response.error) {
         setValidatoinPage(<ValidationResult isCorrect={true} />);
       } else {
         setValidatoinPage(<ValidationResult isCorrect={false} />);

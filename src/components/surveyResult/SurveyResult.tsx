@@ -1,11 +1,14 @@
 'use client';
-
 import React, { useState, useEffect } from 'react';
 import Answer from '@/components/answers/answer';
 import InfoAns from '@/components/infoVoteAns/infoAns';
 import VoteCounter from '@/components/voteCounter/VoteCounter';
 import Pagination from '@/components/pagination/Pagination';
 import { PesquisaDtoResultado } from '@/lib/pesquisa';
+import Butao from '../buttons/button';
+import { onSubmitAudit } from './resultAction';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function SurveyResult({
   titulo,
@@ -14,22 +17,53 @@ function SurveyResult({
   ehPublico,
   ehVotacao,
   URLimagem,
+  codigo,
   perguntas,
 }: PesquisaDtoResultado) {
   const formattedDate = new Date(dataTermino);
 
   const [currentPage, setCurrentPage] = useState(1);
   const [currentData, setCurrentData] = useState(perguntas[0]);
+  const [isLoadingAudit, setIsLoadingAudit] = useState(false);
   useEffect(() => {
     if (!ehVotacao) {
       setCurrentData(perguntas[currentPage - 1]);
     }
   }, [currentPage, ehVotacao, perguntas]);
 
+  const onClickAction = async () => {
+    setIsLoadingAudit(true);
+    const formData = new FormData();
+    formData.append('codigo', codigo);
+    const response = await onSubmitAudit(formData);
+    setIsLoadingAudit(false);
+    if (response.error) {
+      return toast.error(response.error.message);
+    }
+    if (response.message === 'Pesquisa sem fraudes') {
+      return toast.success('Pesquisa sem fraudes');
+    }
+    return toast.error('Pesquisa fraudada!');
+  };
+
   return (
-    <div className="mt-20 mx-4 sm:mx-10">
-      <span className="text-corPrincipal font-bold text-3xl uppercase block text-left mb-4">Resultados</span>
-      <div className="bg-white shadow-lg rounded-lg p-6">
+    <div className="p-2 md:p-5 flex flex-col gap-4">
+      <ToastContainer
+        position="bottom-left"
+        autoClose={5000}
+      />
+      <div className="flex flex-col md:flex-row items-center justify-center md:justify-start gap-2 md:gap-5">
+        <span className="text-corPrincipal font-bold text-3xl uppercase block text-left">Resultados</span>
+        <Butao
+          texto="AUDITORIA"
+          variant="outlined"
+          onClick={onClickAction}
+          disabled={isLoadingAudit}
+          isLoading={isLoadingAudit}
+          className="h-12 bg-corErro border-none"
+        />
+      </div>
+      <div className="bg-white h-auto md:h-52 shadow-lg rounded-lg p-4 flex flex-col md:flex-row justify-center items-center md:justify-between">
         <InfoAns
           title={titulo}
           description={descricao}
@@ -42,9 +76,9 @@ function SurveyResult({
           imageUrl={'/imagens/4vote-principal.png'}
         />
       </div>
-      <div className="bg-white shadow-lg rounded-lg p-6 mt-6">
-        <span className="text-corPrincipal block font-bold text-xl uppercase mb-2">{currentData.texto}</span>
-        <div className="space-y-4">
+      <div className="flex flex-col gap-5 bg-white shadow-lg rounded-lg p-2 md:p-5">
+        <span className="text-corPrincipal block font-bold text-xl uppercase">{currentData.texto}</span>
+        <div className="flex gap-5 flex-col space-y-4">
           {currentData.opcoes.map((opcao, index) => (
             <Answer
               key={index}
@@ -56,7 +90,7 @@ function SurveyResult({
             />
           ))}
         </div>
-        <div className="mt-6 flex flex-col items-center">
+        <div className="flex flex-col items-center">
           <VoteCounter votes={currentData.total} />
           {!ehVotacao && (
             <div className="mt-4">
