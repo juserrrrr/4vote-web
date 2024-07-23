@@ -104,7 +104,11 @@ export function ProfileConfig() {
               {...register('image')}
             />
             <Image
-              src={image ? image : 'https://i.imgur.com/MtvqmTU.png'}
+              src={
+                image
+                  ? image
+                  : 'https://nydqbchcfgkevfdmbifx.supabase.co/storage/v1/object/public/Files4vote/Screenshot%202024-07-22%20212810.png'
+              }
               alt="Profile"
               fill
               className="object-cover rounded-full"

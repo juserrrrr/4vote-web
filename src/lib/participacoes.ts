@@ -21,7 +21,7 @@ async function createParticipation(surveyId: string, body: IParticipateDto): Pro
   }
 }
 
-async function findOne(participacao: ParticipacoesDto): Promise<Error> {
+async function findOne(participacao: ParticipacoesDto): Promise<any | Error> {
   try {
     const { data } = await api.get('participacoes', participacao);
     if (data) return data;
@@ -34,7 +34,17 @@ async function findOne(participacao: ParticipacoesDto): Promise<Error> {
   return new Error('Erro ao tentar achar uma participação');
 }
 
+async function validateHash(hash: string): Promise<any | Error> {
+  try {
+    const response = await api.get(`participacoes/validar/${hash}`, headerAutorization());
+    return response.data;
+  } catch (error) {
+    return checkErrors({ error });
+  }
+}
+
 export const participationService = {
   createParticipation,
   findOne,
+  validateHash,
 };
