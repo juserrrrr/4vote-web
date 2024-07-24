@@ -18,12 +18,8 @@ async function getSurvey(code: string): Promise<PesquisaDtoTemp | string> {
   return surveys[0];
 }
 
-async function getVotes(code: string): Promise<PerguntaDtoResultado[]> {
+async function getVotes(code: string) {
   const questions = await surveyService.getVotes(code);
-
-  if (questions instanceof Error) {
-    throw new Error(questions.message);
-  }
 
   return questions;
 }
@@ -31,18 +27,18 @@ async function getVotes(code: string): Promise<PerguntaDtoResultado[]> {
 async function Resultado({ params }: { params: { codigo: string } }) {
   const { codigo } = params;
   const result = await getSurvey(codigo); // Pega os dados da pesquisa
-  if (typeof result == 'string') {
+  const perguntas = await getVotes(codigo);
+  if (typeof result == 'string' || perguntas instanceof Error) {
     return (
-      <div className="w-screen h-screen p-2 flex justify-center items-center">
+      <div className="w-full h-full p-2 flex justify-center items-center">
         <ValidationResult
-          titleInvalid={result}
+          titleInvalid={'Você não é o criador da pesquisa!'}
           isCorrect={false}
         />
       </div>
     );
   }
   const { titulo, descricao, dataTermino, ehPublico, ehVotacao, URLimagem, ...rest } = result;
-  const perguntas = await getVotes(codigo);
 
   return (
     <>

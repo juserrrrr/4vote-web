@@ -6,7 +6,7 @@ import VoteCounter from '@/components/voteCounter/VoteCounter';
 import Pagination from '@/components/pagination/Pagination';
 import { PesquisaDtoResultado } from '@/lib/pesquisa';
 import Butao from '../buttons/button';
-import { onSubmitAudit } from './resultAction';
+import { onSubmitArchived, onSubmitAudit } from './resultAction';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -25,6 +25,7 @@ function SurveyResult({
   const [currentPage, setCurrentPage] = useState(1);
   const [currentData, setCurrentData] = useState(perguntas[0]);
   const [isLoadingAudit, setIsLoadingAudit] = useState(false);
+  const [isLoadingArchived, setIsLoadingArchived] = useState(false);
   useEffect(() => {
     if (!ehVotacao) {
       setCurrentData(perguntas[currentPage - 1]);
@@ -45,6 +46,18 @@ function SurveyResult({
     }
     return toast.error('Pesquisa fraudada!');
   };
+  const onClickActionArchived = async () => {
+    setIsLoadingArchived(true);
+    const formData = new FormData();
+    formData.append('codigo', codigo);
+    const response = await onSubmitArchived(formData);
+    setIsLoadingArchived(false);
+    if (response.error) {
+      return toast.error(response.error.message);
+    } else {
+      return toast.success('Pesquisa arquivada');
+    }
+  };
 
   return (
     <div className="p-2 md:p-5 flex flex-col gap-4">
@@ -61,6 +74,14 @@ function SurveyResult({
           disabled={isLoadingAudit}
           isLoading={isLoadingAudit}
           className="h-12 bg-corErro border-none"
+        />
+        <Butao
+          texto="ARQUIVAR"
+          variant="outlined"
+          onClick={onClickActionArchived}
+          disabled={isLoadingArchived}
+          isLoading={isLoadingArchived}
+          className="h-12 bg-corSecundaria border-none"
         />
       </div>
       <div className="bg-white h-auto md:h-52 shadow-lg rounded-lg p-4 flex flex-col md:flex-row justify-center items-center md:justify-between">

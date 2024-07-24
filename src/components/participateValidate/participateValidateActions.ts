@@ -31,20 +31,13 @@ export async function onSubmitParticipate(data: FormData): Promise<formResponse>
 }
 
 interface formResponseValidate {
-  message?: string;
-  error?: {
-    message: string;
-  };
+  message?: 'Seu voto não está validado' | 'Seu voto está validado';
 }
 
 export async function onSubmitValidate(data: FormData): Promise<formResponseValidate> {
   const values = Object.fromEntries(data.entries());
   const hash = values.code as string;
   const response = await participationService.validateHash(hash);
-  console.log(response);
-  if (response instanceof Error) {
-    return { error: { message: response.message } };
-  }
 
-  return { message: response.message };
+  return { message: response };
 }

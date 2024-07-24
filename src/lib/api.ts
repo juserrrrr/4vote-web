@@ -58,6 +58,7 @@ export const checkErrors = ({
 const api = axios.create({
   baseURL: process.env.URL_API,
   withCredentials: true,
+  timeout: '20000',
 });
 
 export default api;

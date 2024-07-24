@@ -9,6 +9,7 @@ import { useRouter } from 'next/navigation';
 
 interface ParticipateFormProps {
   onSubmitAction: (values: FormValues) => void;
+  type: 'participate' | 'validate';
 }
 
 export interface FormValues {
@@ -19,7 +20,7 @@ const defaultSchema = yup.object().shape({
   code: yup.string().required('Campo obrigatório'),
 });
 
-function ParticipateForm({ onSubmitAction }: ParticipateFormProps) {
+function ParticipateForm({ onSubmitAction, type }: ParticipateFormProps) {
   const {
     register,
     handleSubmit,
@@ -45,7 +46,7 @@ function ParticipateForm({ onSubmitAction }: ParticipateFormProps) {
         />
         <Butao
           className="w-full h-12 "
-          texto="Participar"
+          texto={type === 'validate' ? 'VALIDAR' : 'PARTICIPAR'}
           type="submit"
           variant="outlined"
           disabled={isSubmitting}

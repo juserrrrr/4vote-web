@@ -29,17 +29,13 @@ const ModalFilters: React.FC<ModalProps> = ({ isOpen, onClose, variante }) => {
             >
               SAIR
             </button>
-            <button onClick={onClose}>
-              <span className="text-[#052a76] text-[15px] font-bold">
-                <Button
-                  texto="Aplicar"
-                  variant="rounded"
-                  textColor="primaria"
-                  bgColor="terciaria"
-                  className="flex justify-center items-center w-[120px] h-[37px] rounded-[7px] border-[2px] border-[solid] border-[#052a76]"
-                />
-              </span>
-            </button>
+            <Button
+              texto="Aplicar"
+              onClick={onClose}
+              bgColor="transparente"
+              variant="outlined"
+              className="w-28 h-8 text-corPrincipal font-bold uppercase hover:bg-corPrincipal hover:opacity-100 hover:text-white transition-colors"
+            />
           </div>
         </div>
       </div>
