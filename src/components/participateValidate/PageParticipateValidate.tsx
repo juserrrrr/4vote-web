@@ -22,7 +22,7 @@ export default function PageParticipateValidate({ title, description, type }: Pa
 
     if (type === 'validate') {
       const response = await onSubmitValidate(formData);
-      if (!response.error) {
+      if (response.message === 'Seu voto está validado') {
         setValidatoinPage(<ValidationResult isCorrect={true} />);
       } else {
         setValidatoinPage(<ValidationResult isCorrect={false} />);
@@ -50,7 +50,10 @@ export default function PageParticipateValidate({ title, description, type }: Pa
           <h1 className="uppercase text-2xl font-bold text-center">{title}</h1>
           <p>{description}</p>
           <div className="w-full flex-grow flex justify-center items-center py-2">
-            <ParticipateForm onSubmitAction={onSubimitAction} />
+            <ParticipateForm
+              type={type}
+              onSubmitAction={onSubimitAction}
+            />
           </div>
         </div>
       )}

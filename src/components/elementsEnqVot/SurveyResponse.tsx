@@ -67,6 +67,12 @@ function SurveyResponse({
     });
   };
 
+  useEffect(() => {
+    if (!!errors.opcoesVotadas) {
+      toast.error('Você não votou em todas as opções!');
+    }
+  }, [errors]);
+
   const onSubmit = async (data: DataFormVote) => {
     const formData = new FormData();
     formData.append('opcoesVotadas', JSON.stringify(data.opcoesVotadas));

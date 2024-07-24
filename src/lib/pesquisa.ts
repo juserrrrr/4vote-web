@@ -70,6 +70,13 @@ export interface findSurveyFilter {
   tags: string[];
 }
 
+export interface filtersSurvey {
+  arquivada?: 'true' | 'false';
+  participo?: 'true' | 'false';
+  criador?: 'true' | 'false';
+  encerradas?: 'true' | 'false';
+}
+
 async function createPesquisa(pesquisaDto: PesquisaDto): Promise<PesquisaData | Error> {
   try {
     const response = await api.post('/pesquisas', pesquisaDto, headerAutorization());
@@ -148,12 +155,12 @@ function setArquivado(id: number) {
     });
 }
 
-async function findFilter(): Promise<findSurveyFilter[] | Error> {
+async function findFilter(filter: filtersSurvey = {}): Promise<findSurveyFilter[] | Error> {
   const urlQuery = new URLSearchParams({
-    arquivada: 'false',
-    participo: 'false',
-    criador: 'false',
-    encerradas: 'false',
+    arquivada: filter.arquivada ?? 'false',
+    participo: filter.participo ?? 'false',
+    criador: filter.criador ?? 'false',
+    encerradas: filter.encerradas ?? 'false',
   });
   try {
     const response = await api.get(`/pesquisas/filtrar?${urlQuery.toString()}`, headerAutorization());
