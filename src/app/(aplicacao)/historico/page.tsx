@@ -8,7 +8,7 @@ interface FilterSurvey {
   searchParams: filtersSurvey;
 }
 
-export const getSurveyFilter = async (searchParams: FilterSurvey) => {
+const getSurveyFilter = async (searchParams: FilterSurvey) => {
   const response = await surveyService.findFilter(searchParams.searchParams);
   return response;
 };
