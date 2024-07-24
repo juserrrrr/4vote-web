@@ -149,7 +149,6 @@ async function setArquivado(id: string) {
     const response = await api.patch(`pesquisas/arquivar/${id}`, {}, headerAutorization());
     return response.data;
   } catch (error) {
-    console.log(error);
     return checkErrors({ error, message400: 'Essa pesquisa já foi arquivada' });
   }
 }

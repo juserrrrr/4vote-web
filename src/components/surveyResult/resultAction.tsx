@@ -23,7 +23,6 @@ export async function onSubmitArchived(data: FormData): Promise<formResponseVali
   const values = Object.fromEntries(data.entries());
   const code = values.codigo as string;
   const response = await surveyService.setArquivado(code);
-  console.log(response);
   if (response instanceof Error) {
     return { error: { message: response.message } };
   }
